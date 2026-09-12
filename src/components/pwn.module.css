@@ -1,0 +1,492 @@
+.root {
+  box-sizing: border-box;
+  user-select: none;
+  background-color: #7b0000;
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    #8b0000 0%,
+    #4a0000 100%
+  );
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}
+
+.root * {
+  box-sizing: border-box;
+}
+
+.desktopBgText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.12);
+  font-family: Impact, "Arial Black", sans-serif;
+  pointer-events: none;
+  z-index: 1;
+  padding: 20px;
+}
+
+.desktopBgText h1 {
+  font-size: 5vw;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  color: rgba(255, 230, 230, 0.15);
+}
+
+.desktopBgText p {
+  font-size: 1.8vw;
+  font-family: "Courier New", monospace;
+  max-width: 900px;
+  line-height: 1.4;
+}
+
+.wannacryWindow {
+  width: 860px;
+  max-width: 96vw;
+  height: 610px;
+  max-height: 94vh;
+  background-color: #851010;
+  border: 2px solid #5a0a0a;
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.8),
+    0 0 0 1px #a01515;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 100;
+  border-radius: 2px;
+}
+
+.titleBar {
+  height: 32px;
+  background: linear-gradient(180deg, #ffffff 0%, #e1e1e1 50%, #cecece 100%);
+  border-bottom: 1px solid #707070;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px 0 8px;
+  cursor: move;
+}
+
+.titleBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: 0.2px;
+}
+
+.titleIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.titleBarControls {
+  display: flex;
+  height: 100%;
+}
+
+.winBtn {
+  width: 44px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  color: #333;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.winBtnClose:hover {
+  background-color: #e81123;
+  color: white;
+}
+
+.winBtnDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.windowBody {
+  flex: 1;
+  display: flex;
+  padding: 10px;
+  gap: 10px;
+  background-color: #851010;
+  overflow: hidden;
+  position: relative;
+}
+
+.leftPanel {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.lockContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.lockIconSvg {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.threatBox {
+  background-color: #ffffff;
+  border: 2px solid #5a0a0a;
+  border-radius: 3px;
+  padding: 8px 10px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.threatHeader {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #8b0000;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.threatDate {
+  font-size: 11px;
+  font-weight: 600;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 6px;
+  font-family: monospace;
+}
+
+.timerLabel {
+  font-size: 11px;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.lcdDisplay {
+  background-color: #000000;
+  border: 2px solid #333333;
+  border-radius: 2px;
+  padding: 6px 4px;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ff2222;
+  box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.4);
+}
+
+.lcdUnits {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8.5px;
+  color: #ff9999;
+  padding: 2px 8px 0;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 600;
+}
+
+.languagePicker {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.languagePicker select {
+  width: 100%;
+  height: 24px;
+  font-size: 11px;
+  padding: 2px 4px;
+  border: 1px solid #7f7f7f;
+  background: #fff;
+  color: #000;
+  outline: none;
+}
+
+.leftLinks {
+  display: flex;
+  justify-content: space-around;
+  font-size: 11px;
+}
+
+.leftLinks a {
+  color: #ffffff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.leftLinks a:hover {
+  color: #ffcccc;
+}
+
+.rightPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #851010;
+  overflow: hidden;
+}
+
+.mainHeading {
+  font-size: 19px;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 1px 1px 2px #000;
+  letter-spacing: 0.3px;
+}
+
+.scrollableTextBox {
+  flex: 1;
+  background-color: #ffffff;
+  border: 2px solid #4a0000;
+  border-radius: 2px;
+  padding: 12px 14px;
+  overflow-y: scroll;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #111111;
+  user-select: text;
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.textSectionTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8b0000;
+  margin: 8px 0 3px 0;
+}
+
+.textSectionTitle:first-child {
+  margin-top: 0;
+}
+
+.scrollableTextBox p {
+  margin-bottom: 8px;
+}
+
+.scrollableTextBox a {
+  color: #0000ee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.paymentArea {
+  background-color: #ffffff;
+  border: 2px solid #4a0000;
+  border-radius: 2px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.paymentRowTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #000;
+  font-weight: 600;
+}
+
+.btcLogoSmall {
+  width: 20px;
+  height: 20px;
+}
+
+.addressRow {
+  display: flex;
+  gap: 6px;
+}
+
+.addressInput {
+  flex: 1;
+  height: 26px;
+  border: 1px solid #7f7f7f;
+  padding: 0 8px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+  background: #f4f4f4;
+  user-select: text;
+  outline: none;
+}
+
+.nativeBtn {
+  height: 26px;
+  padding: 0 14px;
+  background: linear-gradient(180deg, #f2f2f2 0%, #ebebeb 50%, #cfcfcf 100%);
+  border: 1px solid #707070;
+  border-radius: 2px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nativeBtn:hover {
+  background: linear-gradient(180deg, #eaf2fa 0%, #cce4f7 100%);
+  border-color: #3c7fb1;
+}
+
+.nativeBtn:active {
+  background: linear-gradient(180deg, #b8d6ed 0%, #a4c7e4 100%);
+  border-color: #2c628b;
+}
+
+.actionsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.linksRow {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+}
+
+.linksRow a {
+  color: #0000ee;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.buttonsGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.actionBtnLarge {
+  height: 30px;
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dialogOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+}
+
+.nativeDialog {
+  width: 440px;
+  background: #f0f0f0;
+  border: 1px solid #0055ea;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
+  overflow: hidden;
+  animation: popIn 0.15s ease-out;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.dialogTitlebar {
+  height: 28px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.dialogBody {
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 12px;
+  color: #222;
+  line-height: 1.45;
+}
+
+.dialogIcon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.dialogFooter {
+  background: #f0f0f0;
+  border-top: 1px solid #dfdfdf;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.dialogBtn {
+  min-width: 80px;
+  height: 26px;
+}
+
+.recoveryWindow {
+  position: absolute;
+  inset: 0;
+  background: #002200;
+  color: #33ff33;
+  font-family: "Courier New", monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 600;
+  padding: 20px;
+  text-align: center;
+}
