@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import {
   IconBrandWindows,
@@ -243,9 +244,19 @@ export default function Home() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-linear-to-b from-white via-neutral-100 to-neutral-400 leading-tight"
+            className="flex items-center justify-center gap-2.5 sm:gap-3.5 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight"
           >
-            PwnSim
+            <Image
+              src="/icon.png"
+              alt="PwnSim Logo"
+              width={56}
+              height={56}
+              className="w-9 h-9 sm:w-11 sm:h-11 lg:w-13 lg:h-13 object-contain select-none shrink-0"
+              priority
+            />
+            <span className="bg-clip-text text-transparent bg-linear-to-b from-white via-neutral-100 to-neutral-400">
+              PwnSim
+            </span>
           </motion.h1>
 
           <motion.p
@@ -308,7 +319,7 @@ export default function Home() {
           <div>
             <span>Developed by </span>
             <Link
-              href="https://zerodayalliance.tech"
+              href="https://zerodayalliance.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="text-neutral-300 font-medium underline underline-offset-4 decoration-neutral-700 hover:text-white hover:decoration-neutral-300 transition-colors"

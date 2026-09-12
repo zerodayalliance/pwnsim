@@ -13,6 +13,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PwnSim | ZeroDay Alliance",
   description: "Interactive Web-Based Pwn Simulator by ZeroDay Alliance",
+  robots: "index, follow",
+  creator: "ZeroDay Alliance",
+  authors: [
+    { name: "Krishnendu Das", url: "https://itskdhere.com" },
+    { name: "Avik Samanta", url: "https://github.com/avik-root" },
+    { name: "ZeroDay Alliance", url: "https://zerodayalliance.vercel.app" },
+  ],
+  keywords: ["pwnsim", "zerodayalliance"],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
