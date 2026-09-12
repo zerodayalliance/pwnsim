@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Windows 11 | ZeroDay Alliance",
-  description: "Interactive Windows 11 Desktop Demo by ZeroDay Alliance",
+  title: "Windows 11 | PwnSim | ZeroDay Alliance",
+  description: "Interactive Windows 11 Desktop for PwnSim by ZeroDay Alliance",
 };
 
 export default function Win11Layout({

@@ -11,8 +11,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PWNed",
-  description: "ZeroDay Alliance",
+  title: "PwnSim | ZeroDay Alliance",
+  description: "Interactive Web-Based Pwn Simulator by ZeroDay Alliance",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
