@@ -80,7 +80,6 @@ export function CalendarFlyout() {
               : "bg-[#f3f4f6]/95 border-black/10 text-neutral-900 shadow-black/20"
           }`}
         >
-          {/* Header with full day & date */}
           <div
             className={`p-4 pb-2 border-b ${
               themeMode === "dark" ? "border-white/10" : "border-black/10"
@@ -99,7 +98,6 @@ export function CalendarFlyout() {
             </p>
           </div>
 
-          {/* Calendar Widget */}
           <div className="p-4">
             <div className="flex items-center justify-between mb-3">
               <span
@@ -135,7 +133,6 @@ export function CalendarFlyout() {
               </div>
             </div>
 
-            {/* Day of Week Headers */}
             <div
               className={`grid grid-cols-7 gap-1 text-center mb-1 text-[11px] font-medium ${
                 themeMode === "dark" ? "text-neutral-400" : "text-neutral-500"
@@ -148,7 +145,6 @@ export function CalendarFlyout() {
               ))}
             </div>
 
-            {/* Days Grid */}
             <div className="grid grid-cols-7 gap-1 text-center text-xs">
               {Array.from({ length: firstDayIndex }).map((_, i) => (
                 <div key={`empty-${i}`} className="h-7" />
@@ -179,7 +175,6 @@ export function CalendarFlyout() {
             </div>
           </div>
 
-          {/* Notifications Bar */}
           <div
             className={`p-4 pt-2 border-t ${
               themeMode === "dark"

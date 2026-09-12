@@ -83,10 +83,8 @@ export function SystemTray() {
     closeAllFlyouts();
     const allMinimized = windows.every((w) => w.isMinimized);
     if (allMinimized) {
-      // restore all
       windows.forEach((w) => focusWindow(w.id));
     } else {
-      // minimize all
       windows.forEach((w) => minimizeWindow(w.id));
     }
   };
@@ -110,7 +108,6 @@ export function SystemTray() {
         themeMode === "dark" ? "text-neutral-200" : "text-neutral-800"
       }`}
     >
-      {/* Hidden Icons Chevron */}
       <button
         type="button"
         className={`flex items-center justify-center w-7 h-8 rounded transition-colors ${
@@ -124,7 +121,6 @@ export function SystemTray() {
         <IconChevronUp className="w-4.25 h-4.25" />
       </button>
 
-      {/* Windows Security Notification Icon */}
       <button
         type="button"
         className={`flex items-center justify-center w-8 h-8 rounded-md transition-colors cursor-pointer ${
@@ -137,7 +133,6 @@ export function SystemTray() {
         <WindowsSecurityIcon className="w-4.75 h-4.75" />
       </button>
 
-      {/* Language / Keyboard Layout Switcher */}
       <button
         type="button"
         onClick={() => setLanguage((prev) => (prev === "IN" ? "US" : "IN"))}
@@ -156,7 +151,6 @@ export function SystemTray() {
         </span>
       </button>
 
-      {/* Network / Volume Unified Pill */}
       <button
         type="button"
         data-flyout-trigger="quick-settings"
@@ -192,7 +186,6 @@ export function SystemTray() {
         {renderVolumeIcon()}
       </button>
 
-      {/* Clock & Date Button */}
       <button
         type="button"
         data-flyout-trigger="calendar"
@@ -226,7 +219,6 @@ export function SystemTray() {
         </span>
       </button>
 
-      {/* Show Desktop Line at far right */}
       <button
         type="button"
         onClick={handleShowDesktop}

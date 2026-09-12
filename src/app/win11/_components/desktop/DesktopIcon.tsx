@@ -24,7 +24,6 @@ export function DesktopIcon({
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     const now = Date.now();
-    // Support double click or quick tap
     if (now - lastClickRef.current < 350) {
       onOpen();
       lastClickRef.current = 0;

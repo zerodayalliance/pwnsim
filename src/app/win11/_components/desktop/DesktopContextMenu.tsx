@@ -40,7 +40,6 @@ export function DesktopContextMenu() {
 
   if (!contextMenu.isOpen) return null;
 
-  // Keep menu within viewport bounds
   const adjustedX = Math.min(
     contextMenu.x,
     (typeof window !== "undefined" ? window.innerWidth : 1200) - 240

@@ -38,7 +38,6 @@ export function StartButton() {
         <Windows11Logo className="w-7 h-7" />
       </div>
 
-      {/* Tooltip */}
       <span
         className={`pointer-events-none absolute -top-9 scale-0 group-hover:scale-100 transition-transform duration-150 origin-bottom px-2 py-1 text-[11px] font-medium rounded-md shadow-lg whitespace-nowrap z-50 ${
           themeMode === "dark"

@@ -67,7 +67,6 @@ export function ThisPCApp() {
           : "bg-white text-neutral-800"
       }`}
     >
-      {/* Top Address & Breadcrumb Navigation Bar */}
       <div
         className={`flex items-center gap-2 px-3 py-2 border-b ${
           themeMode === "dark"
@@ -98,7 +97,6 @@ export function ThisPCApp() {
           </button>
         </div>
 
-        {/* Breadcrumb path bar */}
         <div
           className={`flex-1 flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs ${
             themeMode === "dark"
@@ -111,7 +109,6 @@ export function ThisPCApp() {
           <span>{currentPath}</span>
         </div>
 
-        {/* Search Bar */}
         <div
           className={`w-52 flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs ${
             themeMode === "dark"
@@ -128,9 +125,7 @@ export function ThisPCApp() {
         </div>
       </div>
 
-      {/* Main Split Layout */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Navigation Sidebar */}
         <div
           className={`w-48 shrink-0 p-2.5 border-r space-y-4 overflow-y-auto ${
             themeMode === "dark"
@@ -177,9 +172,7 @@ export function ThisPCApp() {
           </div>
         </div>
 
-        {/* Right Folder/Drive Contents */}
         <div className="flex-1 p-5 overflow-y-auto space-y-6 custom-scrollbar">
-          {/* Folders Section */}
           <div>
             <h3 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-3">
               Folders
@@ -205,7 +198,6 @@ export function ThisPCApp() {
             </div>
           </div>
 
-          {/* Devices and Drives */}
           <div>
             <h3 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-3">
               Devices and drives
@@ -234,7 +226,6 @@ export function ThisPCApp() {
             </div>
           </div>
 
-          {/* Recent Files */}
           <div>
             <h3 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-3">
               Documents & Files (Double click to open in Notepad)

@@ -70,17 +70,14 @@ export function CalculatorApp() {
           : "bg-[#f3f3f3] text-neutral-800"
       }`}
     >
-      {/* Equation / History */}
       <div className="h-6 text-right text-xs text-neutral-400 font-mono px-2 truncate">
         {equation}
       </div>
 
-      {/* Main Number Display */}
       <div className="h-14 flex items-center justify-end px-2 text-3xl font-bold font-mono tracking-tight">
         {display}
       </div>
 
-      {/* Calculator Buttons Grid */}
       <div className="flex-1 grid grid-cols-4 gap-1.5 pt-2">
         <button
           type="button"
@@ -114,7 +111,6 @@ export function CalculatorApp() {
           ⌫
         </button>
 
-        {/* Numbers & Operators */}
         <button
           type="button"
           onClick={() => handleNumber("7")}

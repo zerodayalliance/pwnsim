@@ -64,9 +64,7 @@ export function QuickSettingsFlyout() {
               : "bg-[#f3f4f6]/95 border-black/10 text-neutral-900 shadow-black/20"
           }`}
         >
-          {/* Quick Action Tiles Grid */}
           <div className="grid grid-cols-3 gap-2.5 mb-5">
-            {/* Wi-Fi Tile */}
             <button
               type="button"
               onClick={() => updateQuickSettings({ wifi: !quickSettings.wifi })}
@@ -85,7 +83,6 @@ export function QuickSettingsFlyout() {
               </span>
             </button>
 
-            {/* Bluetooth Tile */}
             <button
               type="button"
               onClick={() =>
@@ -106,7 +103,6 @@ export function QuickSettingsFlyout() {
               </span>
             </button>
 
-            {/* Airplane Mode Tile */}
             <button
               type="button"
               onClick={() =>
@@ -129,7 +125,6 @@ export function QuickSettingsFlyout() {
               </span>
             </button>
 
-            {/* Night Light Tile */}
             <button
               type="button"
               onClick={() =>
@@ -150,7 +145,6 @@ export function QuickSettingsFlyout() {
               </span>
             </button>
 
-            {/* Project Display Tile */}
             <button
               type="button"
               className={`flex flex-col items-center justify-center p-3 rounded-xl transition-all border outline-none cursor-pointer ${
@@ -164,7 +158,6 @@ export function QuickSettingsFlyout() {
               <span className="text-[9px] opacity-75">PC screen only</span>
             </button>
 
-            {/* Settings Shortcut Tile */}
             <button
               type="button"
               onClick={() => {
@@ -183,9 +176,7 @@ export function QuickSettingsFlyout() {
             </button>
           </div>
 
-          {/* Sliders */}
           <div className="space-y-4 mb-4">
-            {/* Brightness Slider */}
             <div className="flex items-center gap-3">
               <IconSun
                 className={`w-4 h-4 shrink-0 ${
@@ -213,7 +204,6 @@ export function QuickSettingsFlyout() {
               </span>
             </div>
 
-            {/* Volume Slider */}
             <div className="flex items-center gap-3">
               <button
                 type="button"
@@ -260,7 +250,6 @@ export function QuickSettingsFlyout() {
             </div>
           </div>
 
-          {/* Footer Bar */}
           <div
             className={`flex items-center justify-end pt-3 border-t text-xs ${
               themeMode === "dark"

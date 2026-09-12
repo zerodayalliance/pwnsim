@@ -30,12 +30,10 @@ export function WeatherWidget({
           : "hover:bg-white/50 active:bg-white/70"
       } ${className}`}
     >
-      {/* Weather Icon with Coral Badge */}
       <div className="shrink-0 flex items-center justify-center relative">
         <WeatherPartlyCloudyNightIcon className="w-7.5 h-7.5" badge={badge} />
       </div>
 
-      {/* Weather Text Details */}
       <div className="flex flex-col justify-center text-left select-none pointer-events-none">
         <span
           className={`text-[12.5px] font-medium tracking-tight leading-[1.2] transition-colors ${

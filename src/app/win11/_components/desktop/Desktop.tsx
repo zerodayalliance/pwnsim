@@ -27,8 +27,6 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
   const [marquee, setMarquee] = useState<MarqueeBox | null>(null);
   const desktopRef = useRef<HTMLDivElement>(null);
 
-  // Desktop icons columns layout:
-  // First column: this pc, recycle bin, file explorer, notepad, calculator
   const firstColumnApps: { id: AppId; title: string }[] = [
     { id: "this-pc", title: "This PC" },
     { id: "recycle-bin", title: "Recycle Bin" },
@@ -37,7 +35,6 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
     { id: "calculator", title: "Calculator" },
   ];
 
-  // Second column: chrome (redirect to /chrome), edge, vs code (goto /vscode), terminal
   const secondColumnApps: { id: AppId; title: string }[] = [
     { id: "chrome", title: "Google\nChrome" },
     { id: "browser", title: "Microsoft\nEdge" },
@@ -46,11 +43,9 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
   ];
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Only primary left-click starts marquee
     if (e.button !== 0) return;
 
     const target = e.target as HTMLElement;
-    // If clicked on an interactive element (icon button, window, menu), let that element handle it
     if (target.closest("button") || target.closest("[data-window]")) {
       return;
     }
@@ -66,7 +61,6 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
     });
   };
 
-  // Global window listeners while dragging the marquee box
   useEffect(() => {
     if (!marquee) return;
 
@@ -124,7 +118,6 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
 
   const handleContextMenu = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    // If right clicked on an icon or window, don't show the desktop context menu
     if (target.closest("button") || target.closest("[data-window]")) {
       return;
     }
@@ -139,7 +132,6 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
     });
   };
 
-  // Marquee rectangle dimensions
   const marqueeRect = marquee
     ? {
         left: Math.min(marquee.startX, marquee.currentX),
@@ -162,16 +154,13 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Subtle mica / vignette glow */}
       <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
           themeMode === "dark" ? "bg-black/25" : "bg-white/10"
         }`}
       />
 
-      {/* Desktop Icons Grid: Two Distinct Columns */}
       <div className="relative z-10 p-3 pt-4 flex flex-row gap-x-1 items-start pointer-events-auto">
-        {/* First Column: This PC, Recycle Bin, File Explorer, Notepad, Calculator */}
         <div className="flex flex-col gap-y-1.5">
           {firstColumnApps.map((app) => (
             <DesktopIcon
@@ -185,7 +174,6 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
           ))}
         </div>
 
-        {/* Second Column: Chrome, Edge, VS Code, Terminal */}
         <div className="flex flex-col gap-y-1.5">
           {secondColumnApps.map((app) => (
             <DesktopIcon
@@ -200,7 +188,6 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
         </div>
       </div>
 
-      {/* Marquee Selection Box */}
       {marqueeRect && marqueeRect.width > 3 && marqueeRect.height > 3 && (
         <div
           className="fixed pointer-events-none border border-[#0078d4]/90 bg-[#0078d4]/25 z-50 rounded-xs"
@@ -213,12 +200,10 @@ export function Desktop({ children }: { children?: React.ReactNode }) {
         />
       )}
 
-      {/* Floating Windows Area */}
       <div className="absolute inset-0 pointer-events-none z-20">
         {children}
       </div>
 
-      {/* Context Menu */}
       <DesktopContextMenu />
     </div>
   );

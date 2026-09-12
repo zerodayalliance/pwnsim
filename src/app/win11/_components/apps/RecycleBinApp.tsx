@@ -21,7 +21,6 @@ export function RecycleBinApp() {
           : "bg-white text-neutral-800"
       }`}
     >
-      {/* Action Command Bar */}
       <div
         className={`flex items-center gap-3 px-4 py-2 border-b ${
           themeMode === "dark"
@@ -53,7 +52,6 @@ export function RecycleBinApp() {
         </span>
       </div>
 
-      {/* Content Area */}
       <div className="flex-1 p-6 overflow-y-auto custom-scrollbar">
         {recycleBinItems.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center text-center text-neutral-400 space-y-3">
@@ -65,14 +63,12 @@ export function RecycleBinApp() {
           </div>
         ) : (
           <div className="border border-white/10 rounded-xl overflow-hidden divide-y divide-white/5">
-            {/* Table Header */}
             <div className="grid grid-cols-12 px-4 py-2 bg-white/5 text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
               <span className="col-span-6">Name</span>
               <span className="col-span-3">Original Location</span>
               <span className="col-span-3 text-right">Date Deleted</span>
             </div>
 
-            {/* Rows */}
             {recycleBinItems.map((item, idx) => (
               <div
                 key={idx}

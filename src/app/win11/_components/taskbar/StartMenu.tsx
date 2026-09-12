@@ -58,7 +58,6 @@ export function StartMenu() {
     };
   }, [startMenuOpen, setStartMenuOpen]);
 
-  // Pinned apps
   const pinnedApps: { id: AppId; name: string }[] = [
     { id: "browser", name: "Edge" },
     { id: "notepad", name: "Notepad" },
@@ -68,7 +67,6 @@ export function StartMenu() {
     { id: "calculator", name: "Calculator" },
   ];
 
-  // Recommended files
   const recommendedFiles = [
     {
       title: "welcome_notes.txt",
@@ -120,7 +118,6 @@ export function StartMenu() {
               taskbarAlignment === "left" ? "bottom left" : "bottom center",
           }}
         >
-          {/* Search Input Bar */}
           <div className="p-6 pb-4">
             <div
               className={`flex items-center gap-3 px-3.5 py-2.5 rounded-full border transition-all ${
@@ -150,9 +147,7 @@ export function StartMenu() {
             </div>
           </div>
 
-          {/* Scrollable Body */}
           <div className="flex-1 overflow-y-auto px-6 space-y-6 custom-scrollbar">
-            {/* Pinned Header */}
             <div>
               <div className="flex items-center justify-between mb-3 px-2">
                 <span className="text-xs font-semibold tracking-wide text-neutral-400">
@@ -168,7 +163,6 @@ export function StartMenu() {
                 </button>
               </div>
 
-              {/* Pinned Apps Grid */}
               <div className="grid grid-cols-6 gap-y-3 gap-x-2">
                 {filteredApps.map((app) => (
                   <button
@@ -201,7 +195,6 @@ export function StartMenu() {
               )}
             </div>
 
-            {/* Recommended Section */}
             <div>
               <div className="flex items-center justify-between mb-3 px-2">
                 <span
@@ -261,7 +254,6 @@ export function StartMenu() {
             </div>
           </div>
 
-          {/* Bottom User Bar & Power */}
           <div
             className={`relative flex items-center justify-between px-8 py-3.5 border-t ${
               themeMode === "dark"
@@ -269,7 +261,6 @@ export function StartMenu() {
                 : "bg-black/5 border-black/10"
             }`}
           >
-            {/* User Profile */}
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-linear-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-bold text-xs text-white shadow-md">
                 A
@@ -288,7 +279,6 @@ export function StartMenu() {
               </div>
             </div>
 
-            {/* Power Button */}
             <div className="relative">
               <button
                 type="button"
@@ -303,7 +293,6 @@ export function StartMenu() {
                 <IconPower className="w-4 h-4" />
               </button>
 
-              {/* Power Menu Popover */}
               {powerMenuOpen && (
                 <div
                   className={`absolute right-0 bottom-10 w-36 py-1.5 rounded-xl shadow-2xl border backdrop-blur-2xl text-xs z-50 animate-in fade-in zoom-in-95 duration-150 ${

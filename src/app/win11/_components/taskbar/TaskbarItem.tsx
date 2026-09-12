@@ -22,7 +22,6 @@ export function TaskbarItem({ appId, title }: TaskbarItemProps) {
 
   const [isHovered, setIsHovered] = useState(false);
 
-  // Find window associated with this app
   const appWindow = windows.find((w) => w.appId === appId);
   const isOpen = Boolean(appWindow);
   const isActive =
@@ -70,7 +69,6 @@ export function TaskbarItem({ appId, title }: TaskbarItemProps) {
           <AppIconRenderer appId={appId} className="w-7 h-7" />
         </div>
 
-        {/* Taskbar Active / Open Indicator Pill */}
         {isOpen && (
           <span
             className={`absolute bottom-0.5 rounded-full transition-all duration-200 ${
@@ -88,7 +86,6 @@ export function TaskbarItem({ appId, title }: TaskbarItemProps) {
         )}
       </button>
 
-      {/* Sleek Windows 11 Hover Thumbnail / Tooltip */}
       {isHovered && (
         <div className="pointer-events-none absolute -top-11 flex flex-col items-center z-50 animate-in fade-in zoom-in-95 duration-100">
           <div

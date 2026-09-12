@@ -26,7 +26,6 @@ export function Taskbar() {
     themeMode,
   } = useWindows();
 
-  // Pinned taskbar apps: File Explorer, Settings
   const pinnedAppIds: AppId[] = ["file-explorer", "settings"];
 
   const openAppIds = windows.map((w) => w.appId);
@@ -61,20 +60,17 @@ export function Taskbar() {
             : "bg-white/65 border-white/70 backdrop-blur-3xl backdrop-saturate-180 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.7),0_-1px_3px_0_rgba(0,0,0,0.04)]"
         }`}
         onClick={(e) => {
-          // Clicking empty taskbar closes flyouts
           if (e.target === e.currentTarget) {
             closeAllFlyouts();
           }
         }}
       >
-        {/* Left: Widgets / Weather (Visible only when taskbar is center-aligned) */}
         {taskbarAlignment === "center" && (
           <div className="hidden md:flex items-center">
             <WeatherWidget />
           </div>
         )}
 
-        {/* Taskbar App Dock */}
         <div
           onClick={(e) => {
             if (e.target === e.currentTarget) {
@@ -87,10 +83,8 @@ export function Taskbar() {
               : "left-1/2 -translate-x-1/2"
           }`}
         >
-          {/* Start Button */}
           <StartButton />
 
-          {/* Search Trigger Button */}
           <button
             type="button"
             data-flyout-trigger="search"
@@ -121,7 +115,6 @@ export function Taskbar() {
             </span>
           </button>
 
-          {/* Task View Trigger Button */}
           <button
             type="button"
             data-flyout-trigger="task-view"
@@ -152,7 +145,6 @@ export function Taskbar() {
             </span>
           </button>
 
-          {/* App Icons */}
           {allAppIds.map((appId) => (
             <TaskbarItem
               key={appId}
@@ -162,7 +154,6 @@ export function Taskbar() {
           ))}
         </div>
 
-        {/* Right: System Tray (with WeatherWidget to the left of the up arrow when left-aligned) */}
         <div className="flex items-center justify-end ml-auto">
           {taskbarAlignment === "left" && (
             <div className="hidden md:flex items-center mr-6">
@@ -173,7 +164,6 @@ export function Taskbar() {
         </div>
       </footer>
 
-      {/* Flyout Panels */}
       <StartMenu />
       <SearchFlyout />
       <TaskViewFlyout />

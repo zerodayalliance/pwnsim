@@ -125,7 +125,6 @@ d-----         9/11/2026   9:42 PM                Pictures
       className="flex flex-col h-full bg-[#0c0c0c] text-neutral-100 font-mono text-xs select-text"
       onClick={() => inputRef.current?.focus()}
     >
-      {/* Terminal Tab Bar */}
       <div className="flex items-center px-2 py-1 bg-[#1a1a1a] border-b border-white/10 select-none">
         <div className="flex items-center gap-2 px-3 py-1 bg-[#0c0c0c] rounded-t-md text-white text-xs border-t border-x border-white/10">
           <TerminalIcon className="w-3.5 h-3.5" />
@@ -139,7 +138,6 @@ d-----         9/11/2026   9:42 PM                Pictures
         </button>
       </div>
 
-      {/* Terminal Body */}
       <div className="flex-1 p-3 overflow-y-auto custom-scrollbar space-y-1">
         {history.map((item, idx) => (
           <div
@@ -152,7 +150,6 @@ d-----         9/11/2026   9:42 PM                Pictures
           </div>
         ))}
 
-        {/* Active Command Line */}
         <form onSubmit={handleCommand} className="flex items-center gap-2 pt-1">
           <span className="text-blue-400 font-semibold shrink-0">
             PS C:\Users\ZeroDay&gt;

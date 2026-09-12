@@ -32,7 +32,6 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
   const isActive = activeWindowId === win.id;
   const isMaximized = win.isMaximized;
 
-  // Dragging state
   const [isDragging, setIsDragging] = useState(false);
   const dragStartRef = useRef<{
     mouseX: number;
@@ -46,7 +45,6 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
     startY: 0,
   });
 
-  // Resizing state
   const [isResizing, setIsResizing] = useState(false);
   const resizeStartRef = useRef<{
     mouseX: number;
@@ -60,9 +58,7 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
     startH: 0,
   });
 
-  // Handle Dragging
   const handleTitleMouseDown = (e: React.MouseEvent) => {
-    // Only drag with left click and when not clicking window control buttons
     if (
       e.button !== 0 ||
       (e.target as HTMLElement).closest(".window-control-btn")
@@ -70,7 +66,7 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
       return;
     }
     focusWindow(win.id);
-    if (isMaximized) return; // don't drag if maximized
+    if (isMaximized) return;
 
     setIsDragging(true);
     dragStartRef.current = {
@@ -81,13 +77,11 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
     };
   };
 
-  // Handle Title Double-Click (Maximize / Restore)
   const handleTitleDoubleClick = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest(".window-control-btn")) return;
     maximizeWindow(win.id);
   };
 
-  // Handle Resizing
   const handleResizeMouseDown = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (win.isMaximized) return;
@@ -101,7 +95,6 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
     };
   };
 
-  // Global Mouse Move and Mouse Up
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging && !win.isMaximized) {
@@ -183,7 +176,6 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
           : "bg-[#f9fafb]/95 text-neutral-900 backdrop-blur-2xl"
       }`}
     >
-      {/* Title Bar Header */}
       <div
         onMouseDown={handleTitleMouseDown}
         onDoubleClick={handleTitleDoubleClick}
@@ -197,7 +189,6 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
               : "bg-transparent border-black/5 opacity-80"
         }`}
       >
-        {/* Window Title & Icon */}
         <div className="flex items-center gap-2.5 min-w-0 pr-4">
           <AppIconRenderer appId={win.appId} className="w-4 h-4 shrink-0" />
           <span className="text-xs font-medium truncate tracking-wide">
@@ -205,9 +196,7 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
           </span>
         </div>
 
-        {/* Windows 11 Title Bar Controls (Min, Max/Restore, Close) */}
         <div className="flex items-center h-full">
-          {/* Minimize Button */}
           <button
             type="button"
             onClick={(e) => {
@@ -224,7 +213,6 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
             <IconMinus className="w-3.5 h-3.5" />
           </button>
 
-          {/* Maximize / Restore Button */}
           <button
             type="button"
             onClick={(e) => {
@@ -245,7 +233,6 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
             )}
           </button>
 
-          {/* Close Button */}
           <button
             type="button"
             onClick={(e) => {
@@ -262,12 +249,10 @@ export function WindowFrame({ window: win, children }: WindowFrameProps) {
         </div>
       </div>
 
-      {/* App Client Area */}
       <div className="flex-1 min-h-0 relative overflow-hidden flex flex-col">
         {children}
       </div>
 
-      {/* Bottom-right Resizing Grip Handle (only visible when not maximized) */}
       {!isMaximized && (
         <div
           onMouseDown={handleResizeMouseDown}

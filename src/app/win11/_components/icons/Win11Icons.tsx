@@ -105,7 +105,6 @@ export {
   IconUser,
 };
 
-// Custom Hard Drive Icon
 export function IconHardDrive({
   className = "w-5 h-5",
 }: {
@@ -129,7 +128,6 @@ export function IconHardDrive({
   );
 }
 
-// Authentic Windows 11 Ethernet / Wired Network Icon (matching Fluent UI)
 export function IconEthernet({
   className = "w-4 h-4",
 }: {
@@ -145,22 +143,17 @@ export function IconEthernet({
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {/* Monitor Display */}
       <path d="M14.5 4.5H5a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h9.5" />
-      {/* Monitor Stand */}
       <path d="M7 17v2.5" />
       <path d="M12 17v2.5" />
       <path d="M5 19.5h9" />
-      {/* Ethernet Plug */}
       <rect x="16.5" y="3.5" width="4.5" height="6.5" rx="1" />
       <path d="M16.5 6h4.5" />
-      {/* Ethernet Cable */}
       <path d="M18.75 10v10" />
     </svg>
   );
 }
 
-// Windows 11 Windows Security / Microsoft Defender Shield Icon
 export function WindowsSecurityIcon({
   className = "w-4.5 h-4.5",
 }: {
@@ -176,7 +169,6 @@ export function WindowsSecurityIcon({
   );
 }
 
-// Windows Checkmark Icon
 export function CheckIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
     <img
@@ -188,7 +180,6 @@ export function CheckIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
-// Windows 11 Start Logo
 export function Windows11Logo({
   className = "w-6 h-6",
 }: {
@@ -204,7 +195,6 @@ export function Windows11Logo({
   );
 }
 
-// Fluent Microsoft Edge Logo
 export function EdgeIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <img
@@ -216,7 +206,6 @@ export function EdgeIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-// Fluent Notepad Icon
 export function NotepadIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <img
@@ -228,7 +217,6 @@ export function NotepadIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-// Fluent Settings Icon
 export function SettingsIcon({
   className = "w-6 h-6",
 }: {
@@ -244,7 +232,6 @@ export function SettingsIcon({
   );
 }
 
-// Fluent File Explorer / This PC Icon
 export function ThisPCIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <img
@@ -256,7 +243,6 @@ export function ThisPCIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-// Fluent File Explorer Folder Icon
 export function ExplorerFolderIcon({
   className = "w-6 h-6",
 }: {
@@ -272,7 +258,6 @@ export function ExplorerFolderIcon({
   );
 }
 
-// Windows Folder Icon
 export function FolderIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <img
@@ -284,7 +269,6 @@ export function FolderIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-// Fluent Recycle Bin Icon
 export function RecycleBinIcon({
   className = "w-6 h-6",
 }: {
@@ -301,7 +285,6 @@ export function RecycleBinIcon({
   );
 }
 
-// Fluent Windows Terminal Icon
 export function TerminalIcon({
   className = "w-6 h-6",
 }: {
@@ -317,7 +300,6 @@ export function TerminalIcon({
   );
 }
 
-// Fluent Calculator Icon
 export function CalculatorIcon({
   className = "w-6 h-6",
 }: {
@@ -333,7 +315,6 @@ export function CalculatorIcon({
   );
 }
 
-// Visual Studio Code Icon
 export function VSCodeIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <img
@@ -345,7 +326,6 @@ export function VSCodeIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-// Google Chrome Icon
 export function ChromeIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <img
@@ -357,7 +337,6 @@ export function ChromeIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-// Authentic Windows 11 Weather: Partly Cloudy Night Icon with optional badge
 export function WeatherPartlyCloudyNightIcon({
   className = "w-7 h-7",
   badge = 1,
@@ -442,13 +421,11 @@ export function WeatherPartlyCloudyNightIcon({
         </filter>
       </defs>
 
-      {/* Crescent Moon */}
       <path
         d="M 10 7 C 6.5 9 4.2 13.2 4.5 17.5 C 4.8 22 8.5 25.5 13.5 25.5 C 16.8 25.5 19.8 23.8 21.5 21 C 18 22.2 14.2 21 11.8 18.2 C 9.5 15.5 9.2 11.5 10 7 Z"
         fill={`url(#${moonGradId})`}
       />
 
-      {/* Upper-Left Cloud (behind moon right lobe) */}
       <g filter={`url(#${cloudShadowId})`}>
         <path
           d="M 4.5 13.5 H 12.8 C 14.3 13.5 15.6 12.3 15.4 10.8 C 15.2 9.5 14.1 8.5 12.8 8.6 C 12.3 6.6 10.4 5.2 8.3 5.3 C 6.5 5.4 5 6.7 4.5 8.5 C 3.1 8.9 2.1 10.3 2.2 11.9 C 2.4 13 3.3 13.5 4.5 13.5 Z"
@@ -464,7 +441,6 @@ export function WeatherPartlyCloudyNightIcon({
         />
       </g>
 
-      {/* Lower-Right Foreground Cloud */}
       <g filter={`url(#${cloudShadowId})`}>
         <path
           d="M 11.5 24.5 H 22.5 C 24.4 24.5 26 23 25.9 21.1 C 25.8 19.5 24.5 18.2 22.9 18 C 22.5 15.8 20.5 14.2 18.2 14.2 C 16.8 14.2 15.5 14.9 14.7 16 C 14 15.5 13.1 15.2 12.1 15.4 C 10.2 15.8 8.8 17.5 8.9 19.4 C 7.8 20 7.1 21.2 7.3 22.5 C 7.6 23.8 8.9 24.5 11.5 24.5 Z"
@@ -488,7 +464,6 @@ export function WeatherPartlyCloudyNightIcon({
         />
       </g>
 
-      {/* Coral Notification Badge */}
       {badge !== null && badge !== undefined && (
         <g filter={`url(#${badgeShadowId})`}>
           <circle
@@ -516,7 +491,6 @@ export function WeatherPartlyCloudyNightIcon({
   );
 }
 
-// Helper to render an app icon by AppId
 export function AppIconRenderer({
   appId,
   className = "w-6 h-6",
@@ -550,7 +524,6 @@ export function AppIconRenderer({
   }
 }
 
-// Authentic Windows 11 Taskbar Search Icon with filled circular lens and bold handle
 export function Win11SearchIcon({
   className = "w-6 h-6",
   themeMode = "dark",
@@ -566,14 +539,12 @@ export function Win11SearchIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Search lens interior dark/light fill */}
       <circle
         cx="10.5"
         cy="10.5"
         r="6.5"
         fill={isDark ? "#383a40" : "#f0f2f5"}
       />
-      {/* Search lens outer white/dark ring */}
       <circle
         cx="10.5"
         cy="10.5"
@@ -581,7 +552,6 @@ export function Win11SearchIcon({
         stroke={isDark ? "#FFFFFF" : "#1f2024"}
         strokeWidth="2.5"
       />
-      {/* Search handle with rounded tip */}
       <path
         d="M15.4 15.4L20.2 20.2"
         stroke={isDark ? "#FFFFFF" : "#1f2024"}
@@ -592,7 +562,6 @@ export function Win11SearchIcon({
   );
 }
 
-// Windows 11 Task View Icon
 export function IconTaskView({
   className = "w-6 h-6",
 }: {

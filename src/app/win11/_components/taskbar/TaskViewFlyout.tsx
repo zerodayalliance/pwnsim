@@ -20,7 +20,6 @@ export function TaskViewFlyout() {
   const [activeDesktopIndex, setActiveDesktopIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Close on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && taskViewOpen) {
@@ -33,7 +32,6 @@ export function TaskViewFlyout() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [taskViewOpen, setTaskViewOpen]);
 
-  // Close on click outside flyout components
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       setTaskViewOpen(false);
@@ -61,7 +59,6 @@ export function TaskViewFlyout() {
               : "bg-white/40 text-neutral-900"
           }`}
         >
-          {/* Top/Center: Window Overview Grid */}
           <div
             onClick={handleBackdropClick}
             className="flex-1 flex flex-col items-center justify-center overflow-y-auto px-4 py-6"
@@ -88,7 +85,6 @@ export function TaskViewFlyout() {
                           : "bg-white/80 border-black/10 hover:border-blue-500/60 hover:shadow-blue-500/20"
                       }`}
                     >
-                      {/* Window Header */}
                       <div
                         className={`flex items-center justify-between px-3 py-2 border-b text-xs font-medium ${
                           themeMode === "dark"
@@ -118,7 +114,6 @@ export function TaskViewFlyout() {
                         </button>
                       </div>
 
-                      {/* Window Preview Body */}
                       <div className="flex-1 flex flex-col items-center justify-center p-4 relative overflow-hidden">
                         <div className="opacity-20 group-hover:opacity-30 transition-opacity">
                           <AppIconRenderer
@@ -146,7 +141,6 @@ export function TaskViewFlyout() {
             )}
           </div>
 
-          {/* Bottom: Windows 11 Virtual Desktops Bar */}
           <div className="flex flex-col items-center justify-center pb-2">
             <div
               className={`flex items-center gap-4 px-5 py-3 rounded-2xl border backdrop-blur-2xl shadow-2xl transition-all ${
@@ -155,7 +149,6 @@ export function TaskViewFlyout() {
                   : "bg-white/85 border-white/80 shadow-black/10"
               }`}
             >
-              {/* Virtual Desktop Previews */}
               {desktops.map((name, index) => {
                 const isActive = activeDesktopIndex === index;
                 return (
@@ -179,7 +172,6 @@ export function TaskViewFlyout() {
                         backgroundPosition: "center",
                       }}
                     >
-                      {/* Active indicator bar */}
                       {isActive && (
                         <div className="absolute bottom-0 inset-x-0 h-1 bg-blue-500" />
                       )}
@@ -197,7 +189,6 @@ export function TaskViewFlyout() {
                 );
               })}
 
-              {/* New Desktop Button */}
               <button
                 type="button"
                 onClick={handleAddNewDesktop}

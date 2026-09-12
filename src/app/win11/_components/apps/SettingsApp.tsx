@@ -49,7 +49,6 @@ export function SettingsApp({
 
   return (
     <div className="flex h-full text-xs select-none">
-      {/* Left Sidebar */}
       <div
         className={`w-60 shrink-0 p-3 border-r flex flex-col justify-between transition-colors ${
           themeMode === "dark"
@@ -58,7 +57,6 @@ export function SettingsApp({
         }`}
       >
         <div className="space-y-1">
-          {/* User badge */}
           <div
             className={`flex items-center gap-3 px-3 py-3 mb-2 rounded-xl border transition-colors ${
               themeMode === "dark"
@@ -87,7 +85,6 @@ export function SettingsApp({
             </div>
           </div>
 
-          {/* Navigation Items */}
           {sidebarNav.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -130,7 +127,6 @@ export function SettingsApp({
         </div>
       </div>
 
-      {/* Main Content Area */}
       <div
         className={`flex-1 overflow-y-auto p-6 custom-scrollbar transition-colors ${
           themeMode === "dark"
@@ -138,7 +134,6 @@ export function SettingsApp({
             : "bg-[#fafafa] text-neutral-800"
         }`}
       >
-        {/* Personalization Tab */}
         {activeTab === "personalization" && (
           <div className="space-y-6 max-w-2xl">
             <div>
@@ -158,7 +153,6 @@ export function SettingsApp({
               </p>
             </div>
 
-            {/* Current Wallpaper Preview Banner */}
             <div
               className={`relative w-full h-44 rounded-2xl overflow-hidden border shadow-lg ${
                 themeMode === "dark" ? "border-white/20" : "border-black/10"
@@ -179,7 +173,6 @@ export function SettingsApp({
               </div>
             </div>
 
-            {/* Wallpaper Selection Grid */}
             <div>
               <h3
                 className={`text-sm font-semibold mb-3 ${
@@ -219,7 +212,6 @@ export function SettingsApp({
               </div>
             </div>
 
-            {/* Theme Mode Toggle (Dark / Light) */}
             <div
               className={`p-4 rounded-xl border flex items-center justify-between transition-colors ${
                 themeMode === "dark"
@@ -279,7 +271,6 @@ export function SettingsApp({
               </div>
             </div>
 
-            {/* Taskbar Alignment */}
             <div
               className={`p-4 rounded-xl border flex items-center justify-between transition-colors ${
                 themeMode === "dark"
@@ -337,7 +328,6 @@ export function SettingsApp({
           </div>
         )}
 
-        {/* System Tab */}
         {activeTab === "system" && (
           <div className="space-y-6 max-w-2xl">
             <div>
@@ -358,7 +348,6 @@ export function SettingsApp({
               </p>
             </div>
 
-            {/* Device Info Card */}
             <div
               className={`p-5 rounded-2xl border space-y-4 transition-colors ${
                 themeMode === "dark"
@@ -440,7 +429,6 @@ export function SettingsApp({
               </div>
             </div>
 
-            {/* Storage Card */}
             <div
               className={`p-5 rounded-2xl border space-y-3 transition-colors ${
                 themeMode === "dark"
@@ -490,7 +478,6 @@ export function SettingsApp({
           </div>
         )}
 
-        {/* Network Tab */}
         {activeTab === "network" && (
           <div className="space-y-6 max-w-2xl">
             <div>
@@ -589,7 +576,6 @@ export function SettingsApp({
           </div>
         )}
 
-        {/* Default / Fallback for other tabs */}
         {activeTab !== "personalization" &&
           activeTab !== "system" &&
           activeTab !== "network" && (

@@ -181,7 +181,6 @@ interface WindowsContextValue {
   updateSize: (id: string, size: { width: number; height: number }) => void;
   bringToFront: (id: string) => void;
 
-  // Flyouts
   startMenuOpen: boolean;
   setStartMenuOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
   searchOpen: boolean;
@@ -194,7 +193,6 @@ interface WindowsContextValue {
   setCalendarOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
   closeAllFlyouts: () => void;
 
-  // Personalization
   currentWallpaper: WallpaperOption;
   setWallpaper: (wp: WallpaperOption) => void;
   themeMode: ThemeMode;
@@ -203,7 +201,6 @@ interface WindowsContextValue {
   taskbarAlignment: "center" | "left";
   setTaskbarAlignment: (align: "center" | "left") => void;
 
-  // System
   quickSettings: QuickSettingsState;
   updateQuickSettings: (partial: Partial<QuickSettingsState>) => void;
   contextMenu: ContextMenuState;
@@ -213,7 +210,6 @@ interface WindowsContextValue {
   selectedDesktopIcon: string | null;
   setSelectedDesktopIcon: (id: string | null) => void;
 
-  // Recycle Bin State
   recycleBinItems: string[];
   emptyRecycleBin: () => void;
   restoreRecycleBin: () => void;
@@ -228,14 +224,12 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
   const [highestZIndex, setHighestZIndex] = useState<number>(10);
 
-  // Flyouts
   const [startMenuOpen, setStartMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [taskViewOpen, setTaskViewOpen] = useState(false);
   const [quickSettingsOpen, setQuickSettingsOpen] = useState(false);
   const [calendarOpen, setCalendarOpen] = useState(false);
 
-  // Personalization
   const [currentWallpaper, setCurrentWallpaper] = useState<WallpaperOption>(
     WALLPAPER_PRESETS[0]
   );
@@ -244,7 +238,6 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
     "center"
   );
 
-  // Desktop selection & context menu
   const [selectedDesktopIcons, setSelectedDesktopIcons] = useState<string[]>(
     []
   );
@@ -259,7 +252,6 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
     type: "desktop",
   });
 
-  // Quick settings
   const [quickSettings, setQuickSettings] = useState<QuickSettingsState>({
     wifi: false,
     bluetooth: true,
@@ -270,7 +262,6 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
     brightness: 67,
   });
 
-  // Recycle bin mock files
   const [recycleBinItems, setRecycleBinItems] = useState<string[]>([
     "meeting_notes_2024.docx",
     "setup_installer_v1.0.exe",
@@ -318,7 +309,6 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
     (appId: AppId, title?: string, customData?: CustomWindowData): string => {
       closeAllFlyouts();
 
-      // Direct page navigation for web simulations
       if (appId === "chrome") {
         // eslint-disable-next-line @next/next/no-location-assign-relative-destination
         window.location.href = "/chrome";
@@ -333,7 +323,6 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
       const meta = APP_REGISTRY[appId];
       const appTitle = title || meta?.title || "Application";
 
-      // If an instance of this app already exists, restore/focus it
       const existingIndex = windows.findIndex((w) => w.appId === appId);
       if (existingIndex !== -1) {
         const existing = windows[existingIndex];
@@ -348,7 +337,6 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
         return existing.id;
       }
 
-      // Otherwise create a new window
       const windowId = `${appId}-${Date.now()}`;
       const offsetCount = windows.length % 8;
       const initialX = Math.max(40, 80 + offsetCount * 32);
@@ -413,7 +401,6 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
         wins.map((w) => {
           if (w.id !== id) return w;
           if (w.isMaximized) {
-            // Restore to previous bounds
             return {
               ...w,
               isMaximized: false,
@@ -421,7 +408,6 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
               size: w.prevBounds?.size || { width: 700, height: 500 },
             };
           } else {
-            // Maximize to full desktop viewport
             return {
               ...w,
               isMaximized: true,

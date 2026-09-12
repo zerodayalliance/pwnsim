@@ -82,7 +82,6 @@ export function SearchFlyout() {
               taskbarAlignment === "left" ? "bottom left" : "bottom center",
           }}
         >
-          {/* Search Input */}
           <div
             className={`p-4 pb-2 border-b ${
               themeMode === "dark" ? "border-white/10" : "border-black/10"
@@ -111,7 +110,6 @@ export function SearchFlyout() {
             </div>
           </div>
 
-          {/* Content */}
           <div className="flex-1 p-5 overflow-y-auto space-y-5 custom-scrollbar">
             <div>
               <h4

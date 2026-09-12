@@ -135,7 +135,6 @@ export function BrowserApp({ initialUrl }: BrowserAppProps) {
           : "bg-[#f9fafb] text-neutral-800"
       }`}
     >
-      {/* Tabs Header */}
       <div
         className={`flex items-center px-2 pt-1.5 gap-1 border-b select-none ${
           themeMode === "dark"
@@ -143,7 +142,6 @@ export function BrowserApp({ initialUrl }: BrowserAppProps) {
             : "bg-[#e5e7eb] border-black/10"
         }`}
       >
-        {/* Render Tabs */}
         <div className="flex items-center gap-1 overflow-x-auto max-w-full">
           {tabs.map((tab) => {
             const isActive = tab.id === activeTabId;
@@ -178,7 +176,6 @@ export function BrowserApp({ initialUrl }: BrowserAppProps) {
           })}
         </div>
 
-        {/* Add Tab Button */}
         <button
           type="button"
           onClick={handleAddTab}
@@ -189,7 +186,6 @@ export function BrowserApp({ initialUrl }: BrowserAppProps) {
         </button>
       </div>
 
-      {/* Navigation & Address Bar */}
       <div
         className={`flex items-center gap-2 px-3 py-2 border-b ${
           themeMode === "dark"
@@ -228,7 +224,6 @@ export function BrowserApp({ initialUrl }: BrowserAppProps) {
           <IconHome className="w-3.5 h-3.5" />
         </button>
 
-        {/* URL Input Box */}
         <div
           className={`flex-1 flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all ${
             themeMode === "dark"
@@ -249,10 +244,8 @@ export function BrowserApp({ initialUrl }: BrowserAppProps) {
         </div>
       </div>
 
-      {/* Browser Body */}
       <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
         {searchSubmitted ? (
-          /* Simulated Search Results Page */
           <div className="max-w-3xl mx-auto space-y-6">
             <div className="border-b border-white/10 pb-4">
               <h2 className="text-lg font-semibold">
@@ -314,16 +307,13 @@ export function BrowserApp({ initialUrl }: BrowserAppProps) {
             </button>
           </div>
         ) : (
-          /* Microsoft Bing / Edge Start Page */
           <div className="max-w-3xl mx-auto flex flex-col items-center justify-center pt-8 pb-12 space-y-8">
-            {/* Logo */}
             <div className="flex items-center gap-3">
               <h1 className="text-3xl font-bold tracking-tight bg-linear-to-r from-blue-400 via-teal-400 to-indigo-400 bg-clip-text text-transparent">
                 Microsoft Edge
               </h1>
             </div>
 
-            {/* Bing Search Bar */}
             <form
               onSubmit={handleSearchSubmit}
               className={`w-full max-w-xl flex items-center gap-3 px-4 py-3 rounded-full border shadow-xl transition-all ${
@@ -348,7 +338,6 @@ export function BrowserApp({ initialUrl }: BrowserAppProps) {
               </button>
             </form>
 
-            {/* Quick Link Shortcuts */}
             <div className="w-full max-w-xl">
               <h3 className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-3 text-center">
                 Frequently Visited

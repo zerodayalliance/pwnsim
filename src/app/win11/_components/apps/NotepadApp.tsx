@@ -65,7 +65,6 @@ Shortcut commands:
       }`}
       onClick={() => activeMenu && setActiveMenu(null)}
     >
-      {/* Menu Bar */}
       <div
         className={`flex items-center px-2 py-1 border-b select-none relative ${
           themeMode === "dark"
@@ -73,7 +72,6 @@ Shortcut commands:
             : "bg-[#f3f3f3] border-black/10"
         }`}
       >
-        {/* File Menu */}
         <div className="relative">
           <button
             type="button"
@@ -125,7 +123,6 @@ Shortcut commands:
           )}
         </div>
 
-        {/* Edit Menu */}
         <div className="relative">
           <button
             type="button"
@@ -174,7 +171,6 @@ Shortcut commands:
           )}
         </div>
 
-        {/* View Menu */}
         <div className="relative">
           <button
             type="button"
@@ -231,7 +227,6 @@ Shortcut commands:
         </div>
       </div>
 
-      {/* Editor Body */}
       <div className="flex-1 p-3 overflow-hidden relative">
         <textarea
           ref={textareaRef}
@@ -249,7 +244,6 @@ Shortcut commands:
         />
       </div>
 
-      {/* Status Bar */}
       <div
         className={`flex items-center justify-between px-4 py-1 text-[11px] border-t select-none ${
           themeMode === "dark"
