@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@WanaDecryptor@ v2.0</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: #7b0000;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #8b0000 0%, #4a0000 100%);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Desktop Wallpaper Ransom Warning Text in Background */
+        .desktop-bg-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.12);
+            font-family: Impact, "Arial Black", sans-serif;
+            pointer-events: none;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .desktop-bg-text h1 {
+            font-size: 5vw;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: rgba(255, 230, 230, 0.15);
+        }
+
+        .desktop-bg-text p {
+            font-size: 1.8vw;
+            font-family: "Courier New", monospace;
+            max-width: 900px;
+            line-height: 1.4;
+        }
+
+        /* The Authentic Native Windows Popup Window */
+        .wannacry-window {
+            width: 860px;
+            max-width: 96vw;
+            height: 610px;
+            max-height: 94vh;
+            background-color: #851010;
+            border: 2px solid #5a0a0a;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), 0 0 0 1px #a01515;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 100;
+            border-radius: 2px;
+        }
+
+        /* Classic Windows Title Bar */
+        .title-bar {
+            height: 32px;
+            background: linear-gradient(180deg, #ffffff 0%, #e1e1e1 50%, #cecece 100%);
+            border-bottom: 1px solid #707070;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4px 0 8px;
+            cursor: move;
+        }
+
+        .title-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #000;
+            letter-spacing: 0.2px;
+        }
+
+        .title-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .title-bar-controls {
+            display: flex;
+            height: 100%;
+        }
+
+        .win-btn {
+            width: 44px;
+            height: 100%;
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+            color: #333;
+            font-size: 13px;
+            transition: background 0.15s;
+        }
+
+        .win-btn.close:hover {
+            background-color: #e81123;
+            color: white;
+        }
+
+        .win-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Window Inner Body Layout */
+        .window-body {
+            flex: 1;
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+            background-color: #851010;
+            overflow: hidden;
+        }
+
+        /* Left Threat & Countdown Panel */
+        .left-panel {
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .lock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .lock-icon-svg {
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+        }
+
+        .threat-box {
+            background-color: #ffffff;
+            border: 2px solid #5a0a0a;
+            border-radius: 3px;
+            padding: 8px 10px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .threat-header {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #8b0000;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .threat-date {
+            font-size: 11px;
+            font-weight: 600;
+            color: #000000;
+            text-align: center;
+            margin-bottom: 6px;
+            font-family: monospace;
+        }
+
+        .timer-label {
+            font-size: 11px;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        /* Digital LCD Countdown Timer Display */
+        .lcd-display {
+            background-color: #000000;
+            border: 2px solid #333333;
+            border-radius: 2px;
+            padding: 6px 4px;
+            text-align: center;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #ff2222;
+            box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.4);
+        }
+
+        .lcd-units {
+            display: flex;
+            justify-content: space-between;
+            font-size: 8.5px;
+            color: #ff9999;
+            padding: 2px 8px 0;
+            font-family: "Segoe UI", sans-serif;
+            font-weight: 600;
+        }
+
+        /* Language & Links */
+        .language-picker {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .language-picker select {
+            width: 100%;
+            height: 24px;
+            font-size: 11px;
+            padding: 2px 4px;
+            border: 1px solid #7f7f7f;
+            background: #fff;
+            color: #000;
+        }
+
+        .left-links {
+            display: flex;
+            justify-content: space-around;
+            font-size: 11px;
+        }
+
+        .left-links a {
+            color: #ffffff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .left-links a:hover {
+            color: #ffcccc;
+        }
+
+        /* Right Content Panel */
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background-color: #851010;
+            overflow: hidden;
+        }
+
+        .main-heading {
+            font-size: 19px;
+            font-weight: 900;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 1px 1px 2px #000;
+            letter-spacing: 0.3px;
+        }
+
+        /* Native Windows White Text Box with Scrollbar */
+        .scrollable-text-box {
+            flex: 1;
+            background-color: #ffffff;
+            border: 2px solid #4a0000;
+            border-radius: 2px;
+            padding: 12px 14px;
+            overflow-y: scroll;
+            font-size: 12px;
+            line-height: 1.45;
+            color: #111111;
+            user-select: text;
+            box-shadow: inset 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .text-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #8b0000;
+            margin: 8px 0 3px 0;
+        }
+        .text-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .scrollable-text-box p {
+            margin-bottom: 8px;
+        }
+
+        .scrollable-text-box a {
+            color: #0000ee;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Bottom Payment Form Area */
+        .payment-area {
+            background-color: #ffffff;
+            border: 2px solid #4a0000;
+            border-radius: 2px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .payment-row-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .btc-logo-small {
+            width: 20px;
+            height: 20px;
+        }
+
+        .address-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .address-input {
+            flex: 1;
+            height: 26px;
+            border: 1px solid #7f7f7f;
+            padding: 0 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+            font-weight: bold;
+            color: #000;
+            background: #f4f4f4;
+            user-select: text;
+        }
+
+        .native-btn {
+            height: 26px;
+            padding: 0 14px;
+            background: linear-gradient(180deg, #f2f2f2 0%, #ebebeb 50%, #cfcfcf 100%);
+            border: 1px solid #707070;
+            border-radius: 2px;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #000;
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .native-btn:hover {
+            background: linear-gradient(180deg, #eaf2fa 0%, #cce4f7 100%);
+            border-color: #3c7fb1;
+        }
+
+        .native-btn:active {
+            background: linear-gradient(180deg, #b8d6ed 0%, #a4c7e4 100%);
+            border-color: #2c628b;
+        }
+
+        .actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2px;
+        }
+
+        .links-row {
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+        }
+        .links-row a {
+            color: #0000ee;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .buttons-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn-large {
+            height: 30px;
+            padding: 0 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Realistic Native Error Dialog Box */
+        .dialog-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+        }
+
+        .native-dialog {
+            width: 440px;
+            background: #f0f0f0;
+            border: 1px solid #0055ea;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border-radius: 2px;
+            overflow: hidden;
+            animation: popIn 0.15s ease-out;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .dialog-titlebar {
+            height: 28px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #000;
+            border-bottom: 1px solid #dfdfdf;
+        }
+
+        .dialog-body {
+            padding: 16px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            font-size: 12px;
+            color: #222;
+            line-height: 1.45;
+        }
+
+        .dialog-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+        }
+
+        .dialog-footer {
+            background: #f0f0f0;
+            border-top: 1px solid #dfdfdf;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .dialog-btn {
+            min-width: 80px;
+            height: 26px;
+        }
+
+        /* Success Recovery Screen */
+        .recovery-window {
+            position: absolute;
+            inset: 0;
+            background: #002200;
+            color: #33ff33;
+            font-family: "Courier New", monospace;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 600;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Desktop Background Warning Wallpaper -->
+    <div class="desktop-bg-text">
+        <h1>ALL YOUR IMPORTANT FILES ARE ENCRYPTED</h1>
+        <p>Your documents, photos, databases and other files have been encrypted with military grade encryption. Do not turn off your computer or attempt to use recovery tools. Look at the window on your screen to recover your files.</p>
+    </div>
+
+    <!-- The Authentic Native Malware Window -->
+    <div class="wannacry-window" id="mainWindow">
+        <!-- Title Bar -->
+        <div class="title-bar" id="windowHeader">
+            <div class="title-bar-left">
+                <!-- Red Padlock Icon -->
+                <svg class="title-icon" viewBox="0 0 24 24" fill="#8b0000">
+                    <rect x="4" y="10" width="16" height="12" rx="2"/>
+                    <path d="M7 10V6a5 5 0 0 1 10 0v4" fill="none" stroke="#8b0000" stroke-width="2.5"/>
+                </svg>
+                <span>@WanaDecryptor@ v2.0</span>
+            </div>
+            <div class="title-bar-controls">
+                <button class="win-btn disabled" title="Minimize">_</button>
+                <button class="win-btn disabled" title="Maximize">□</button>
+                <button class="win-btn close" onclick="triggerCloseAlert()" title="Close">✕</button>
+            </div>
+        </div>
+
+        <!-- Window Inner Layout -->
+        <div class="window-body">
+            <!-- Left Panel: Lock & Threat Timers -->
+            <div class="left-panel">
+                <div class="lock-container">
+                    <!-- Big Yellow/Gold Authentic Padlock -->
+                    <svg class="lock-icon-svg" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="shackleGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#b0b0b0"/>
+                                <stop offset="40%" stop-color="#f5f5f5"/>
+                                <stop offset="70%" stop-color="#b0b0b0"/>
+                                <stop offset="100%" stop-color="#808080"/>
+                            </linearGradient>
+                            <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#ffd54f"/>
+                                <stop offset="50%" stop-color="#ffb300"/>
+                                <stop offset="100%" stop-color="#ff8f00"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Shackle -->
+                        <path d="M 28 45 L 28 28 C 28 14 72 14 72 28 L 72 45" fill="none" stroke="url(#shackleGrad)" stroke-width="12" stroke-linecap="round"/>
+                        <!-- Body -->
+                        <rect x="16" y="40" width="68" height="52" rx="6" fill="url(#bodyGrad)" stroke="#c67c00" stroke-width="2"/>
+                        <!-- Keyhole -->
+                        <circle cx="50" cy="62" r="5.5" fill="#3e2723"/>
+                        <polygon points="46,63 54,63 52,78 48,78" fill="#3e2723"/>
+                    </svg>
+                </div>
+
+                <!-- Threat Box 1: Payment Raised -->
+                <div class="threat-box">
+                    <div class="threat-header">Payment will be raised on</div>
+                    <div class="threat-date" id="deadlineDate1">09/15/2026 13:00:00</div>
+                    <div class="timer-label">Time Left</div>
+                    <div class="lcd-display" id="timerDisplay1">
+                        02:23:59:42
+                    </div>
+                    <div class="lcd-units">
+                        <span>DAYS</span>
+                        <span>HOURS</span>
+                        <span>MINS</span>
+                        <span>SECS</span>
+                    </div>
+                </div>
+
+                <!-- Threat Box 2: Files Lost -->
+                <div class="threat-box">
+                    <div class="threat-header">Your files will be lost on</div>
+                    <div class="threat-date" id="deadlineDate2">09/19/2026 13:00:00</div>
+                    <div class="timer-label">Time Left</div>
+                    <div class="lcd-display" id="timerDisplay2">
+                        06:23:59:42
+                    </div>
+                    <div class="lcd-units">
+                        <span>DAYS</span>
+                        <span>HOURS</span>
+                        <span>MINS</span>
+                        <span>SECS</span>
+                    </div>
+                </div>
+
+                <!-- Language Dropdown -->
+                <div class="language-picker">
+                    <select onchange="playClick()">
+                        <option>English</option>
+                        <option>Russian</option>
+                        <option>Chinese (Simplified)</option>
+                        <option>Spanish</option>
+                        <option>German</option>
+                        <option>French</option>
+                        <option>Japanese</option>
+                        <option>Korean</option>
+                    </select>
+                    <div class="left-links">
+                        <a onclick="showNativeAlert('About WannaCry', 'WannaCry Decryptor v2.0\nAll files encrypted with RSA-2048 and AES-128 ciphers.')">About</a>
+                        <a onclick="showNativeAlert('How to buy bitcoins', 'Please visit www.coinbase.com, www.binance.com, or localbitcoins.com to buy Bitcoins.')">How to buy bitcoins?</a>
+                        <a onclick="showNativeAlert('Contact Us', 'Send email with your Bitcoin transaction hash to contact_decryption@onionmail.org')">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Instructions & Payment -->
+            <div class="right-panel">
+                <div class="main-heading">
+                    Ooops, your files have been encrypted!
+                </div>
+
+                <!-- Scrollable Windows Text Box -->
+                <div class="scrollable-text-box">
+                    <div class="text-section-title">What Happened to My Computer?</div>
+                    <p>Your important files are encrypted.<br>
+                    Many of your documents, photos, videos, databases and other files are no longer accessible because they have been encrypted with military-grade asymmetric cryptography (RSA-2048 + AES-128). Maybe you are busy looking for a way to recover your files, but do not waste your time. Nobody can recover your files without our private decryption key service.</p>
+
+                    <div class="text-section-title">Can I Recover My Files?</div>
+                    <p>Sure. We guarantee that you can recover all your files safely and easily. But you do not have much time.<br>
+                    You can decrypt some of your files for free. Try now by clicking <strong>&lt;Decrypt&gt;</strong> below.<br>
+                    If you want to decrypt all your files, you need to pay.<br>
+                    You only have <strong>3 days</strong> to submit the payment. After that the price will be doubled.<br>
+                    Also, if you do not pay in <strong>7 days</strong>, your private key will be permanently deleted from the server and you will never be able to recover your files forever.</p>
+
+                    <div class="text-section-title">How Do I Pay?</div>
+                    <p>Payment is accepted in <strong>Bitcoin (BTC)</strong> only. For more information, click <a onclick="showNativeAlert('How to buy bitcoins', 'You can buy Bitcoins easily from cryptocurrency exchanges like Coinbase, Binance, or Kraken using your credit card or bank account.')">&lt;How to buy bitcoins&gt;</a>.<br>
+                    Please check the current price of Bitcoin and buy some bitcoins. You need to send the correct amount to the Bitcoin address specified in this window.<br>
+                    After your payment is made, click <strong>&lt;Check Payment&gt;</strong>. Best time for checking: 9:00AM - 11:00AM GMT from Monday to Friday.</p>
+                </div>
+
+                <!-- Bottom Payment Form -->
+                <div class="payment-area">
+                    <div class="payment-row-top">
+                        <!-- Bitcoin Icon -->
+                        <svg class="btc-logo-small" viewBox="0 0 32 32">
+                            <circle cx="16" cy="16" r="16" fill="#f7931a"/>
+                            <path d="M22.2 13.8c.3-2-1.2-3.1-3.3-3.8l.7-2.7-1.7-.4-.7 2.6c-.4-.1-.9-.2-1.3-.3l.7-2.7-1.7-.4-.7 2.7c-.4-.1-.7-.2-1.1-.3l-2.3-.6-.5 1.8s1.2.3 1.2.3c.7.2.8.7.8 1.1l-.8 3.3c.1 0 .1 0 .2.1l-.2-.1-1.1 4.6c-.1.2-.3.6-.8.5 0 0-1.2-.3-1.2-.3l-.8 2 2.2.6c.4.1.8.2 1.2.3l-.7 2.8 1.7.4.7-2.7c.5.1.9.2 1.4.3l-.7 2.8 1.7.4.7-2.8c2.9.5 5.1.3 6-2.3.8-2.1 0-3.3-1.5-4.1 1.1-.3 1.9-1.1 2.1-2.6zm-3.8 5.6c-.5 2.1-4 1-5.1.7l.9-3.7c1.1.3 4.7.8 4.2 3zm.5-5.7c-.5 1.9-3.4.9-4.3.7l.8-3.3c1 .3 3.9.7 3.5 2.6z" fill="#fff"/>
+                        </svg>
+                        <span>Send <strong>$300</strong> worth of bitcoin to this address:</span>
+                    </div>
+
+                    <div class="address-row">
+                        <input type="text" class="address-input" id="btcAddress" readonly value="13AM4VW2dhxYgXeQepoHkHSQuy6NgaEb94" onclick="this.select()">
+                        <button class="native-btn" onclick="copyAddress(this)">Copy</button>
+                    </div>
+
+                    <div class="actions-row">
+                        <div class="links-row">
+                            <a onclick="showNativeAlert('How to buy bitcoins', '1. Go to Coinbase.com or Binance.com\n2. Register and buy $300 in BTC\n3. Send BTC to the address in the box')">How to buy bitcoins?</a>
+                            <a onclick="showNativeAlert('Contact Us', 'Email: wanahelp2026@onionmail.org\nInclude your Bitcoin transaction ID.')">Contact Us</a>
+                        </div>
+                        <div class="buttons-group">
+                            <button class="native-btn action-btn-large" onclick="handleCheckPayment()">Check Payment</button>
+                            <button class="native-btn action-btn-large" onclick="handleDecryptClick()">Decrypt</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Realistic Native Windows Message Dialog (Alert / Prompt) -->
+    <div class="dialog-overlay" id="dialogOverlay">
+        <div class="native-dialog">
+            <div class="dialog-titlebar">
+                <span id="dialogTitle">Warning</span>
+                <button class="win-btn close" style="width: 28px; height: 100%; font-size: 11px;" onclick="closeDialog()">✕</button>
+            </div>
+            <div class="dialog-body">
+                <!-- Windows Error / Warning Icon -->
+                <svg class="dialog-icon" id="dialogIcon" viewBox="0 0 32 32">
+                    <circle cx="16" cy="16" r="14" fill="#e81123"/>
+                    <line x1="10" y1="10" x2="22" y2="22" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+                    <line x1="22" y1="10" x2="10" y2="22" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+                <div id="dialogText" style="white-space: pre-line;">
+                    Error text goes here.
+                </div>
+            </div>
+            <div class="dialog-footer" id="dialogFooter">
+                <button class="native-btn dialog-btn" onclick="closeDialog()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secret Decryption Key Prompt Modal -->
+    <div class="dialog-overlay" id="keyPromptOverlay">
+        <div class="native-dialog" style="width: 460px;">
+            <div class="dialog-titlebar">
+                <span>Decryptor Engine - Enter Private Key</span>
+                <button class="win-btn close" style="width: 28px; height: 100%; font-size: 11px;" onclick="closeKeyPrompt()">✕</button>
+            </div>
+            <div class="dialog-body" style="flex-direction: column; gap: 10px;">
+                <p>If you have obtained your private decryption key from the server, please enter it below:</p>
+                <input type="text" id="secretKeyInput" style="width: 100%; height: 28px; border: 1px solid #7f7f7f; padding: 0 8px; font-family: monospace; font-size: 13px;" placeholder="WCRY-XXXX-XXXX-XXXX">
+                <div style="font-size: 11px; color: #666;">
+                    * Test Key for Cyber Range / PwnSim: <strong>PWN-DECRYPT-2026</strong>
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button class="native-btn dialog-btn" onclick="submitSecretKey()">Submit Key</button>
+                <button class="native-btn dialog-btn" onclick="closeKeyPrompt()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decryption Success Restoration Screen -->
+    <div class="recovery-window" id="recoveryWindow">
+        <h1 style="font-size: 28px; margin-bottom: 16px;">[✓] PRIVATE RSA-2048 KEY ACCEPTED</h1>
+        <p style="font-size: 14px; max-width: 600px; margin-bottom: 20px;">
+            WanaDecryptor is restoring encrypted files on all local drives (C:, D:)...
+        </p>
+        <div style="width: 400px; max-width: 90%; height: 16px; background: #004400; border: 1px solid #33ff33; border-radius: 2px; overflow: hidden; margin-bottom: 14px;">
+            <div id="recoveryProgressBar" style="width: 0%; height: 100%; background: #33ff33; transition: width 0.1s linear;"></div>
+        </div>
+        <div id="recoveryLog" style="font-size: 11px; height: 80px; overflow: hidden; color: #aaffaa; text-align: left; width: 400px; max-width: 90%;">
+            Initializing decryption threads...
+        </div>
+        <button class="native-btn" style="margin-top: 20px; padding: 6px 20px; font-size: 13px;" onclick="location.reload()">Return to Simulation</button>
+    </div>
+
+    <script>
+        // --- Web Audio API (Native Windows Sound Effects) ---
+        let audioCtx = null;
+        function getAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            return audioCtx;
+        }
+
+        // Windows Critical Stop / Error Chord
+        function playWindowsErrorChord() {
+            try {
+                const ctx = getAudio();
+                const now = ctx.currentTime;
+                // Complex discordant chord (F4, A4, C#5)
+                [349.23, 440.00, 554.37].forEach(freq => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(freq, now);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                });
+            } catch (e) {}
+        }
+
+        // Windows Warning / Ding
+        function playWindowsDing() {
+            try {
+                const ctx = getAudio();
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, now);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.25);
+            } catch (e) {}
+        }
+
+        function playClick() {
+            try {
+                const ctx = getAudio();
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1000, now);
+                gain.gain.setValueAtTime(0.04, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.03);
+            } catch (e) {}
+        }
+
+        // --- Realistic Dual Countdown Timers ---
+        // Timer 1: 3 Days (starts at 2d 23h 59m 42s)
+        let t1 = 2 * 86400 + 23 * 3600 + 59 * 60 + 42;
+        // Timer 2: 7 Days (starts at 6d 23h 59m 42s)
+        let t2 = 6 * 86400 + 23 * 3600 + 59 * 60 + 42;
+
+        function formatTimer(sec) {
+            const d = Math.floor(sec / 86400).toString().padStart(2, '0');
+            const h = Math.floor((sec % 86400) / 3600).toString().padStart(2, '0');
+            const m = Math.floor((sec % 3600) / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${d}:${h}:${m}:${s}`;
+        }
+
+        setInterval(() => {
+            if (t1 > 0) t1--;
+            if (t2 > 0) t2--;
+            document.getElementById('timerDisplay1').textContent = formatTimer(t1);
+            document.getElementById('timerDisplay2').textContent = formatTimer(t2);
+        }, 1000);
+
+        // Dynamically compute realistic future dates for the threat boxes
+        const now = new Date();
+        const d1 = new Date(now.getTime() + 3 * 86400000);
+        const d2 = new Date(now.getTime() + 7 * 86400000);
+        function pad(n) { return n.toString().padStart(2, '0'); }
+        function formatDate(d) {
+            return `${pad(d.getMonth()+1)}/${pad(d.getDate())}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        }
+        document.getElementById('deadlineDate1').textContent = formatDate(d1);
+        document.getElementById('deadlineDate2').textContent = formatDate(d2);
+
+        // --- Draggable Window Behavior ---
+        const win = document.getElementById('mainWindow');
+        const header = document.getElementById('windowHeader');
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
+
+        header.addEventListener('mousedown', (e) => {
+            if (e.target.closest('button')) return;
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            const rect = win.getBoundingClientRect();
+            initialX = rect.left;
+            initialY = rect.top;
+            win.style.position = 'absolute';
+            win.style.left = initialX + 'px';
+            win.style.top = initialY + 'px';
+            win.style.margin = '0';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            win.style.left = (initialX + dx) + 'px';
+            win.style.top = (initialY + dy) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // --- Native Dialog Alerts ---
+        function showNativeAlert(title, text) {
+            playWindowsDing();
+            document.getElementById('dialogTitle').textContent = title;
+            document.getElementById('dialogText').textContent = text;
+            document.getElementById('dialogOverlay').style.display = 'flex';
+        }
+
+        function closeDialog() {
+            playClick();
+            document.getElementById('dialogOverlay').style.display = 'none';
+        }
+
+        function triggerCloseAlert() {
+            playWindowsErrorChord();
+            document.getElementById('dialogTitle').textContent = 'Warning';
+            document.getElementById('dialogText').textContent = 'Closing this application will terminate the background key recovery worker.\n\nYour files will remain permanently encrypted, and you will NOT be able to purchase the decryption key.\n\nAre you sure you want to exit?';
+            document.getElementById('dialogFooter').innerHTML = `
+                <button class="native-btn dialog-btn" onclick="closeDialog()">Cancel</button>
+                <button class="native-btn dialog-btn" onclick="closeDialog()">Exit</button>
+            `;
+            document.getElementById('dialogOverlay').style.display = 'flex';
+        }
+
+        function copyAddress(btn) {
+            const addr = document.getElementById('btcAddress').value;
+            navigator.clipboard.writeText(addr).then(() => {
+                const old = btn.textContent;
+                btn.textContent = 'Copied!';
+                playClick();
+                setTimeout(() => {
+                    btn.textContent = old;
+                }, 1500);
+            });
+        }
+
+        function handleCheckPayment() {
+            playWindowsDing();
+            document.getElementById('dialogTitle').textContent = 'Checking Payment...';
+            document.getElementById('dialogText').textContent = 'Connecting to Bitcoin network and verifying blockchain transactions for address 13AM4VW2dhxYgXeQepoHkHSQuy6NgaEb94...';
+            document.getElementById('dialogOverlay').style.display = 'flex';
+
+            setTimeout(() => {
+                playWindowsErrorChord();
+                document.getElementById('dialogTitle').textContent = 'Payment Not Found';
+                document.getElementById('dialogText').textContent = 'Your payment was not found on the blockchain!\n\nIf you have already sent your coins, please wait for at least 1-3 network confirmations.\n\nCheck again later or contact support if the delay exceeds 2 hours.';
+            }, 1600);
+        }
+
+        function handleDecryptClick() {
+            playWindowsDing();
+            document.getElementById('keyPromptOverlay').style.display = 'flex';
+        }
+
+        function closeKeyPrompt() {
+            playClick();
+            document.getElementById('keyPromptOverlay').style.display = 'none';
+        }
+
+        function submitSecretKey() {
+            const key = document.getElementById('secretKeyInput').value.trim();
+            closeKeyPrompt();
+
+            if (key === 'PWN-DECRYPT-2026' || key === 'PWNSIM' || key === 'RESTORE') {
+                triggerRecoveryAnimation();
+            } else {
+                playWindowsErrorChord();
+                document.getElementById('dialogTitle').textContent = 'Decryption Failed';
+                document.getElementById('dialogText').textContent = 'Invalid private key!\n\nThe key string provided does not match the RSA-2048 master public exponent embedded in this machine\'s encrypted file headers.';
+                document.getElementById('dialogOverlay').style.display = 'flex';
+            }
+        }
+
+        function triggerRecoveryAnimation() {
+            document.getElementById('recoveryWindow').style.display = 'flex';
+            const bar = document.getElementById('recoveryProgressBar');
+            const log = document.getElementById('recoveryLog');
+            let pct = 0;
+
+            const files = [
+                'C:\Users\Admin\Documents\Budget_2026.xlsx',
+                'C:\Users\Admin\Pictures\Family_Archive.zip',
+                'D:\Database\production_backup.sql',
+                'C:\Windows\System32\drivers\etc\hosts',
+                'D:\Projects\SourceCode\main.py',
+                'C:\Users\Admin\Desktop\Client_Contracts.pdf'
+            ];
+
+            const timer = setInterval(() => {
+                pct += 2;
+                bar.style.width = pct + '%';
+                const randomFile = files[Math.floor(Math.random() * files.length)];
+                log.textContent = `[DECRYPTING]: ${randomFile} -> OK!`;
+                playClick();
+
+                if (pct >= 100) {
+                    clearInterval(timer);
+                    log.textContent = '[COMPLETED] All 18,491 files successfully decrypted and verified!';
+                    log.style.color = '#ffffff';
+                }
+            }, 50);
+        }
+    </script>
+</body>
+</html>
