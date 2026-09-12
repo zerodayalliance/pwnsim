@@ -12,6 +12,17 @@ const RECOVERY_FILES = [
   "C:\\Users\\Admin\\Desktop\\Client_Contracts.pdf",
 ];
 
+const pad = (n: number) => n.toString().padStart(2, "0");
+const formatDate = (d: Date) =>
+  `${pad(d.getMonth() + 1)}/${pad(d.getDate())}/${d.getFullYear()} ${pad(
+    d.getHours()
+  )}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+
+const getDeadline = (daysAhead: number) => {
+  const d = new Date(Date.now() + daysAhead * 86400000);
+  return formatDate(d);
+};
+
 export default function Pwn() {
   const audioCtxRef = useRef<AudioContext | null>(null);
 
@@ -91,22 +102,10 @@ export default function Pwn() {
   // Timers: T1 starts at 2d 23h 59m 42s, T2 at 6d 23h 59m 42s
   const [t1, setT1] = useState(2 * 86400 + 23 * 3600 + 59 * 60 + 42);
   const [t2, setT2] = useState(6 * 86400 + 23 * 3600 + 59 * 60 + 42);
-  const [deadline1, setDeadline1] = useState("09/15/2026 13:00:00");
-  const [deadline2, setDeadline2] = useState("09/19/2026 13:00:00");
+  const [deadline1] = useState(() => getDeadline(3));
+  const [deadline2] = useState(() => getDeadline(7));
 
   useEffect(() => {
-    const now = new Date();
-    const d1 = new Date(now.getTime() + 3 * 86400000);
-    const d2 = new Date(now.getTime() + 7 * 86400000);
-    const pad = (n: number) => n.toString().padStart(2, "0");
-    const formatDate = (d: Date) =>
-      `${pad(d.getMonth() + 1)}/${pad(d.getDate())}/${d.getFullYear()} ${pad(
-        d.getHours()
-      )}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-
-    setDeadline1(formatDate(d1));
-    setDeadline2(formatDate(d2));
-
     const interval = setInterval(() => {
       setT1((prev) => (prev > 0 ? prev - 1 : 0));
       setT2((prev) => (prev > 0 ? prev - 1 : 0));
@@ -422,7 +421,9 @@ export default function Pwn() {
               <div className={styles.threatHeader}>
                 Payment will be raised on
               </div>
-              <div className={styles.threatDate}>{deadline1}</div>
+              <div className={styles.threatDate} suppressHydrationWarning>
+                {deadline1}
+              </div>
               <div className={styles.timerLabel}>Time Left</div>
               <div className={styles.lcdDisplay}>{formatTimer(t1)}</div>
               <div className={styles.lcdUnits}>
@@ -437,7 +438,9 @@ export default function Pwn() {
               <div className={styles.threatHeader}>
                 Your files will be lost on
               </div>
-              <div className={styles.threatDate}>{deadline2}</div>
+              <div className={styles.threatDate} suppressHydrationWarning>
+                {deadline2}
+              </div>
               <div className={styles.timerLabel}>Time Left</div>
               <div className={styles.lcdDisplay}>{formatTimer(t2)}</div>
               <div className={styles.lcdUnits}>
