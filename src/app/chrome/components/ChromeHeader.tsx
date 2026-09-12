@@ -1,24 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import {
-  IconArrowLeft,
-  IconArrowRight,
-  IconRotateClockwise,
-  IconHome,
-  IconLock,
-  IconStar,
-  IconDotsVertical,
-  IconPlus,
-  IconX,
-  IconPuzzle,
-  IconWorld,
-  IconDownload,
-  IconBrandGoogle,
-  IconBrandReddit,
-  IconBrandYoutube,
-  IconBrandGithub,
-} from "@tabler/icons-react";
 import { ChromeTab, DownloadItem } from "../types";
 
 interface ChromeHeaderProps {
@@ -35,6 +17,9 @@ interface ChromeHeaderProps {
   downloads: DownloadItem[];
   onOpenDownloads: () => void;
   isLoading?: boolean;
+  onMinimize?: () => void;
+  onMaximize?: () => void;
+  onClose?: () => void;
 }
 
 export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
@@ -51,10 +36,14 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
   downloads,
   onOpenDownloads,
   isLoading = false,
+  onMinimize,
+  onMaximize,
+  onClose,
 }) => {
   const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0];
   const [inputUrl, setInputUrl] = useState(activeTab?.url || "");
   const [isFocused, setIsFocused] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -88,26 +77,55 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
     (d) => d.status === "downloading"
   ).length;
 
+  const handleMinimize = onMinimize || (() => {
+    if (typeof window !== "undefined") {
+      window.location.href = "/";
+    }
+  });
+
+  const handleMaximize = onMaximize || (() => {
+    if (typeof document !== "undefined") {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+        setIsMaximized(true);
+      } else {
+        document.exitFullscreen().catch(() => {});
+        setIsMaximized(false);
+      }
+    }
+  });
+
+  const handleClose = onClose || (() => {
+    if (typeof window !== "undefined") {
+      window.location.href = "/";
+    }
+  });
+
   return (
     <header className="flex flex-col bg-[#1f1f23] text-gray-200 select-none border-b border-[#2d2f36]">
       {/* Chrome Window Titlebar & Tab Strip */}
-      <div className="flex items-center pt-2 px-3 gap-2 overflow-x-auto no-scrollbar">
-        {/* macOS Traffic Lights */}
-        <div className="flex items-center gap-2 mr-2 pl-1 shrink-0">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f56] border border-[#e0443e] cursor-pointer hover:opacity-85" />
-          <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123] cursor-pointer hover:opacity-85" />
-          <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29] cursor-pointer hover:opacity-85" />
+      <div className="flex items-center h-[42px] bg-[#1f1f23] select-none">
+        {/* Left: Tab Search Down-Chevron Button (Windows Chrome style) */}
+        <div className="pl-2 pr-1 flex items-center shrink-0">
+          <button
+            title="Search tabs"
+            className="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#2f3136] transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
         </div>
 
-        {/* Tab List */}
-        <div className="flex items-center gap-1 flex-1 min-w-0 overflow-x-auto no-scrollbar">
+        {/* Center: Tabs Strip */}
+        <div className="flex items-end h-full gap-1 flex-1 min-w-0 overflow-x-auto no-scrollbar pt-1.5">
           {tabs.map((tab) => {
             const isActive = tab.id === activeTabId;
             return (
               <div
                 key={tab.id}
                 onClick={() => onSelectTab(tab.id)}
-                className={`group relative flex items-center gap-2 px-3.5 py-2 text-xs rounded-t-lg transition-colors max-w-[240px] min-w-[130px] cursor-pointer ${
+                className={`group relative flex items-center gap-2 px-3.5 h-[34px] text-xs rounded-t-lg transition-colors max-w-[240px] min-w-[130px] cursor-pointer ${
                   isActive
                     ? "bg-[#2b2d31] text-white shadow-sm font-medium"
                     : "text-gray-400 hover:bg-[#282a2e] hover:text-gray-200"
@@ -118,15 +136,29 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                   {isActive && isLoading ? (
                     <div className="w-3.5 h-3.5 border-2 border-blue-400 border-t-transparent rounded-full animate-spin shrink-0" />
                   ) : tab.url.includes("google.com") ? (
-                    <IconBrandGoogle className="w-3.5 h-3.5 text-blue-400" />
+                    /* Google 4-Color Favicon */
+                    <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                      <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.14-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                    </svg>
                   ) : tab.url.includes("reddit.com") ? (
-                    <IconBrandReddit className="w-3.5 h-3.5 text-orange-500" />
+                    /* Reddit Official Alien Snoo */
+                    <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="#FF4500">
+                      <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.56 12 8 12.56 8 13.25c0 .69.56 1.25 1.25 1.25.69 0 1.25-.56 1.25-1.25 0-.69-.56-1.25-1.25-1.25zm5.5 0c-.69 0-1.25.56-1.25 1.25 0 .69.56 1.25 1.25 1.25.69 0 1.25-.56 1.25-1.25 0-.69-.56-1.25-1.25-1.25zm-5.454 4.25a.34.34 0 0 0-.25.105.34.34 0 0 0 0 .48c.846.847 2.148 1.05 2.954 1.05s2.108-.203 2.954-1.05a.34.34 0 0 0 0-.48.34.34 0 0 0-.48 0c-.672.67-1.737.838-2.474.838s-1.802-.168-2.474-.838a.34.34 0 0 0-.23-.105z"/>
+                    </svg>
                   ) : tab.url.includes("rockstar") ? (
-                    <span className="text-[11px] font-bold text-yellow-400">R★</span>
+                    <span className="w-3.5 h-3.5 rounded bg-black flex items-center justify-center text-[9px] font-bold text-yellow-400 shrink-0 border border-yellow-400/40">R★</span>
                   ) : tab.url.includes("gta") || tab.url.includes("mod") ? (
-                    <span className="text-[10px] font-black text-pink-400">VI</span>
+                    <span className="w-3.5 h-3.5 rounded bg-pink-950 flex items-center justify-center text-[8px] font-black text-pink-400 shrink-0 border border-pink-500/50">VI</span>
                   ) : (
-                    <IconWorld className="w-3.5 h-3.5 text-gray-400" />
+                    /* Clean Globe SVG */
+                    <svg className="w-3.5 h-3.5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
                   )}
                 </div>
 
@@ -146,7 +178,10 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                   }`}
                   title="Close tab"
                 >
-                  <IconX className="w-3 h-3" />
+                  <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.4">
+                    <line x1="1" y1="1" x2="9" y2="9" />
+                    <line x1="9" y1="1" x2="1" y2="9" />
+                  </svg>
                 </button>
               </div>
             );
@@ -155,10 +190,57 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           {/* New Tab Button */}
           <button
             onClick={onNewTab}
-            className="p-1.5 rounded-full text-gray-400 hover:text-white hover:bg-[#2f3136] transition-colors shrink-0 ml-1"
+            className="w-7 h-7 mb-1 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#2f3136] transition-colors shrink-0 ml-1"
             title="New tab"
           >
-            <IconPlus className="w-4 h-4" />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+
+        {/* Right: Windows Window Caption Controls (Minimize, Maximize/Restore, Close) */}
+        <div className="flex items-center h-full shrink-0 ml-2 select-none">
+          {/* Minimize */}
+          <button
+            onClick={handleMinimize}
+            title="Minimize"
+            className="w-[46px] h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
+          >
+            <svg width="10" height="1" viewBox="0 0 10 1">
+              <rect width="10" height="1" fill="currentColor" />
+            </svg>
+          </button>
+
+          {/* Maximize / Restore */}
+          <button
+            onClick={handleMaximize}
+            title={isMaximized ? "Restore Down" : "Maximize"}
+            className="w-[46px] h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
+          >
+            {isMaximized ? (
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+                <path d="M2.5 0.5h7v7h-7z" />
+                <path d="M0.5 2.5h7v7h-7z" fill="#1f1f23" />
+              </svg>
+            ) : (
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+                <rect x="0.5" y="0.5" width="9" height="9" />
+              </svg>
+            )}
+          </button>
+
+          {/* Close */}
+          <button
+            onClick={handleClose}
+            title="Close"
+            className="w-[46px] h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#e81123] active:bg-[#c4101e] transition-colors cursor-pointer"
+          >
+            <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2">
+              <line x1="0" y1="0" x2="10" y2="10" />
+              <line x1="10" y1="0" x2="0" y2="10" />
+            </svg>
           </button>
         </div>
       </div>
@@ -172,24 +254,36 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             className="p-1.5 rounded-full text-gray-300 hover:text-white hover:bg-[#3b3e45] transition-colors"
             title="Click to go back"
           >
-            <IconArrowLeft className="w-4 h-4" />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
           </button>
           <button
             onClick={onForward}
             className="p-1.5 rounded-full text-gray-300 hover:text-white hover:bg-[#3b3e45] transition-colors"
             title="Click to go forward"
           >
-            <IconArrowRight className="w-4 h-4" />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </button>
           <button
-            onClick={isLoading ? onReload : onReload}
+            onClick={onReload}
             className="p-1.5 rounded-full text-gray-300 hover:text-white hover:bg-[#3b3e45] transition-colors"
-            title={isLoading ? "Stop loading" : "Reload this page"}
+            title={isLoading ? "Stop loading this page" : "Reload this page"}
           >
             {isLoading ? (
-              <IconX className="w-4 h-4 text-gray-300" />
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
             ) : (
-              <IconRotateClockwise className="w-4 h-4" />
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+              </svg>
             )}
           </button>
           <button
@@ -197,7 +291,10 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             className="p-1.5 rounded-full text-gray-300 hover:text-white hover:bg-[#3b3e45] transition-colors"
             title="Open Google"
           >
-            <IconHome className="w-4 h-4" />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
           </button>
         </div>
 
@@ -209,12 +306,22 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
               : "border-[#3a3c42] hover:border-[#4c4e57]"
           }`}
         >
-          {/* Lock Icon */}
+          {/* Chrome Tune / Security Settings Icon */}
           <div
-            className="flex items-center text-gray-400 mr-2 shrink-0"
-            title="Connection security"
+            className="flex items-center text-gray-400 mr-2 shrink-0 cursor-pointer hover:text-gray-200"
+            title="View site information"
           >
-            <IconLock className="w-3.5 h-3.5 text-gray-400" />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+              <line x1="1" y1="14" x2="7" y2="14"></line>
+              <line x1="9" y1="8" x2="15" y2="8"></line>
+              <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
           </div>
 
           {/* URL Input */}
@@ -230,13 +337,15 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             className="w-full bg-transparent text-xs sm:text-sm text-gray-100 placeholder-gray-500 focus:outline-none font-sans"
           />
 
-          {/* Omnibox actions */}
+          {/* Omnibox actions: Bookmark Star */}
           <div className="flex items-center gap-1 text-gray-400 shrink-0 ml-1">
             <button
-              className="p-1 hover:text-yellow-400 transition-colors"
+              className="p-1 hover:text-yellow-400 transition-colors cursor-pointer"
               title="Bookmark this tab"
             >
-              <IconStar className="w-4 h-4" />
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
             </button>
           </div>
         </div>
@@ -270,7 +379,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                     className="w-8 h-8 -rotate-90 absolute inset-0 pointer-events-none"
                     viewBox="0 0 32 32"
                   >
-                    {/* Track */}
                     <circle
                       cx="16"
                       cy="16"
@@ -279,7 +387,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                       strokeWidth="2.5"
                       fill="none"
                     />
-                    {/* Clockwise Animated Stroke */}
                     <circle
                       cx="16"
                       cy="16"
@@ -295,7 +402,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                   </svg>
                 )}
 
-                {/* The exact Chrome download icon from user prompt */}
+                {/* Clean Chrome Download Icon */}
                 <svg
                   className="w-4 h-4 text-current"
                   viewBox="0 0 24 24"
@@ -319,25 +426,34 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             );
           })()}
 
+          {/* Chrome Extensions Puzzle Icon */}
           <button
             className="p-1.5 rounded-full text-gray-300 hover:text-white hover:bg-[#3b3e45] transition-colors"
             title="Extensions"
           >
-            <IconPuzzle className="w-4 h-4" />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19.439 7.85c0-1.571-1.286-2.85-2.87-2.85a3.86 3.86 0 0 0-3.414 2H8.845a2 2 0 0 0-2 2v3.085a3.86 3.86 0 0 0-2 3.415c0 1.584 1.299 2.87 2.87 2.87.697 0 1.33-.25 1.83-.665l.3.665h3.011a3.86 3.86 0 0 0 3.414-2h3.169a2 2 0 0 0 2-2V11.26a3.86 3.86 0 0 0-2-3.41z"/>
+            </svg>
           </button>
 
+          {/* Google Account Profile Icon */}
           <div
-            className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white shadow cursor-pointer ml-1"
-            title="Google Account"
+            className="w-7 h-7 rounded-full bg-[#1a73e8] hover:bg-[#1557b0] flex items-center justify-center text-xs font-bold text-white shadow cursor-pointer ml-0.5 transition-colors"
+            title="Google Account: PwnSim Security"
           >
             P
           </div>
 
+          {/* Chrome 3-Dots Menu */}
           <button
             className="p-1.5 rounded-full text-gray-300 hover:text-white hover:bg-[#3b3e45] transition-colors"
-            title="Chrome menu"
+            title="Customize and control Google Chrome"
           >
-            <IconDotsVertical className="w-4 h-4" />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="5" r="2"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+              <circle cx="12" cy="19" r="2"></circle>
+            </svg>
           </button>
         </div>
       </div>
@@ -355,9 +471,16 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           onClick={() => onNavigate("https://www.google.com")}
           className="flex items-center gap-1.5 hover:bg-[#32343a] px-2 py-0.5 rounded transition-colors"
         >
-          <IconBrandGoogle className="w-3.5 h-3.5 text-blue-400" />
+          {/* Google 4-Color Favicon */}
+          <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.14-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+          </svg>
           <span>Google</span>
         </button>
+
         <button
           onClick={() =>
             onNavigate("https://www.google.com/search?q=GTA+6+mod+download")
@@ -366,24 +489,30 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
         >
           <span>GTA 6 Mod Search</span>
         </button>
+
         <button
           onClick={() =>
             onNavigate("https://www.gta6-mods.com/download/mod-engine-pc")
           }
           className="flex items-center gap-1.5 hover:bg-[#32343a] px-2 py-0.5 rounded transition-colors"
         >
-          <span className="text-[10px] font-bold text-pink-400">VI</span>
+          <span className="text-[10px] font-black text-pink-400">VI</span>
           <span>GTA6-Mods.com</span>
         </button>
+
         <button
           onClick={() =>
             onNavigate("https://www.reddit.com/r/GTA6/comments/modding_tools")
           }
           className="flex items-center gap-1.5 hover:bg-[#32343a] px-2 py-0.5 rounded transition-colors"
         >
-          <IconBrandReddit className="w-3.5 h-3.5 text-orange-500" />
+          {/* Reddit Official Icon */}
+          <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="#FF4500">
+            <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.56 12 8 12.56 8 13.25c0 .69.56 1.25 1.25 1.25.69 0 1.25-.56 1.25-1.25 0-.69-.56-1.25-1.25-1.25zm5.5 0c-.69 0-1.25.56-1.25 1.25 0 .69.56 1.25 1.25 1.25.69 0 1.25-.56 1.25-1.25 0-.69-.56-1.25-1.25-1.25zm-5.454 4.25a.34.34 0 0 0-.25.105.34.34 0 0 0 0 .48c.846.847 2.148 1.05 2.954 1.05s2.108-.203 2.954-1.05a.34.34 0 0 0 0-.48.34.34 0 0 0-.48 0c-.672.67-1.737.838-2.474.838s-1.802-.168-2.474-.838a.34.34 0 0 0-.23-.105z"/>
+          </svg>
           <span>r/GTA6</span>
         </button>
+
         <button
           onClick={() => onNavigate("https://www.rockstargames.com/VI")}
           className="flex items-center gap-1.5 hover:bg-[#32343a] px-2 py-0.5 rounded transition-colors"
@@ -391,11 +520,15 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           <span className="font-bold text-yellow-400 text-[10px]">R★</span>
           <span>Rockstar Games</span>
         </button>
+
         <button
           onClick={() => onNavigate("https://www.youtube.com")}
           className="flex items-center gap-1.5 hover:bg-[#32343a] px-2 py-0.5 rounded transition-colors"
         >
-          <IconBrandYoutube className="w-3.5 h-3.5 text-red-500" />
+          {/* YouTube Official Logo */}
+          <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="#FF0000">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
           <span>YouTube</span>
         </button>
       </div>
