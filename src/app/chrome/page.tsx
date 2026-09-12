@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChromeHeader } from "./components/ChromeHeader";
 import { GoogleHomePage } from "./components/GoogleHomePage";
 import { SearchResultsPage } from "./components/SearchResultsPage";
@@ -8,6 +8,7 @@ import { SuspiciousWebsite } from "./components/SuspiciousWebsite";
 import { RedditMockPage } from "./components/RedditMockPage";
 import { RockstarMockPage } from "./components/RockstarMockPage";
 import { ChromeDownloadBubble } from "./components/ChromeDownloadBubble";
+import Pwn from "@/components/pwn";
 import { ChromeTab, DownloadItem } from "./types";
 
 export default function ChromePage() {
@@ -29,6 +30,31 @@ export default function ChromePage() {
   // Downloads State
   const [downloads, setDownloads] = useState<DownloadItem[]>([]);
   const [isDownloadBubbleOpen, setIsDownloadBubbleOpen] = useState(false);
+  const [isFreezing, setIsFreezing] = useState(false);
+  const [isPwnActive, setIsPwnActive] = useState(false);
+
+  // Global listener to immediately unfreeze and restore Chrome on exit
+  useEffect(() => {
+    const handleGlobalPwnExit = () => {
+      setIsPwnActive(false);
+      setIsFreezing(false);
+    };
+    window.addEventListener("pwn:exit", handleGlobalPwnExit);
+    return () => {
+      window.removeEventListener("pwn:exit", handleGlobalPwnExit);
+    };
+  }, []);
+
+  const handleOpenFile = (filename: string) => {
+    setIsDownloadBubbleOpen(false);
+    setIsFreezing(true);
+
+    // Freeze screen and flash realistic CMD stager for 850ms, then pop up malware
+    setTimeout(() => {
+      setIsFreezing(false);
+      setIsPwnActive(true);
+    }, 850);
+  };
 
   // Active Tab helper
   const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0];
@@ -388,7 +414,15 @@ export default function ChromePage() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full bg-[#181a1f] overflow-hidden text-gray-100 font-sans">
+    <div className="relative h-screen w-full overflow-hidden bg-[#181a1f]">
+      {/* Chrome Application Shell (Frozen & Blurred when Pwn is active) */}
+      <div
+        className={`flex flex-col h-full w-full overflow-hidden text-gray-100 font-sans transition-all duration-300 ${
+          isPwnActive || isFreezing
+            ? "pointer-events-none select-none filter blur-[0.75px] contrast-[1.02] brightness-[0.96]"
+            : ""
+        }`}
+      >
       {/* Chrome Shell Header */}
       <ChromeHeader
         tabs={tabs}
@@ -412,12 +446,50 @@ export default function ChromePage() {
         isOpen={isDownloadBubbleOpen}
         onClose={() => setIsDownloadBubbleOpen(false)}
         onDismiss={handleDismissDownload}
+        onOpenFile={handleOpenFile}
       />
 
       {/* Browser Viewport */}
       <div className="flex-1 overflow-y-auto relative bg-[#202124]">
         {renderWebContent()}
       </div>
+    </div>
+
+    {/* Realistic Flashing CMD Execution Window on Zip Open */}
+    {isFreezing && (
+      <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/40 backdrop-blur-xs pointer-events-auto select-none">
+        <div className="w-[580px] max-w-[90vw] bg-black border border-[#555555] shadow-2xl rounded font-mono text-xs text-neutral-200 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
+          <div className="bg-[#1f1f1f] px-3 py-1.5 flex items-center justify-between border-b border-[#333333]">
+            <div className="flex items-center gap-2 text-[11px] text-neutral-300">
+              <div className="w-3 h-3 bg-black border border-white flex items-center justify-center text-[8px] font-bold">_</div>
+              <span>Administrator: C:\Windows\System32\cmd.exe</span>
+            </div>
+            <div className="text-[10px] text-neutral-500">PID 7412</div>
+          </div>
+          <div className="p-3.5 space-y-1.5 text-neutral-100 font-mono text-[11.5px] leading-relaxed">
+            <p className="text-neutral-400">Microsoft Windows [Version 10.0.22631.3007]</p>
+            <p className="text-neutral-400">(c) Microsoft Corporation. All rights reserved.</p>
+            <p className="pt-1 text-white">
+              C:\Users\Admin\Downloads&gt; <span className="text-emerald-400 font-bold">tar.exe -xf &quot;GTA6_Mod_Engine_v2.4.zip&quot;</span>
+            </p>
+            <p className="text-neutral-300">[+] Unpacking payload archive: update_engine_x64.exe ... OK</p>
+            <p className="text-neutral-300">[+] Spawning high-integrity execution thread at PID 8192 ...</p>
+            <p className="text-amber-400 animate-pulse font-semibold">[!] Hooking Display Driver &amp; Seizing Desktop Window Manager...</p>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* The Prank Malware Screen Overlay (No Red Background - Blocks Backside) */}
+    {isPwnActive && (
+      <Pwn
+        isOverlay={true}
+        onExit={() => {
+          setIsPwnActive(false);
+          setIsFreezing(false);
+        }}
+      />
+    )}
     </div>
   );
 }

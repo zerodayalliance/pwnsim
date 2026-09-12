@@ -12,6 +12,7 @@ interface ChromeDownloadBubbleProps {
   isOpen: boolean;
   onClose: () => void;
   onDismiss: (id: string) => void;
+  onOpenFile?: (filename: string) => void;
 }
 
 export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
@@ -19,6 +20,7 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
   isOpen,
   onClose,
   onDismiss,
+  onOpenFile,
 }) => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const bubbleRef = useRef<HTMLDivElement>(null);
@@ -49,18 +51,26 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
 
   const handleDirectRun = (e: React.MouseEvent, filename: string) => {
     e.stopPropagation();
-    setToastMessage(`⚡ Executing ${filename}... Starting GTA VI Mod Loader Engine`);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 3500);
+    if (onOpenFile) {
+      onOpenFile(filename);
+    } else {
+      setToastMessage(`⚡ Executing ${filename}... Starting GTA VI Mod Loader Engine`);
+      setTimeout(() => {
+        setToastMessage(null);
+      }, 3500);
+    }
   };
 
   const handleShowInFolder = (e: React.MouseEvent, filename: string) => {
     e.stopPropagation();
-    setToastMessage(`📁 Opened directory: C:\\Users\\Pwned\\Downloads\\${filename}`);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 3500);
+    if (onOpenFile) {
+      onOpenFile(filename);
+    } else {
+      setToastMessage(`📁 Opened directory: C:\\Users\\Pwned\\Downloads\\${filename}`);
+      setTimeout(() => {
+        setToastMessage(null);
+      }, 3500);
+    }
   };
 
   return (

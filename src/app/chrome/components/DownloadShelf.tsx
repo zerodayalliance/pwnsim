@@ -15,6 +15,7 @@ interface DownloadShelfProps {
   onDismiss: (id: string) => void;
   isOpen: boolean;
   onClose: () => void;
+  onOpenFile?: (filename: string) => void;
 }
 
 export const DownloadShelf: React.FC<DownloadShelfProps> = ({
@@ -22,6 +23,7 @@ export const DownloadShelf: React.FC<DownloadShelfProps> = ({
   onDismiss,
   isOpen,
   onClose,
+  onOpenFile,
 }) => {
   if (!isOpen || downloads.length === 0) return null;
 
@@ -37,7 +39,14 @@ export const DownloadShelf: React.FC<DownloadShelfProps> = ({
             return (
               <div
                 key={item.id}
-                className="flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg bg-[#1e1f22] border border-[#3f4247] hover:border-gray-500 transition-all shrink-0 min-w-[320px] max-w-[400px] shadow-sm"
+                onClick={() => {
+                  if (isCompleted && onOpenFile) {
+                    onOpenFile(item.filename);
+                  }
+                }}
+                className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg bg-[#1e1f22] border border-[#3f4247] hover:border-gray-500 transition-all shrink-0 min-w-[320px] max-w-[400px] shadow-sm ${
+                  isCompleted ? "cursor-pointer hover:bg-[#25272b]" : ""
+                }`}
               >
                 {/* Real Chrome Circular Progress Ring / Checkmark */}
                 <div className="shrink-0 flex items-center justify-center relative">
@@ -129,8 +138,12 @@ export const DownloadShelf: React.FC<DownloadShelfProps> = ({
                 <div className="flex items-center gap-1.5 shrink-0 pl-1 border-l border-[#33363e]">
                   {isCompleted ? (
                     <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onOpenFile) onOpenFile(item.filename);
+                      }}
                       className="text-xs text-blue-400 hover:text-blue-300 hover:underline px-2 py-1 flex items-center gap-1 rounded hover:bg-[#2a2c33] transition-colors"
-                      title="Show in folder"
+                      title="Show in folder / Open"
                     >
                       <IconFolder className="w-3.5 h-3.5" />
                       <span className="hidden sm:inline">Show in folder</span>

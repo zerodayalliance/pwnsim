@@ -23,8 +23,15 @@ const getDeadline = (daysAhead: number) => {
   return formatDate(d);
 };
 
-export default function Pwn() {
+export interface PwnProps {
+  isOverlay?: boolean;
+  onExit?: () => void;
+}
+
+export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
+  const [isDismissed, setIsDismissed] = useState(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
+  const [showToast, setShowToast] = useState(true);
 
   const getAudio = useCallback(() => {
     if (typeof window === "undefined") return null;
@@ -98,6 +105,14 @@ export default function Pwn() {
       osc.stop(now + 0.03);
     } catch {}
   }, [getAudio]);
+
+  // Trigger error sound on initial appearance
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      playWindowsErrorChord();
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [playWindowsErrorChord]);
 
   // Timers: T1 starts at 2d 23h 59m 42s, T2 at 6d 23h 59m 42s
   const [t1, setT1] = useState(2 * 86400 + 23 * 3600 + 59 * 60 + 42);
@@ -177,15 +192,16 @@ export default function Pwn() {
     };
   }, []);
 
+  // System Incident Dialog state
   const [dialog, setDialog] = useState<{
     isOpen: boolean;
     title: string;
     text: string;
     isConfirm?: boolean;
   }>({
-    isOpen: false,
-    title: "",
-    text: "",
+    isOpen: true,
+    title: "Windows Security - Critical Alert",
+    text: "CRITICAL INCIDENT: Unauthorized cryptographic engine executed from 'GTA6_Mod_Engine_v2.4.zip'.\n\nProcess ID: 7412 (High Integrity)\nStatus: Active AES-128 file encryption in progress.\nAll volume shadow copies and recovery points have been deleted.\n\nDo NOT restart the computer.",
     isConfirm: false,
   });
 
@@ -310,27 +326,74 @@ export default function Pwn() {
     }, 50);
   };
 
-  const resetSimulation = () => {
+  const handleReturnFromSimulation = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     playClick();
+    setIsDismissed(true);
+    setDialog((prev) => ({ ...prev, isOpen: false }));
+    setKeyPromptOpen(false);
     setIsRecovering(false);
-    setRecoveryPct(0);
-    setRecoveryDone(false);
-    setRecoveryLog("Initializing decryption threads...");
-    setSecretKeyInput("");
+    if (onExit) {
+      onExit();
+    }
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("pwn:exit"));
+      if (!onExit) {
+        window.location.href = "/chrome";
+      }
+    }
   };
+
+  if (isDismissed) return null;
 
   return (
     <div className={styles.root}>
-      <div className={styles.desktopBgText}>
-        <h1>ALL YOUR IMPORTANT FILES ARE ENCRYPTED</h1>
-        <p>
-          Your documents, photos, databases and other files have been encrypted
-          with military grade encryption. Do not turn off your computer or
-          attempt to use recovery tools. Look at the window on your screen to
-          recover your files.
-        </p>
-      </div>
+      {/* Authentic Windows Security Threat Notification Toast */}
+      {showToast && (
+        <div className={styles.defenderToast}>
+          {/* Windows Security Shield Icon */}
+          <svg className={styles.defenderIcon} viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 2L3 6V12C3 17.52 6.84 22.74 12 24C17.16 22.74 21 17.52 21 12V6L12 2Z"
+              fill="#0078D4"
+            />
+            <path
+              d="M12 7V13M12 17H12.01"
+              stroke="#FFFFFF"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+            />
+          </svg>
+          <div className={styles.defenderContent}>
+            <div className={styles.defenderTitle}>
+              <span>Windows Security</span>
+              <button
+                onClick={() => setShowToast(false)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "#9ca3af",
+                  cursor: "pointer",
+                  fontSize: 12,
+                }}
+              >
+                ✕
+              </button>
+            </div>
+            <div className={styles.defenderDesc}>
+              Critical threat detected: <strong>Trojan:Win32/WannaCrypt!rsm</strong>
+            </div>
+            <div className={styles.defenderMeta}>
+              Status: Active file encryption in progress &bull; PID 7412
+            </div>
+          </div>
+        </div>
+      )}
 
+      {/* The Draggable Authentic WannaCry Window */}
       <div
         className={styles.wannacryWindow}
         id="mainWindow"
@@ -356,22 +419,15 @@ export default function Pwn() {
             <span>@WanaDecryptor@ v2.0</span>
           </div>
           <div className={styles.titleBarControls}>
-            <button
-              className={`${styles.winBtn} ${styles.winBtnDisabled}`}
-              title="Minimize"
-            >
+            <button className={`${styles.winBtn} ${styles.winBtnDisabled}`}>
               _
             </button>
-            <button
-              className={`${styles.winBtn} ${styles.winBtnDisabled}`}
-              title="Maximize"
-            >
+            <button className={`${styles.winBtn} ${styles.winBtnDisabled}`}>
               □
             </button>
             <button
               className={`${styles.winBtn} ${styles.winBtnClose}`}
               onClick={triggerCloseAlert}
-              title="Close"
             >
               ✕
             </button>
@@ -379,6 +435,7 @@ export default function Pwn() {
         </div>
 
         <div className={styles.windowBody}>
+          {/* Left Panel */}
           <div className={styles.leftPanel}>
             <div className={styles.lockContainer}>
               <svg className={styles.lockIconSvg} viewBox="0 0 100 100">
@@ -413,7 +470,10 @@ export default function Pwn() {
                   strokeWidth="2"
                 />
                 <circle cx="50" cy="62" r="5.5" fill="#3e2723" />
-                <polygon points="46,63 54,63 52,78 48,78" fill="#3e2723" />
+                <polygon
+                  points="46,63 54,63 52,78 48,78"
+                  fill="#3e2723"
+                />
               </svg>
             </div>
 
@@ -421,9 +481,7 @@ export default function Pwn() {
               <div className={styles.threatHeader}>
                 Payment will be raised on
               </div>
-              <div className={styles.threatDate} suppressHydrationWarning>
-                {deadline1}
-              </div>
+              <div className={styles.threatDate}>{deadline1}</div>
               <div className={styles.timerLabel}>Time Left</div>
               <div className={styles.lcdDisplay}>{formatTimer(t1)}</div>
               <div className={styles.lcdUnits}>
@@ -438,9 +496,7 @@ export default function Pwn() {
               <div className={styles.threatHeader}>
                 Your files will be lost on
               </div>
-              <div className={styles.threatDate} suppressHydrationWarning>
-                {deadline2}
-              </div>
+              <div className={styles.threatDate}>{deadline2}</div>
               <div className={styles.timerLabel}>Time Left</div>
               <div className={styles.lcdDisplay}>{formatTimer(t2)}</div>
               <div className={styles.lcdUnits}>
@@ -452,7 +508,7 @@ export default function Pwn() {
             </div>
 
             <div className={styles.languagePicker}>
-              <select defaultValue="English" onChange={() => playClick()}>
+              <select onChange={playClick} defaultValue="English">
                 <option>English</option>
                 <option>Russian</option>
                 <option>Chinese (Simplified)</option>
@@ -497,6 +553,7 @@ export default function Pwn() {
             </div>
           </div>
 
+          {/* Right Panel */}
           <div className={styles.rightPanel}>
             <div className={styles.mainHeading}>
               Ooops, your files have been encrypted!
@@ -513,8 +570,8 @@ export default function Pwn() {
                 files are no longer accessible because they have been encrypted
                 with military-grade asymmetric cryptography (RSA-2048 +
                 AES-128). Maybe you are busy looking for a way to recover your
-                files, but do not waste your time. Nobody can recover your files
-                without our private decryption key service.
+                files, but do not waste your time. Nobody can recover your
+                files without our private decryption key service.
               </p>
 
               <div className={styles.textSectionTitle}>
@@ -524,17 +581,17 @@ export default function Pwn() {
                 Sure. We guarantee that you can recover all your files safely
                 and easily. But you do not have much time.
                 <br />
-                You can decrypt some of your files for free. Try now by clicking{" "}
-                <strong>&lt;Decrypt&gt;</strong> below.
+                You can decrypt some of your files for free. Try now by
+                clicking <strong>&lt;Decrypt&gt;</strong> below.
                 <br />
                 If you want to decrypt all your files, you need to pay.
                 <br />
                 You only have <strong>3 days</strong> to submit the payment.
                 After that the price will be doubled.
                 <br />
-                Also, if you do not pay in <strong>7 days</strong>, your private
-                key will be permanently deleted from the server and you will
-                never be able to recover your files forever.
+                Also, if you do not pay in <strong>7 days</strong>, your
+                private key will be permanently deleted from the server and you
+                will never be able to recover your files forever.
               </p>
 
               <div className={styles.textSectionTitle}>How Do I Pay?</div>
@@ -630,87 +687,24 @@ export default function Pwn() {
               </div>
             </div>
           </div>
-
-          {isRecovering && (
-            <div className={styles.recoveryWindow}>
-              <h1
-                style={{
-                  fontSize: "28px",
-                  marginBottom: "16px",
-                  fontWeight: "bold",
-                }}
-              >
-                [✓] PRIVATE RSA-2048 KEY ACCEPTED
-              </h1>
-              <p
-                style={{
-                  fontSize: "14px",
-                  maxWidth: "600px",
-                  marginBottom: "20px",
-                }}
-              >
-                WanaDecryptor is restoring encrypted files on all local drives
-                (C:, D:)...
-              </p>
-              <div
-                style={{
-                  width: "400px",
-                  maxWidth: "90%",
-                  height: "16px",
-                  background: "#004400",
-                  border: "1px solid #33ff33",
-                  borderRadius: "2px",
-                  overflow: "hidden",
-                  marginBottom: "14px",
-                }}
-              >
-                <div
-                  style={{
-                    width: `${recoveryPct}%`,
-                    height: "100%",
-                    background: "#33ff33",
-                    transition: "width 0.1s linear",
-                  }}
-                />
-              </div>
-              <div
-                style={{
-                  fontSize: "11px",
-                  height: "80px",
-                  overflow: "hidden",
-                  color: recoveryDone ? "#ffffff" : "#aaffaa",
-                  textAlign: "left",
-                  width: "400px",
-                  maxWidth: "90%",
-                }}
-              >
-                {recoveryLog}
-              </div>
-              <button
-                className={styles.nativeBtn}
-                style={{
-                  marginTop: "20px",
-                  padding: "6px 20px",
-                  fontSize: "13px",
-                }}
-                onClick={resetSimulation}
-              >
-                Return to Simulation
-              </button>
-            </div>
-          )}
         </div>
       </div>
 
+      {/* Message Dialog */}
       {dialog.isOpen && (
         <div className={styles.dialogOverlay}>
           <div className={styles.nativeDialog}>
             <div className={styles.dialogTitlebar}>
               <span>{dialog.title}</span>
               <button
+                type="button"
                 className={`${styles.winBtn} ${styles.winBtnClose}`}
-                style={{ width: "28px", height: "100%", fontSize: "11px" }}
-                onClick={closeDialog}
+                style={{ width: 28, height: "100%", fontSize: 11 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleReturnFromSimulation(e);
+                }}
+                title="Exit / Close"
               >
                 ✕
               </button>
@@ -743,39 +737,62 @@ export default function Pwn() {
               {dialog.isConfirm ? (
                 <>
                   <button
+                    type="button"
                     className={`${styles.nativeBtn} ${styles.dialogBtn}`}
-                    onClick={closeDialog}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      closeDialog();
+                    }}
                   >
                     Cancel
                   </button>
                   <button
+                    type="button"
                     className={`${styles.nativeBtn} ${styles.dialogBtn}`}
-                    onClick={closeDialog}
+                    onClick={(e) => {
+                      handleReturnFromSimulation(e);
+                    }}
                   >
-                    Exit
+                    Exit / Restore
                   </button>
                 </>
               ) : (
-                <button
-                  className={`${styles.nativeBtn} ${styles.dialogBtn}`}
-                  onClick={closeDialog}
-                >
-                  OK
-                </button>
+                <>
+                  <button
+                    type="button"
+                    className={`${styles.nativeBtn} ${styles.dialogBtn}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      closeDialog();
+                    }}
+                  >
+                    Acknowledge
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.nativeBtn} ${styles.dialogBtn}`}
+                    onClick={(e) => {
+                      handleReturnFromSimulation(e);
+                    }}
+                  >
+                    Exit / Restore
+                  </button>
+                </>
               )}
             </div>
           </div>
         </div>
       )}
 
+      {/* Decryption Key Prompt */}
       {keyPromptOpen && (
         <div className={styles.dialogOverlay}>
-          <div className={styles.nativeDialog} style={{ width: "460px" }}>
+          <div className={styles.nativeDialog} style={{ width: 460 }}>
             <div className={styles.dialogTitlebar}>
               <span>Decryptor Engine - Enter Private Key</span>
               <button
                 className={`${styles.winBtn} ${styles.winBtnClose}`}
-                style={{ width: "28px", height: "100%", fontSize: "11px" }}
+                style={{ width: 28, height: "100%", fontSize: 11 }}
                 onClick={closeKeyPrompt}
               >
                 ✕
@@ -783,32 +800,27 @@ export default function Pwn() {
             </div>
             <div
               className={styles.dialogBody}
-              style={{ flexDirection: "column", gap: "10px" }}
+              style={{ flexDirection: "column", gap: 10 }}
             >
               <p>
-                If you have obtained your private decryption key from the
-                server, please enter it below:
+                If you have obtained your private decryption key from the server,
+                please enter it below:
               </p>
               <input
                 type="text"
                 value={secretKeyInput}
                 onChange={(e) => setSecretKeyInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") submitSecretKey();
-                }}
-                autoFocus
                 style={{
                   width: "100%",
-                  height: "28px",
+                  height: 28,
                   border: "1px solid #7f7f7f",
                   padding: "0 8px",
                   fontFamily: "monospace",
-                  fontSize: "13px",
-                  outline: "none",
+                  fontSize: 13,
                 }}
                 placeholder="WCRY-XXXX-XXXX-XXXX"
               />
-              <div style={{ fontSize: "11px", color: "#666" }}>
+              <div style={{ fontSize: 11, color: "#666" }}>
                 * Test Key for Cyber Range / PwnSim:{" "}
                 <strong>PWN-DECRYPT-2026</strong>
               </div>
@@ -828,6 +840,69 @@ export default function Pwn() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Recovery Screen */}
+      {isRecovering && (
+        <div className={styles.recoveryWindow}>
+          <h1 style={{ fontSize: 28, marginBottom: 16 }}>
+            [✓] PRIVATE RSA-2048 KEY ACCEPTED
+          </h1>
+          <p
+            style={{
+              fontSize: 14,
+              maxWidth: 600,
+              marginBottom: 20,
+            }}
+          >
+            WanaDecryptor is restoring encrypted files on all local drives (C:,
+            D:)...
+          </p>
+          <div
+            style={{
+              width: 400,
+              maxWidth: "90%",
+              height: 16,
+              background: "#004400",
+              border: "1px solid #33ff33",
+              borderRadius: 2,
+              overflow: "hidden",
+              marginBottom: 14,
+            }}
+          >
+            <div
+              style={{
+                width: `${recoveryPct}%`,
+                height: "100%",
+                background: "#33ff33",
+                transition: "width 0.1s linear",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              fontSize: 11,
+              height: 80,
+              overflow: "hidden",
+              color: "#aaffaa",
+              textAlign: "left",
+              width: 400,
+              maxWidth: "90%",
+            }}
+          >
+            {recoveryLog}
+          </div>
+          {recoveryDone && (
+            <button
+              type="button"
+              className={styles.nativeBtn}
+              style={{ marginTop: 20, padding: "6px 20px", fontSize: 13 }}
+              onClick={(e) => handleReturnFromSimulation(e)}
+            >
+              {onExit ? "Unfreeze Screen & Return" : "Return to Simulation"}
+            </button>
+          )}
         </div>
       )}
     </div>
