@@ -105,7 +105,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
       displayUrl: "https://www.moddb.com › games › grand-theft-auto-vi › mods",
       siteName: "Mod DB",
       snippet:
-        "Browse and download Grand Theft Auto VI mods, addons, total conversions, textures, and trainer plugins created by the ModDB community. Full game package size: 856.67 GB.",
+        "Browse and download Grand Theft Auto VI mods, addons, total conversions, textures, and trainer plugins created by the ModDB community. Full game package size: 856.67 MB.",
       iconType: "moddb",
     },
     {
@@ -125,7 +125,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
       displayUrl: "https://www.pcgamer.com › hardware › best-gta-6-mods",
       siteName: "PC Gamer",
       snippet:
-        "Everything you need to know about Grand Theft Auto 6 PC modding: essential script hooks, 4K raytracing texture packs (856.67 GB total asset suite), and performance guides.",
+        "Everything you need to know about Grand Theft Auto 6 PC modding: essential script hooks, 4K raytracing texture packs (856.67 MB total asset suite), and performance guides.",
       iconType: "pcgamer",
     },
     {
@@ -145,7 +145,7 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
       displayUrl: "https://github.com › OpenVI › ScriptHookVI-Core",
       siteName: "GitHub",
       snippet:
-        "Open-source native script extender, ASI loader plugin, and memory hook framework for Grand Theft Auto VI on PC. Full support for next-gen 856.67 GB game assets.",
+        "Open-source native script extender, ASI loader plugin, and memory hook framework for Grand Theft Auto VI on PC. Full support for next-gen 856.67 MB game assets.",
       iconType: "github",
     },
   ];

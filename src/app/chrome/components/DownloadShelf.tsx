@@ -115,7 +115,7 @@ export const DownloadShelf: React.FC<DownloadShelfProps> = ({
                     {!isCompleted ? (
                       <>
                         <span className="text-gray-300 font-medium">
-                          {item.downloadedText || "0 GB / 856.67 GB"}
+                          {item.downloadedText || "0 GB / 856.67 MB"}
                         </span>
                         <span>&bull;</span>
                         <span className="text-blue-400 font-semibold">

@@ -289,7 +289,7 @@ export default function ChromePage() {
       status: "downloading",
       url: activeTab?.url || "https://www.gta6-mods.com",
       timestamp: "Just now",
-      downloadedText: "0 GB / 856.67 GB",
+      downloadedText: "0 GB / 856.67 MB",
       speedText: "100.2 MB/s",
       timeLeftText: "7s left",
     };
@@ -310,7 +310,7 @@ export default function ChromePage() {
                   ...d,
                   progress: 100,
                   status: "completed",
-                  downloadedText: "856.67 GB",
+                  downloadedText: "856.67 MB",
                   speedText: "",
                   timeLeftText: "Done",
                 }
@@ -338,7 +338,7 @@ export default function ChromePage() {
               ? {
                   ...d,
                   progress,
-                  downloadedText: `${downloadedGb} GB / 856.67 GB`,
+                  downloadedText: `${downloadedGb} GB / 856.67 MB`,
                   speedText: `${speed} MB/s`,
                   timeLeftText: `${remainingSec}s left`,
                 }

@@ -30,7 +30,7 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
   const [hasLiked, setHasLiked] = useState(false);
   const [downloadCount, setDownloadCount] = useState(142580);
 
-  const handleDownload = (filename = "GTA6_Mod_Engine_v2.4.zip", size = "856.67 GB") => {
+  const handleDownload = (filename = "GTA6_Mod_Engine_v2.4.zip", size = "856.67 MB") => {
     setDownloadCount((prev) => prev + 1);
     onTriggerDownload(filename, size);
   };
@@ -285,11 +285,11 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                           </span>
                         </div>
                         <div className="text-xs text-gray-400 mt-1">
-                          Size: 856.67 GB &bull; Uploaded: September 11, 2026
+                          Size: 856.67 MB &bull; Uploaded: September 11, 2026
                         </div>
                       </div>
                       <button
-                        onClick={() => handleDownload("GTA6_Mod_Engine_v2.4.0.zip", "856.67 GB")}
+                        onClick={() => handleDownload("GTA6_Mod_Engine_v2.4.0.zip", "856.67 MB")}
                         className="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-4 py-2 rounded transition-colors flex items-center gap-1.5"
                       >
                         <IconDownload className="w-4 h-4" />
@@ -378,30 +378,30 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                   GTA6_Mod_Engine_v2.4.zip
                 </div>
                 <div className="text-xs text-gray-400 mt-0.5">
-                  Package Size: 856.67 GB &bull; SHA-256 Verified
+                  Package Size: 856.67 MB &bull; SHA-256 Verified
                 </div>
               </div>
 
               {/* Main Download Button */}
               <button
-                onClick={() => handleDownload("GTA6_Mod_Engine_v2.4.zip", "856.67 GB")}
+                onClick={() => handleDownload("GTA6_Mod_Engine_v2.4.zip", "856.67 MB")}
                 className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base py-3.5 px-4 rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <IconDownload className="w-5 h-5" />
-                <span>DOWNLOAD (856.67 GB)</span>
+                <span>DOWNLOAD (856.67 MB)</span>
               </button>
 
               {/* Alternative Mirrors */}
               <div className="grid grid-cols-2 gap-2">
                 <button
-                  onClick={() => handleDownload("GTA6_Mod_Engine_v2.4_Mirror1.zip", "856.67 GB")}
+                  onClick={() => handleDownload("GTA6_Mod_Engine_v2.4_Mirror1.zip", "856.67 MB")}
                   className="bg-[#202330] hover:bg-[#282d3d] border border-[#303546] text-xs text-gray-200 py-2 px-3 rounded font-medium flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <IconDownload className="w-3.5 h-3.5 text-blue-400" />
                   <span>Mirror 1</span>
                 </button>
                 <button
-                  onClick={() => handleDownload("GTA6_Mod_Engine_v2.4_Mirror2.zip", "856.67 GB")}
+                  onClick={() => handleDownload("GTA6_Mod_Engine_v2.4_Mirror2.zip", "856.67 MB")}
                   className="bg-[#202330] hover:bg-[#282d3d] border border-[#303546] text-xs text-gray-200 py-2 px-3 rounded font-medium flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <IconDownload className="w-3.5 h-3.5 text-blue-400" />
