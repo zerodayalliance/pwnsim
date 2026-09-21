@@ -42,7 +42,7 @@ export default function PwnDemo() {
         </div>
       </div>
 
-      {/* Malware Locker Window & Screen Blocker (No Red Background) */}
+      {/* Malware Locker Window & Screen Blocker with Red Page Background */}
       <Pwn />
     </main>
   );

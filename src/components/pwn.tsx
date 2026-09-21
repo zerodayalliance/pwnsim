@@ -341,9 +341,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
     }
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("pwn:exit"));
-      if (!onExit) {
-        window.location.href = "/chrome";
-      }
     }
   };
 
@@ -351,6 +348,17 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
 
   return (
     <div className={styles.root}>
+      {/* Red Page Threat Warning Background */}
+      <div className={styles.desktopBgText}>
+        <h1>ALL YOUR IMPORTANT FILES ARE ENCRYPTED</h1>
+        <p>
+          Your documents, photos, databases and other files have been encrypted
+          with military grade encryption. Do not turn off your computer or
+          attempt to use recovery tools. Look at the window on your screen to
+          recover your files.
+        </p>
+      </div>
+
       {/* Authentic Windows Security Threat Notification Toast */}
       {showToast && (
         <div className={styles.defenderToast}>
