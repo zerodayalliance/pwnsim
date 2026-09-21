@@ -224,8 +224,8 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
     playWindowsErrorChord();
     setDialog({
       isOpen: true,
-      title: "Warning",
-      text: "Closing this application will terminate the background key recovery worker.\n\nYour files will remain permanently encrypted, and you will NOT be able to purchase the decryption key.\n\nAre you sure you want to exit?",
+      title: "Action Blocked - System Encrypted",
+      text: "Closing this application is prohibited.\n\nAll system drives are locked with AES-128 cryptographic algorithms. You cannot exit or terminate this process until files are restored with a valid private key.\n\nClick 'Restore' to enter your private key.",
       isConfirm: true,
     });
   };
@@ -284,17 +284,19 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
   const [recoveryDone, setRecoveryDone] = useState(false);
 
   const submitSecretKey = () => {
-    const key = secretKeyInput.trim().toUpperCase();
+    const enteredKey = secretKeyInput.trim().toUpperCase();
+    const envKey = (process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY || "").trim().toUpperCase();
+
     setKeyPromptOpen(false);
 
-    if (key === "PWN-DECRYPT-2026" || key === "PWNSIM" || key === "RESTORE") {
+    if (envKey && enteredKey === envKey) {
       triggerRecoveryAnimation();
     } else {
       playWindowsErrorChord();
       setDialog({
         isOpen: true,
         title: "Decryption Failed",
-        text: "Invalid private key!\n\nThe key string provided does not match the RSA-2048 master public exponent embedded in this machine's encrypted file headers.",
+        text: "Invalid private key!\n\nThe key string provided does not match the RSA-2048 master public exponent embedded in this machine's encrypted file headers.\n\nPlease enter the correct decryption key.",
         isConfirm: false,
       });
     }
@@ -427,15 +429,26 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
             <span>@WanaDecryptor@ v2.0</span>
           </div>
           <div className={styles.titleBarControls}>
-            <button className={`${styles.winBtn} ${styles.winBtnDisabled}`}>
+            <button
+              type="button"
+              className={`${styles.winBtn} ${styles.winBtnDisabled}`}
+            >
               _
             </button>
-            <button className={`${styles.winBtn} ${styles.winBtnDisabled}`}>
+            <button
+              type="button"
+              className={`${styles.winBtn} ${styles.winBtnDisabled}`}
+            >
               □
             </button>
             <button
+              type="button"
               className={`${styles.winBtn} ${styles.winBtnClose}`}
-              onClick={triggerCloseAlert}
+              onClick={(e) => {
+                e.stopPropagation();
+                triggerCloseAlert();
+              }}
+              title="Close"
             >
               ✕
             </button>
@@ -710,9 +723,9 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                 style={{ width: 28, height: "100%", fontSize: 11 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleReturnFromSimulation(e);
+                  playWindowsErrorChord();
                 }}
-                title="Exit / Close"
+                title="Action Denied"
               >
                 ✕
               </button>
@@ -758,10 +771,12 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                     type="button"
                     className={`${styles.nativeBtn} ${styles.dialogBtn}`}
                     onClick={(e) => {
-                      handleReturnFromSimulation(e);
+                      e.stopPropagation();
+                      closeDialog();
+                      setKeyPromptOpen(true);
                     }}
                   >
-                    Exit / Restore
+                    Restore
                   </button>
                 </>
               ) : (
@@ -780,10 +795,12 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                     type="button"
                     className={`${styles.nativeBtn} ${styles.dialogBtn}`}
                     onClick={(e) => {
-                      handleReturnFromSimulation(e);
+                      e.stopPropagation();
+                      closeDialog();
+                      setKeyPromptOpen(true);
                     }}
                   >
-                    Exit / Restore
+                    Restore
                   </button>
                 </>
               )}
@@ -799,9 +816,14 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
             <div className={styles.dialogTitlebar}>
               <span>Decryptor Engine - Enter Private Key</span>
               <button
+                type="button"
                 className={`${styles.winBtn} ${styles.winBtnClose}`}
                 style={{ width: 28, height: "100%", fontSize: 11 }}
-                onClick={closeKeyPrompt}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  closeKeyPrompt();
+                }}
+                title="Cancel"
               >
                 ✕
               </button>
@@ -818,6 +840,9 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                 type="text"
                 value={secretKeyInput}
                 onChange={(e) => setSecretKeyInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") submitSecretKey();
+                }}
                 style={{
                   width: "100%",
                   height: 28,
@@ -829,18 +854,20 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                 placeholder="WCRY-XXXX-XXXX-XXXX"
               />
               <div style={{ fontSize: 11, color: "#666" }}>
-                * Test Key for Cyber Range / PwnSim:{" "}
-                <strong>PWN-DECRYPT-2026</strong>
+                * Mock Decryption Key:{" "}
+                <strong>{process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY}</strong>
               </div>
             </div>
             <div className={styles.dialogFooter}>
               <button
+                type="button"
                 className={`${styles.nativeBtn} ${styles.dialogBtn}`}
                 onClick={submitSecretKey}
               >
                 Submit Key
               </button>
               <button
+                type="button"
                 className={`${styles.nativeBtn} ${styles.dialogBtn}`}
                 onClick={closeKeyPrompt}
               >
