@@ -6,7 +6,7 @@ import {
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request: Request) {
+export async function GET() {
   const encoder = new TextEncoder();
 
   let unsubscribe: (() => void) | null = null;

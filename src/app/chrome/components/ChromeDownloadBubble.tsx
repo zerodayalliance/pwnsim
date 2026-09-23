@@ -19,7 +19,6 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
   downloads,
   isOpen,
   onClose,
-  onDismiss,
   onOpenFile,
 }) => {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -44,10 +43,6 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
   }, [isOpen, onClose]);
 
   if (!isOpen || downloads.length === 0) return null;
-
-  // Show the most recent completed or active item
-  const latestItem = downloads[0];
-  const isCompleted = latestItem.status === "completed" || latestItem.progress >= 100;
 
   const handleDirectRun = (e: React.MouseEvent, filename: string) => {
     e.stopPropagation();

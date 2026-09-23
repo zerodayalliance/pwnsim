@@ -1,19 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import {
   IconDownload,
   IconStar,
-  IconClock,
-  IconEye,
   IconCheck,
   IconShare,
   IconThumbUp,
-  IconMessageCircle,
-  IconFolder,
   IconCpu,
-  IconFileText,
-  IconCode,
 } from "@tabler/icons-react";
 
 interface ModWebsiteProps {
@@ -182,9 +177,12 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
             <div className="bg-[#171922] border border-[#272b38] rounded-xl overflow-hidden shadow-lg">
               {/* Main Banner Image (The GTA 6 Poster) */}
               <div className="relative w-full max-h-[460px] overflow-hidden bg-black flex items-center justify-center">
-                <img
+                <Image
                   src="/gta6_poster.jpg"
                   alt="Grand Theft Auto VI Official Key Art"
+                  width={900}
+                  height={500}
+                  priority
                   className="w-full h-auto object-cover object-center max-h-[460px]"
                 />
                 <div className="absolute bottom-3 left-3 bg-black/75 backdrop-blur-md px-3 py-1 rounded text-xs font-medium text-white flex items-center gap-2">
@@ -194,11 +192,12 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
 
               {/* Thumbnails Row */}
               <div className="p-3 bg-[#13151c] border-t border-[#252836] flex items-center gap-2 overflow-x-auto">
-                <div className="w-20 h-12 rounded border-2 border-pink-500 overflow-hidden shrink-0 cursor-pointer">
-                  <img
+                <div className="w-20 h-12 rounded border-2 border-pink-500 overflow-hidden shrink-0 cursor-pointer relative">
+                  <Image
                     src="/gta6_poster.jpg"
                     alt="Poster thumbnail"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 <div className="w-20 h-12 rounded bg-[#202330] border border-[#2e3344] flex items-center justify-center text-[10px] text-gray-400 font-semibold shrink-0 cursor-pointer hover:bg-[#282c3d]">

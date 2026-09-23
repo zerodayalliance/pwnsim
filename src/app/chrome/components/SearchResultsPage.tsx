@@ -25,9 +25,11 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
   const [searchInput, setSearchInput] = useState(query);
   const [activeCategory, setActiveCategory] = useState("All");
 
-  React.useEffect(() => {
+  const [prevQuery, setPrevQuery] = useState(query);
+  if (query !== prevQuery) {
+    setPrevQuery(query);
     setSearchInput(query);
-  }, [query]);
+  }
 
   const results = [
     {

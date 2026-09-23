@@ -9,12 +9,7 @@ import { CodeEditor } from "./components/CodeEditor";
 import { StatusBar } from "./components/StatusBar";
 import { TerminalPanel } from "./components/TerminalPanel";
 import { INITIAL_FILES, FileNode, TabItem } from "./types";
-import {
-  IconSearch,
-  IconGitBranch,
-  IconPlayerPlay,
-  IconPuzzle,
-} from "@tabler/icons-react";
+
 import Pwn from "@/components/pwn";
 import { useNetworkPwn } from "@/hooks/useNetworkPwn";
 

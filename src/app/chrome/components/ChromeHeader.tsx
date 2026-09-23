@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { ChromeTab, DownloadItem } from "../types";
 
 interface ChromeHeaderProps {
@@ -40,17 +41,20 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
   onMaximize,
   onClose,
 }) => {
+  const router = useRouter();
   const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0];
   const [inputUrl, setInputUrl] = useState(activeTab?.url || "");
+  const [prevTabUrl, setPrevTabUrl] = useState(activeTab?.url || "");
   const [isFocused, setIsFocused] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (!isFocused && activeTab) {
-      setInputUrl(activeTab.url);
+  if (activeTab?.url !== prevTabUrl) {
+    setPrevTabUrl(activeTab?.url || "");
+    if (!isFocused) {
+      setInputUrl(activeTab?.url || "");
     }
-  }, [activeTab?.url, isFocused, activeTab]);
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -78,9 +82,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
   ).length;
 
   const handleMinimize = onMinimize || (() => {
-    if (typeof window !== "undefined") {
-      window.location.href = "/";
-    }
+    router.push("/");
   });
 
   const handleMaximize = onMaximize || (() => {
@@ -96,9 +98,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
   });
 
   const handleClose = onClose || (() => {
-    if (typeof window !== "undefined") {
-      window.location.href = "/";
-    }
+    router.push("/");
   });
 
   return (
@@ -332,7 +332,10 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             onChange={(e) => setInputUrl(e.target.value)}
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onBlur={() => {
+              setIsFocused(false);
+              setInputUrl(activeTab?.url || "");
+            }}
             placeholder="Search Google or type a URL"
             className="w-full bg-transparent text-xs sm:text-sm text-gray-100 placeholder-gray-500 focus:outline-none font-sans"
           />

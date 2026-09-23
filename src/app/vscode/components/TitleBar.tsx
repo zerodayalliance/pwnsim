@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface TitleBarProps {
   activeFileName?: string;
@@ -21,12 +22,11 @@ export function TitleBar({
   onMaximize,
   onClose,
 }: TitleBarProps) {
+  const router = useRouter();
   const [isMaximized, setIsMaximized] = useState(false);
 
   const handleMinimize = onMinimize || (() => {
-    if (typeof window !== 'undefined') {
-      window.location.href = '/';
-    }
+    router.push('/');
   });
 
   const handleMaximize = onMaximize || (() => {
@@ -42,9 +42,7 @@ export function TitleBar({
   });
 
   const handleClose = onClose || (() => {
-    if (typeof window !== 'undefined') {
-      window.location.href = '/';
-    }
+    router.push('/');
   });
 
   return (

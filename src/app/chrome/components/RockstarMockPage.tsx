@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { IconFlame, IconExternalLink, IconDeviceDesktop } from "@tabler/icons-react";
+import Image from "next/image";
 
 interface RockstarMockPageProps {
   onGoToSearch: () => void;
@@ -34,9 +34,12 @@ export const RockstarMockPage: React.FC<RockstarMockPageProps> = ({ onGoToSearch
       {/* Hero Section */}
       <div className="max-w-5xl mx-auto w-full px-6 py-12 flex flex-col items-center text-center">
         <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 mb-8 max-h-[420px]">
-          <img
+          <Image
             src="/gta6_poster.jpg"
             alt="Rockstar Games Official GTA VI Key Art"
+            width={1200}
+            height={600}
+            priority
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { highlightLine } from '../utils/highlighter';
 
 interface CodeEditorProps {
@@ -15,7 +15,6 @@ export function CodeEditor({
   onCursorChange,
 }: CodeEditorProps) {
   const [activeLine, setActiveLine] = useState<number>(1);
-  const [cursorCol, setCursorCol] = useState<number>(1);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const gutterRef = useRef<HTMLDivElement>(null);
@@ -25,7 +24,7 @@ export function CodeEditor({
   const ext = fileName.split('.').pop()?.toLowerCase() || 'tsx';
 
   // Synchronize cursor position and active line
-  const updateCursorPosition = () => {
+  const updateCursorPosition = useCallback(() => {
     if (!textareaRef.current) return;
     const selectionStart = textareaRef.current.selectionStart;
     const textBeforeCursor = content.substring(0, selectionStart);
@@ -34,9 +33,8 @@ export function CodeEditor({
     const currentCol = lineArr[lineArr.length - 1].length + 1;
 
     setActiveLine(currentLine);
-    setCursorCol(currentCol);
     onCursorChange?.(currentLine, currentCol);
-  };
+  }, [content, onCursorChange]);
 
   // Synchronize scrolling between textarea and highlights
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -68,7 +66,7 @@ export function CodeEditor({
 
   useEffect(() => {
     updateCursorPosition();
-  }, [content]);
+  }, [updateCursorPosition]);
 
   return (
     <div className="relative flex flex-1 h-full bg-[#1e1e1e] overflow-hidden select-text font-mono">

@@ -6,7 +6,6 @@ import {
   IconX,
   IconCheck,
   IconFolder,
-  IconFileZip,
 } from "@tabler/icons-react";
 import { DownloadItem } from "../types";
 

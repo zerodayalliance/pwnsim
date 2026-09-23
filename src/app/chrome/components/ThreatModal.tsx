@@ -3,9 +3,7 @@
 import React, { useState } from "react";
 import {
   IconShieldExclamation,
-  IconAlertTriangle,
   IconX,
-  IconVirus,
   IconCheck,
   IconTerminal2,
   IconLock,
