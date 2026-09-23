@@ -49,7 +49,7 @@ export function ActivityBar({
   ];
 
   return (
-    <nav className="w-[48px] bg-[#181818] border-r border-[#2b2b2b] flex flex-col justify-between items-center py-2 select-none shrink-0 z-10">
+    <nav className="w-12 bg-[#181818] border-r border-[#2b2b2b] flex flex-col justify-between items-center py-2 select-none shrink-0 z-10">
       <div className="flex flex-col items-center gap-1 w-full">
         {topItems.map((item) => {
           const Icon = item.icon;
@@ -59,18 +59,18 @@ export function ActivityBar({
               key={item.id}
               onClick={() => onSelectTab(item.id)}
               title={item.label}
-              className={`relative w-full h-[46px] flex items-center justify-center transition-colors group cursor-pointer ${
+              className={`relative w-full h-11.5 flex items-center justify-center transition-colors group cursor-pointer ${
                 isActive
                   ? "text-[#ffffff]"
                   : "text-[#858585] hover:text-[#ffffff]"
               }`}
             >
               {isActive && (
-                <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#ffffff]" />
+                <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#ffffff]" />
               )}
-              <Icon className="w-[22px] h-[22px] stroke-[1.6]" />
+              <Icon className="w-5.5 h-5.5 stroke-[1.6]" />
               {item.badge && (
-                <span className="absolute top-2 right-2 bg-[#007acc] text-white text-[10px] font-bold px-1 rounded-full leading-tight min-w-[15px] h-[15px] flex items-center justify-center">
+                <span className="absolute top-2 right-2 bg-[#007acc] text-white text-[10px] font-bold px-1 rounded-full leading-tight min-w-3.75 h-3.75 flex items-center justify-center">
                   {item.badge}
                 </span>
               )}
@@ -82,15 +82,15 @@ export function ActivityBar({
       <div className="flex flex-col items-center gap-1 w-full">
         <button
           title="Accounts"
-          className="w-full h-[44px] flex items-center justify-center text-[#858585] hover:text-[#ffffff] transition-colors cursor-pointer"
+          className="w-full h-11 flex items-center justify-center text-[#858585] hover:text-[#ffffff] transition-colors cursor-pointer"
         >
-          <IconUserCircle className="w-[22px] h-[22px] stroke-[1.6]" />
+          <IconUserCircle className="w-5.5 h-5.5 stroke-[1.6]" />
         </button>
         <button
           title="Settings"
-          className="w-full h-[44px] flex items-center justify-center text-[#858585] hover:text-[#ffffff] transition-colors cursor-pointer"
+          className="w-full h-11 flex items-center justify-center text-[#858585] hover:text-[#ffffff] transition-colors cursor-pointer"
         >
-          <IconSettings className="w-[22px] h-[22px] stroke-[1.6]" />
+          <IconSettings className="w-5.5 h-5.5 stroke-[1.6]" />
         </button>
       </div>
     </nav>

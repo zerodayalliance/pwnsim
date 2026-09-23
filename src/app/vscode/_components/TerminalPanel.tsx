@@ -82,8 +82,8 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
   };
 
   return (
-    <div className="h-[200px] bg-[#181818] border-t border-[#2b2b2b] flex flex-col font-sans shrink-0 select-text">
-      <div className="h-[32px] bg-[#181818] border-b border-[#252526] flex items-center justify-between px-3 select-none text-[12px]">
+    <div className="h-50 bg-[#181818] border-t border-[#2b2b2b] flex flex-col font-sans shrink-0 select-text">
+      <div className="h-8 bg-[#181818] border-b border-[#252526] flex items-center justify-between px-3 select-none text-[12px]">
         <div className="flex items-center gap-4 text-[#969696] font-medium uppercase tracking-wider text-[11px]">
           <button
             onClick={() => setActiveTab("problems")}

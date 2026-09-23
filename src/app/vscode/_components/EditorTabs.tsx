@@ -36,7 +36,7 @@ export function EditorTabs({
 
   return (
     <div className="flex flex-col bg-[#181818] border-b border-[#2b2b2b] shrink-0 select-none">
-      <div className="flex items-center justify-between h-[35px] bg-[#181818] overflow-x-auto no-scrollbar">
+      <div className="flex items-center justify-between h-8.75 bg-[#181818] overflow-x-auto no-scrollbar">
         <div className="flex items-center h-full">
           {tabs.map((tab) => {
             const isActive = tab.fileId === activeFileId;
@@ -52,7 +52,7 @@ export function EditorTabs({
               >
                 <FileIcon name={tab.name} className="w-4 h-4 shrink-0" />
 
-                <span className="truncate max-w-[140px]">{tab.name}</span>
+                <span className="truncate max-w-35">{tab.name}</span>
 
                 <div className="w-5 h-5 flex items-center justify-center ml-1">
                   {tab.isDirty ? (
@@ -90,7 +90,7 @@ export function EditorTabs({
       </div>
 
       {activeFile && (
-        <div className="h-[22px] bg-[#1e1e1e] border-t border-[#222222] px-4 flex items-center gap-1 text-[11px] text-[#969696] overflow-x-auto no-scrollbar font-sans">
+        <div className="h-5.5 bg-[#1e1e1e] border-t border-[#222222] px-4 flex items-center gap-1 text-[11px] text-[#969696] overflow-x-auto no-scrollbar font-sans">
           {breadcrumbs.map((crumb, idx) => {
             const isLast = idx === breadcrumbs.length - 1;
             return (

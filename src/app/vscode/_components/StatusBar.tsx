@@ -104,7 +104,7 @@ export function StatusBar({
   };
 
   return (
-    <footer className="h-[22px] bg-[#007acc] text-white flex items-center justify-between px-2 text-[12px] select-none font-sans shrink-0 z-20">
+    <footer className="h-5.5 bg-[#007acc] text-white flex items-center justify-between px-2 text-[12px] select-none font-sans shrink-0 z-20">
       <div className="flex items-center h-full gap-2">
         <div className="h-full bg-[#16825d] px-2 flex items-center gap-1 cursor-pointer font-medium hover:brightness-110">
           <span className="text-[11px]">&gt;&lt;</span>
