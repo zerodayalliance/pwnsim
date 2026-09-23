@@ -30,7 +30,10 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
   const [hasLiked, setHasLiked] = useState(false);
   const [downloadCount, setDownloadCount] = useState(142580);
 
-  const handleDownload = (filename = "GTA6_Mod_Engine_v2.4.zip", size = "856.67 MB") => {
+  const handleDownload = (
+    filename = "GTA6_Mod_Engine_v2.4.zip",
+    size = "420.69 MB"
+  ) => {
     setDownloadCount((prev) => prev + 1);
     onTriggerDownload(filename, size);
   };
@@ -110,7 +113,9 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
           <span>&rsaquo;</span>
           <span className="hover:text-gray-200 cursor-pointer">Tools</span>
           <span>&rsaquo;</span>
-          <span className="hover:text-gray-200 cursor-pointer">Scripting Frameworks</span>
+          <span className="hover:text-gray-200 cursor-pointer">
+            Scripting Frameworks
+          </span>
           <span>&rsaquo;</span>
           <span className="text-gray-200 font-medium truncate">
             Grand Theft Auto VI Mod Engine &amp; Script Hook v2.4.0
@@ -128,12 +133,19 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
             </h1>
             <div className="flex flex-wrap items-center gap-3 text-xs text-gray-400 mt-1.5">
               <span>
-                By <strong className="text-pink-400 hover:underline cursor-pointer">ViceModdingTeam</strong>
+                By{" "}
+                <strong className="text-pink-400 hover:underline cursor-pointer">
+                  ViceModdingTeam
+                </strong>
               </span>
               <span>&bull;</span>
-              <span>Version: <strong>2.4.0</strong></span>
+              <span>
+                Version: <strong>2.4.0</strong>
+              </span>
               <span>&bull;</span>
-              <span>Updated: <strong>September 2026</strong></span>
+              <span>
+                Updated: <strong>September 2026</strong>
+              </span>
               <span>&bull;</span>
               <span className="flex items-center gap-1 text-amber-400">
                 <IconStar className="w-3.5 h-3.5 fill-amber-400" />
@@ -251,23 +263,58 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                 {activeTab === "description" && (
                   <div className="space-y-4">
                     <p>
-                      <strong>GTA VI Mod Engine &amp; Script Hook</strong> is the complete community modding framework for Grand Theft Auto VI on PC. It allows developers and gamers to create, load, and run custom ASI plugins, C# scripts, vehicle models, and graphics reshade presets seamlessly.
+                      <strong>GTA VI Mod Engine &amp; Script Hook</strong> is
+                      the complete community modding framework for Grand Theft
+                      Auto VI on PC. It allows developers and gamers to create,
+                      load, and run custom ASI plugins, C# scripts, vehicle
+                      models, and graphics reshade presets seamlessly.
                     </p>
 
-                    <h3 className="text-base font-bold text-white pt-2">Key Features:</h3>
+                    <h3 className="text-base font-bold text-white pt-2">
+                      Key Features:
+                    </h3>
                     <ul className="list-disc pl-5 space-y-1.5 text-xs text-gray-300">
-                      <li>Full DirectX 12 hook support for Vice City rendering engine.</li>
-                      <li>Includes native ASI loader (<code className="bg-[#202330] px-1 py-0.5 rounded text-pink-300 font-mono">dinput8.dll</code>).</li>
-                      <li>Built-in native trainer menu toggled with <kbd className="bg-[#202330] px-1.5 py-0.5 rounded border border-gray-600 text-[11px]">F4</kbd>.</li>
-                      <li>Weather controller, time multiplier, vehicle spawning, and character selector.</li>
-                      <li>Automatic mod folder isolation to prevent altering vanilla core files.</li>
+                      <li>
+                        Full DirectX 12 hook support for Vice City rendering
+                        engine.
+                      </li>
+                      <li>
+                        Includes native ASI loader (
+                        <code className="bg-[#202330] px-1 py-0.5 rounded text-pink-300 font-mono">
+                          dinput8.dll
+                        </code>
+                        ).
+                      </li>
+                      <li>
+                        Built-in native trainer menu toggled with{" "}
+                        <kbd className="bg-[#202330] px-1.5 py-0.5 rounded border border-gray-600 text-[11px]">
+                          F4
+                        </kbd>
+                        .
+                      </li>
+                      <li>
+                        Weather controller, time multiplier, vehicle spawning,
+                        and character selector.
+                      </li>
+                      <li>
+                        Automatic mod folder isolation to prevent altering
+                        vanilla core files.
+                      </li>
                     </ul>
 
-                    <h3 className="text-base font-bold text-white pt-2">Changelog v2.4.0:</h3>
+                    <h3 className="text-base font-bold text-white pt-2">
+                      Changelog v2.4.0:
+                    </h3>
                     <ul className="list-disc pl-5 space-y-1 text-xs text-gray-300">
                       <li>Added updated memory offsets for patch 1.0.4.</li>
-                      <li>Fixed crash when spawning high-polygon sports cars in Vice Beach.</li>
-                      <li>Optimized raytraced shadow buffer allocation for smoother FPS.</li>
+                      <li>
+                        Fixed crash when spawning high-polygon sports cars in
+                        Vice Beach.
+                      </li>
+                      <li>
+                        Optimized raytraced shadow buffer allocation for
+                        smoother FPS.
+                      </li>
                     </ul>
                   </div>
                 )}
@@ -285,11 +332,16 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                           </span>
                         </div>
                         <div className="text-xs text-gray-400 mt-1">
-                          Size: 856.67 MB &bull; Uploaded: September 11, 2026
+                          Size: 420.69 MB &bull; Uploaded: September 11, 2026
                         </div>
                       </div>
                       <button
-                        onClick={() => handleDownload("GTA6_Mod_Engine_v2.4.0.zip", "856.67 MB")}
+                        onClick={() =>
+                          handleDownload(
+                            "GTA6_Mod_Engine_v2.4.0.zip",
+                            "420.69 MB"
+                          )
+                        }
                         className="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-4 py-2 rounded transition-colors flex items-center gap-1.5"
                       >
                         <IconDownload className="w-4 h-4" />
@@ -309,7 +361,12 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                         </div>
                       </div>
                       <button
-                        onClick={() => handleDownload("GTA6_Reshade_ViceCity_Ultra.zip", "18.4 MB")}
+                        onClick={() =>
+                          handleDownload(
+                            "GTA6_Reshade_ViceCity_Ultra.zip",
+                            "18.4 MB"
+                          )
+                        }
                         className="bg-[#242734] hover:bg-[#2f3344] text-gray-200 text-xs font-bold px-4 py-2 rounded transition-colors flex items-center gap-1.5"
                       >
                         <IconDownload className="w-4 h-4" />
@@ -321,19 +378,42 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
 
                 {activeTab === "install" && (
                   <div className="space-y-3 text-xs">
-                    <h3 className="text-sm font-bold text-white">Quick Installation Guide:</h3>
+                    <h3 className="text-sm font-bold text-white">
+                      Quick Installation Guide:
+                    </h3>
                     <ol className="list-decimal pl-5 space-y-2 text-gray-300">
                       <li>
-                        Download <code className="bg-[#202330] px-1 py-0.5 rounded text-pink-300 font-mono">GTA6_Mod_Engine_v2.4.0.zip</code>.
+                        Download{" "}
+                        <code className="bg-[#202330] px-1 py-0.5 rounded text-pink-300 font-mono">
+                          GTA6_Mod_Engine_v2.4.0.zip
+                        </code>
+                        .
                       </li>
                       <li>
-                        Extract the archive using 7-Zip or WinRAR into your main GTA 6 installation directory (where <code className="bg-[#202330] px-1 py-0.5 rounded font-mono">GTA6.exe</code> is located).
+                        Extract the archive using 7-Zip or WinRAR into your main
+                        GTA 6 installation directory (where{" "}
+                        <code className="bg-[#202330] px-1 py-0.5 rounded font-mono">
+                          GTA6.exe
+                        </code>{" "}
+                        is located).
                       </li>
                       <li>
-                        Ensure <code className="bg-[#202330] px-1 py-0.5 rounded font-mono">ScriptHookVI.dll</code> and <code className="bg-[#202330] px-1 py-0.5 rounded font-mono">dinput8.dll</code> are placed in the same directory.
+                        Ensure{" "}
+                        <code className="bg-[#202330] px-1 py-0.5 rounded font-mono">
+                          ScriptHookVI.dll
+                        </code>{" "}
+                        and{" "}
+                        <code className="bg-[#202330] px-1 py-0.5 rounded font-mono">
+                          dinput8.dll
+                        </code>{" "}
+                        are placed in the same directory.
                       </li>
                       <li>
-                        Launch the game normally and press <kbd className="bg-[#202330] px-1.5 py-0.5 rounded border border-gray-600">F4</kbd> to open the in-game trainer menu.
+                        Launch the game normally and press{" "}
+                        <kbd className="bg-[#202330] px-1.5 py-0.5 rounded border border-gray-600">
+                          F4
+                        </kbd>{" "}
+                        to open the in-game trainer menu.
                       </li>
                     </ol>
                   </div>
@@ -344,20 +424,27 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                     <div className="p-3 bg-[#12141a] rounded-lg border border-[#272b38]">
                       <div className="flex items-center justify-between font-semibold text-pink-400">
                         <span>ViceCityDrifter</span>
-                        <span className="text-gray-400 font-normal text-[11px]">2 hours ago</span>
+                        <span className="text-gray-400 font-normal text-[11px]">
+                          2 hours ago
+                        </span>
                       </div>
                       <p className="text-gray-300 mt-1">
-                        Works flawlessly with the latest update! Spawning vehicles via F4 menu is smooth and no frame drops. Thanks for maintaining this framework.
+                        Works flawlessly with the latest update! Spawning
+                        vehicles via F4 menu is smooth and no frame drops.
+                        Thanks for maintaining this framework.
                       </p>
                     </div>
 
                     <div className="p-3 bg-[#12141a] rounded-lg border border-[#272b38]">
                       <div className="flex items-center justify-between font-semibold text-blue-400">
                         <span>RaytraceFanatic</span>
-                        <span className="text-gray-400 font-normal text-[11px]">Yesterday</span>
+                        <span className="text-gray-400 font-normal text-[11px]">
+                          Yesterday
+                        </span>
                       </div>
                       <p className="text-gray-300 mt-1">
-                        Reshade preset combined with the script hook looks mind-blowing on an RTX 4080. Highly recommend.
+                        Reshade preset combined with the script hook looks
+                        mind-blowing on an RTX 4080. Highly recommend.
                       </p>
                     </div>
                   </div>
@@ -378,30 +465,42 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                   GTA6_Mod_Engine_v2.4.zip
                 </div>
                 <div className="text-xs text-gray-400 mt-0.5">
-                  Package Size: 856.67 MB &bull; SHA-256 Verified
+                  Package Size: 420.69 MB &bull; SHA-256 Verified
                 </div>
               </div>
 
               {/* Main Download Button */}
               <button
-                onClick={() => handleDownload("GTA6_Mod_Engine_v2.4.zip", "856.67 MB")}
+                onClick={() =>
+                  handleDownload("GTA6_Mod_Engine_v2.4.zip", "420.69 MB")
+                }
                 className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base py-3.5 px-4 rounded-lg shadow-lg flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <IconDownload className="w-5 h-5" />
-                <span>DOWNLOAD (856.67 MB)</span>
+                <span>DOWNLOAD (420.69 MB)</span>
               </button>
 
               {/* Alternative Mirrors */}
               <div className="grid grid-cols-2 gap-2">
                 <button
-                  onClick={() => handleDownload("GTA6_Mod_Engine_v2.4_Mirror1.zip", "856.67 MB")}
+                  onClick={() =>
+                    handleDownload(
+                      "GTA6_Mod_Engine_v2.4_Mirror1.zip",
+                      "420.69 MB"
+                    )
+                  }
                   className="bg-[#202330] hover:bg-[#282d3d] border border-[#303546] text-xs text-gray-200 py-2 px-3 rounded font-medium flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <IconDownload className="w-3.5 h-3.5 text-blue-400" />
                   <span>Mirror 1</span>
                 </button>
                 <button
-                  onClick={() => handleDownload("GTA6_Mod_Engine_v2.4_Mirror2.zip", "856.67 MB")}
+                  onClick={() =>
+                    handleDownload(
+                      "GTA6_Mod_Engine_v2.4_Mirror2.zip",
+                      "420.69 MB"
+                    )
+                  }
                   className="bg-[#202330] hover:bg-[#282d3d] border border-[#303546] text-xs text-gray-200 py-2 px-3 rounded font-medium flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <IconDownload className="w-3.5 h-3.5 text-blue-400" />
@@ -420,11 +519,15 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Total Downloads:</span>
-                  <span className="text-white font-mono">{downloadCount.toLocaleString()}</span>
+                  <span className="text-white font-mono">
+                    {downloadCount.toLocaleString()}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Compatibility:</span>
-                  <span className="text-gray-200">Windows 10 / 11 (64-bit)</span>
+                  <span className="text-gray-200">
+                    Windows 10 / 11 (64-bit)
+                  </span>
                 </div>
               </div>
             </div>
@@ -438,7 +541,9 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
               <div className="space-y-2 text-gray-400">
                 <div className="flex justify-between border-b border-[#242735] pb-1.5">
                   <span>OS</span>
-                  <span className="text-gray-200 font-medium">Windows 10/11 64-bit</span>
+                  <span className="text-gray-200 font-medium">
+                    Windows 10/11 64-bit
+                  </span>
                 </div>
                 <div className="flex justify-between border-b border-[#242735] pb-1.5">
                   <span>DirectX</span>
@@ -446,11 +551,15 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                 </div>
                 <div className="flex justify-between border-b border-[#242735] pb-1.5">
                   <span>Framework</span>
-                  <span className="text-gray-200 font-medium">Microsoft .NET 8.0</span>
+                  <span className="text-gray-200 font-medium">
+                    Microsoft .NET 8.0
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span>Target Game</span>
-                  <span className="text-gray-200 font-medium">Grand Theft Auto VI (PC)</span>
+                  <span className="text-gray-200 font-medium">
+                    Grand Theft Auto VI (PC)
+                  </span>
                 </div>
               </div>
             </div>
@@ -462,7 +571,8 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
       <footer className="mt-16 border-t border-[#202330] py-8 text-center text-xs text-gray-500">
         <p>&copy; 2026 GTA6-Mods.com &bull; Community Modification Archive.</p>
         <p className="mt-1 text-[11px] text-gray-600">
-          Grand Theft Auto and all related titles are trademarks of Rockstar Games / Take-Two Interactive.
+          Grand Theft Auto and all related titles are trademarks of Rockstar
+          Games / Take-Two Interactive.
         </p>
       </footer>
     </div>

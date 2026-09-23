@@ -810,12 +810,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                 }}
                 placeholder="WCRY-XXXX-XXXX-XXXX"
               />
-              <div style={{ fontSize: 11, color: "#666" }}>
-                * Mock Decryption Key:{" "}
-                <strong>
-                  {process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY || "WCRY-2026-ZDA"}
-                </strong>
-              </div>
             </div>
             <div className={styles.dialogFooter}>
               <button

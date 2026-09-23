@@ -26,7 +26,9 @@ export default function ChromePage() {
   ]);
   const [activeTabId, setActiveTabId] = useState<string>("tab-1");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [renderedUrl, setRenderedUrl] = useState<string>("https://www.google.com");
+  const [renderedUrl, setRenderedUrl] = useState<string>(
+    "https://www.google.com"
+  );
 
   // Downloads State
   const [downloads, setDownloads] = useState<DownloadItem[]>([]);
@@ -166,7 +168,8 @@ export default function ChromePage() {
 
   // Forward button with realistic delay
   const handleForward = () => {
-    if (!activeTab || activeTab.historyIndex >= activeTab.history.length - 1) return;
+    if (!activeTab || activeTab.historyIndex >= activeTab.history.length - 1)
+      return;
     const newIndex = activeTab.historyIndex + 1;
     const targetUrl = activeTab.history[newIndex];
     const { title, isSecure } = getTabMetadata(targetUrl);
@@ -285,9 +288,9 @@ export default function ChromePage() {
       status: "downloading",
       url: activeTab?.url || "https://www.gta6-mods.com",
       timestamp: "Just now",
-      downloadedText: "0 GB / 856.67 MB",
+      downloadedText: "0 MB / 420.69 MB",
       speedText: "100.2 MB/s",
-      timeLeftText: "7s left",
+      timeLeftText: "4s left",
     };
 
     setDownloads((prev) => [newItem, ...prev]);
@@ -306,7 +309,7 @@ export default function ChromePage() {
                   ...d,
                   progress: 100,
                   status: "completed",
-                  downloadedText: "856.67 MB",
+                  downloadedText: "420.69 MB",
                   speedText: "",
                   timeLeftText: "Done",
                 }
@@ -320,7 +323,7 @@ export default function ChromePage() {
           99,
           Math.max(1, Math.round((elapsed / totalDuration) * 100))
         );
-        const downloadedGb = ((progress / 100) * 856.67).toFixed(1);
+        const downloadedMb = ((progress / 100) * 420.69).toFixed(1);
         const remainingSec = Math.max(
           1,
           Math.ceil((totalDuration - elapsed) / 1000)
@@ -334,7 +337,7 @@ export default function ChromePage() {
               ? {
                   ...d,
                   progress,
-                  downloadedText: `${downloadedGb} GB / 856.67 MB`,
+                  downloadedText: `${downloadedMb} MB / 420.69 MB`,
                   speedText: `${speed} MB/s`,
                   timeLeftText: `${remainingSec}s left`,
                 }
@@ -419,75 +422,100 @@ export default function ChromePage() {
             : ""
         }`}
       >
-      {/* Chrome Shell Header */}
-      <ChromeHeader
-        tabs={tabs}
-        activeTabId={activeTabId}
-        onSelectTab={handleSelectTab}
-        onCloseTab={handleCloseTab}
-        onNewTab={handleNewTab}
-        onNavigate={handleNavigate}
-        onBack={handleBack}
-        onForward={handleForward}
-        onReload={handleReload}
-        onHome={handleHome}
-        downloads={downloads}
-        onOpenDownloads={() => setIsDownloadBubbleOpen(!isDownloadBubbleOpen)}
-        isLoading={isLoading}
-      />
+        {/* Chrome Shell Header */}
+        <ChromeHeader
+          tabs={tabs}
+          activeTabId={activeTabId}
+          onSelectTab={handleSelectTab}
+          onCloseTab={handleCloseTab}
+          onNewTab={handleNewTab}
+          onNavigate={handleNavigate}
+          onBack={handleBack}
+          onForward={handleForward}
+          onReload={handleReload}
+          onHome={handleHome}
+          downloads={downloads}
+          onOpenDownloads={() => setIsDownloadBubbleOpen(!isDownloadBubbleOpen)}
+          isLoading={isLoading}
+        />
 
-      {/* Modern Top-Right Chrome Download Bubble / Tray */}
-      <ChromeDownloadBubble
-        downloads={downloads}
-        isOpen={isDownloadBubbleOpen}
-        onClose={() => setIsDownloadBubbleOpen(false)}
-        onDismiss={handleDismissDownload}
-        onOpenFile={handleOpenFile}
-      />
+        {/* Modern Top-Right Chrome Download Bubble / Tray */}
+        <ChromeDownloadBubble
+          downloads={downloads}
+          isOpen={isDownloadBubbleOpen}
+          onClose={() => setIsDownloadBubbleOpen(false)}
+          onDismiss={handleDismissDownload}
+          onOpenFile={handleOpenFile}
+        />
 
-      {/* Browser Viewport */}
-      <div className="flex-1 overflow-y-auto relative bg-[#202124]">
-        {renderWebContent()}
-      </div>
-    </div>
-
-    {/* Realistic Flashing CMD Execution Window on Zip Open */}
-    {isFreezing && (
-      <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/40 backdrop-blur-xs pointer-events-auto select-none">
-        <div className="w-[580px] max-w-[90vw] bg-black border border-[#555555] shadow-2xl rounded font-mono text-xs text-neutral-200 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
-          <div className="bg-[#1f1f1f] px-3 py-1.5 flex items-center justify-between border-b border-[#333333]">
-            <div className="flex items-center gap-2 text-[11px] text-neutral-300">
-              <div className="w-3 h-3 bg-black border border-white flex items-center justify-center text-[8px] font-bold">_</div>
-              <span>Administrator: C:\Windows\System32\cmd.exe</span>
-            </div>
-            <div className="text-[10px] text-neutral-500">PID 7412</div>
-          </div>
-          <div className="p-3.5 space-y-1.5 text-neutral-100 font-mono text-[11.5px] leading-relaxed">
-            <p className="text-neutral-400">Microsoft Windows [Version 10.0.22631.3007]</p>
-            <p className="text-neutral-400">(c) Microsoft Corporation. All rights reserved.</p>
-            <p className="pt-1 text-white">
-              C:\Users\Admin\Downloads&gt; <span className="text-emerald-400 font-bold">tar.exe -xf &quot;GTA6_Mod_Engine_v2.4.zip&quot;</span>
-            </p>
-            <p className="text-neutral-300">[+] Unpacking payload archive: update_engine_x64.exe ... OK</p>
-            <p className="text-neutral-300">[+] Spawning high-integrity execution thread at PID 8192 ...</p>
-            <p className="text-cyan-400 font-semibold">[+] Scanning LAN subnet 192.168.1.0/24 for MS17-010 EternalBlue...</p>
-            <p className="text-rose-400 font-bold">[!] Vulnerable target hosts discovered: 192.168.1.115 (Win11), 192.168.1.180 (VSCode)</p>
-            <p className="text-rose-300">[+] Infiltrating SMBv1 / Port 445 on all discovered LAN workstations...</p>
-            <p className="text-amber-400 animate-pulse font-semibold">[!] Hooking Display Driver &amp; Seizing Desktop Window Manager...</p>
-          </div>
+        {/* Browser Viewport */}
+        <div className="flex-1 overflow-y-auto relative bg-[#202124]">
+          {renderWebContent()}
         </div>
       </div>
-    )}
 
-    {/* The Prank Malware Screen Overlay (No Red Background - Blocks Backside) */}
-    {isPwnActive && (
-      <Pwn
-        isOverlay={true}
-        onExit={() => {
-          resetNetworkPwn();
-        }}
-      />
-    )}
+      {/* Realistic Flashing CMD Execution Window on Zip Open */}
+      {isFreezing && (
+        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/40 backdrop-blur-xs pointer-events-auto select-none">
+          <div className="w-[580px] max-w-[90vw] bg-black border border-[#555555] shadow-2xl rounded font-mono text-xs text-neutral-200 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
+            <div className="bg-[#1f1f1f] px-3 py-1.5 flex items-center justify-between border-b border-[#333333]">
+              <div className="flex items-center gap-2 text-[11px] text-neutral-300">
+                <div className="w-3 h-3 bg-black border border-white flex items-center justify-center text-[8px] font-bold">
+                  _
+                </div>
+                <span>Administrator: C:\Windows\System32\cmd.exe</span>
+              </div>
+              <div className="text-[10px] text-neutral-500">PID 7412</div>
+            </div>
+            <div className="p-3.5 space-y-1.5 text-neutral-100 font-mono text-[11.5px] leading-relaxed">
+              <p className="text-neutral-400">
+                Microsoft Windows [Version 10.0.22631.3007]
+              </p>
+              <p className="text-neutral-400">
+                (c) Microsoft Corporation. All rights reserved.
+              </p>
+              <p className="pt-1 text-white">
+                C:\Users\Admin\Downloads&gt;{" "}
+                <span className="text-emerald-400 font-bold">
+                  tar.exe -xf &quot;GTA6_Mod_Engine_v2.4.zip&quot;
+                </span>
+              </p>
+              <p className="text-neutral-300">
+                [+] Unpacking payload archive: update_engine_x64.exe ... OK
+              </p>
+              <p className="text-neutral-300">
+                [+] Spawning high-integrity execution thread at PID 8192 ...
+              </p>
+              <p className="text-cyan-400 font-semibold">
+                [+] Scanning LAN subnet 192.168.1.0/24 for MS17-010
+                EternalBlue...
+              </p>
+              <p className="text-rose-400 font-bold">
+                [!] Vulnerable target hosts discovered: 192.168.1.115 (Win11),
+                192.168.1.180 (VSCode)
+              </p>
+              <p className="text-rose-300">
+                [+] Infiltrating SMBv1 / Port 445 on all discovered LAN
+                workstations...
+              </p>
+              <p className="text-amber-400 animate-pulse font-semibold">
+                [!] Hooking Display Driver &amp; Seizing Desktop Window
+                Manager...
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* The Prank Malware Screen Overlay (No Red Background - Blocks Backside) */}
+      {isPwnActive && (
+        <Pwn
+          isOverlay={true}
+          onExit={() => {
+            resetNetworkPwn();
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -33,7 +33,8 @@ export const DownloadShelf: React.FC<DownloadShelfProps> = ({
         {/* Active and Completed Downloads List */}
         <div className="flex items-center gap-3 overflow-x-auto no-scrollbar flex-1 py-0.5">
           {downloads.map((item) => {
-            const isCompleted = item.status === "completed" || item.progress >= 100;
+            const isCompleted =
+              item.status === "completed" || item.progress >= 100;
             const progress = Math.min(100, Math.max(0, item.progress));
 
             return (
@@ -72,9 +73,7 @@ export const DownloadShelf: React.FC<DownloadShelfProps> = ({
                           stroke="#4f8eff"
                           strokeWidth="3"
                           strokeDasharray="87.96"
-                          strokeDashoffset={
-                            87.96 - (87.96 * progress) / 100
-                          }
+                          strokeDashoffset={87.96 - (87.96 * progress) / 100}
                           strokeLinecap="round"
                           fill="none"
                           className="transition-all duration-100 ease-linear"
@@ -115,7 +114,7 @@ export const DownloadShelf: React.FC<DownloadShelfProps> = ({
                     {!isCompleted ? (
                       <>
                         <span className="text-gray-300 font-medium">
-                          {item.downloadedText || "0 GB / 856.67 MB"}
+                          {item.downloadedText || "0 MB / 420.69 MB"}
                         </span>
                         <span>&bull;</span>
                         <span className="text-blue-400 font-semibold">

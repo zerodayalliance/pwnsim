@@ -80,7 +80,8 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
     },
     {
       id: "res-4",
-      title: "r/GTA6 - Comprehensive Guide to GTA 6 PC Modding & Community Tools",
+      title:
+        "r/GTA6 - Comprehensive Guide to GTA 6 PC Modding & Community Tools",
       url: "https://www.reddit.com/r/GTA6/comments/modding_tools",
       displayUrl: "https://www.reddit.com › r/GTA6 › comments › modding_guide",
       siteName: "Reddit",
@@ -105,12 +106,13 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
       displayUrl: "https://www.moddb.com › games › grand-theft-auto-vi › mods",
       siteName: "Mod DB",
       snippet:
-        "Browse and download Grand Theft Auto VI mods, addons, total conversions, textures, and trainer plugins created by the ModDB community. Full game package size: 856.67 MB.",
+        "Browse and download Grand Theft Auto VI mods, addons, total conversions, textures, and trainer plugins created by the ModDB community. Full game package size: 420.69 MB.",
       iconType: "moddb",
     },
     {
       id: "res-7",
-      title: "Steam Community :: Grand Theft Auto VI PC Community Hub & Workshop",
+      title:
+        "Steam Community :: Grand Theft Auto VI PC Community Hub & Workshop",
       url: "https://steamcommunity.com/app/271590/discussions/gta6",
       displayUrl: "https://steamcommunity.com › app › gta6 › workshop",
       siteName: "Steam Community",
@@ -120,12 +122,13 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
     },
     {
       id: "res-8",
-      title: "PC Gamer - Best GTA 6 PC Mods, Graphics Overhauls, and Setup Guide",
+      title:
+        "PC Gamer - Best GTA 6 PC Mods, Graphics Overhauls, and Setup Guide",
       url: "https://www.pcgamer.com/best-gta-6-mods-pc-guide",
       displayUrl: "https://www.pcgamer.com › hardware › best-gta-6-mods",
       siteName: "PC Gamer",
       snippet:
-        "Everything you need to know about Grand Theft Auto 6 PC modding: essential script hooks, 4K raytracing texture packs (856.67 MB total asset suite), and performance guides.",
+        "Everything you need to know about Grand Theft Auto 6 PC modding: essential script hooks, 4K raytracing texture packs (420.69 MB total asset suite), and performance guides.",
       iconType: "pcgamer",
     },
     {
@@ -140,12 +143,13 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
     },
     {
       id: "res-10",
-      title: "GitHub - OpenVI / ScriptHookVI: C++ Native Script Extender for GTA VI",
+      title:
+        "GitHub - OpenVI / ScriptHookVI: C++ Native Script Extender for GTA VI",
       url: "https://github.com/OpenVI/ScriptHookVI-Core",
       displayUrl: "https://github.com › OpenVI › ScriptHookVI-Core",
       siteName: "GitHub",
       snippet:
-        "Open-source native script extender, ASI loader plugin, and memory hook framework for Grand Theft Auto VI on PC. Full support for next-gen 856.67 MB game assets.",
+        "Open-source native script extender, ASI loader plugin, and memory hook framework for Grand Theft Auto VI on PC. Full support for next-gen 420.69 MB game assets.",
       iconType: "github",
     },
   ];
@@ -262,7 +266,9 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
                 {result.iconType === "reddit" ? (
                   <IconBrandReddit className="w-4 h-4 text-orange-500" />
                 ) : result.iconType === "rockstar" ? (
-                  <span className="text-[10px] font-bold text-yellow-400">R★</span>
+                  <span className="text-[10px] font-bold text-yellow-400">
+                    R★
+                  </span>
                 ) : result.iconType === "steam" ? (
                   <IconBrandSteam className="w-4 h-4 text-sky-400" />
                 ) : result.iconType === "github" ? (
@@ -270,7 +276,9 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
                 ) : result.iconType === "moddb" ? (
                   <span className="text-[9px] font-black text-red-500">DB</span>
                 ) : result.iconType === "gta" ? (
-                  <span className="text-[10px] font-black text-pink-400">VI</span>
+                  <span className="text-[10px] font-black text-pink-400">
+                    VI
+                  </span>
                 ) : (
                   <IconWorld className="w-4 h-4 text-gray-400" />
                 )}
