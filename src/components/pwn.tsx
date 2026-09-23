@@ -31,7 +31,6 @@ export interface PwnProps {
 export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
   const [isDismissed, setIsDismissed] = useState(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
-  const [showToast, setShowToast] = useState(true);
 
   const getAudio = useCallback(() => {
     if (typeof window === "undefined") return null;
@@ -285,7 +284,7 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
 
   const submitSecretKey = () => {
     const enteredKey = secretKeyInput.trim().toUpperCase();
-    const defaultKey = "WCRY-2026-ZERO-DAYS";
+    const defaultKey = "WCRY-2026-ZDA";
     const envKey = (process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY || defaultKey)
       .trim()
       .toUpperCase();
@@ -363,49 +362,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
           recover your files.
         </p>
       </div>
-
-      {/* Authentic Windows Security Threat Notification Toast */}
-      {showToast && (
-        <div className={styles.defenderToast}>
-          {/* Windows Security Shield Icon */}
-          <svg className={styles.defenderIcon} viewBox="0 0 24 24" fill="none">
-            <path
-              d="M12 2L3 6V12C3 17.52 6.84 22.74 12 24C17.16 22.74 21 17.52 21 12V6L12 2Z"
-              fill="#0078D4"
-            />
-            <path
-              d="M12 7V13M12 17H12.01"
-              stroke="#FFFFFF"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-            />
-          </svg>
-          <div className={styles.defenderContent}>
-            <div className={styles.defenderTitle}>
-              <span>Windows Security</span>
-              <button
-                onClick={() => setShowToast(false)}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: "#9ca3af",
-                  cursor: "pointer",
-                  fontSize: 12,
-                }}
-              >
-                ✕
-              </button>
-            </div>
-            <div className={styles.defenderDesc}>
-              Critical threat detected:{" "}
-              <strong>Trojan:Win32/WannaCrypt!rsm</strong>
-            </div>
-            <div className={styles.defenderMeta}>
-              Status: Active file encryption in progress &bull; PID 7412
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* The Draggable Authentic WannaCry Window */}
       <div
@@ -857,8 +813,7 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
               <div style={{ fontSize: 11, color: "#666" }}>
                 * Mock Decryption Key:{" "}
                 <strong>
-                  {process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY ||
-                    "WCRY-2026-ZERO-DAYS"}
+                  {process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY || "WCRY-2026-ZDA"}
                 </strong>
               </div>
             </div>

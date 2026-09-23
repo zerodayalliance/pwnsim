@@ -96,7 +96,7 @@ export default function AdminPage() {
   const [copiedKey, setCopiedKey] = useState(false);
 
   const decryptionKey =
-    process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY || "WCRY-2026-ZERO-DAYS";
+    process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY || "WCRY-2026-ZDA";
 
   const [logs, setLogs] = useState<ActivityLog[]>([]);
 
