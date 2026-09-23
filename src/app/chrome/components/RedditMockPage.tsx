@@ -14,7 +14,9 @@ interface RedditMockPageProps {
   onGoToSearch: () => void;
 }
 
-export const RedditMockPage: React.FC<RedditMockPageProps> = ({ onGoToSearch }) => {
+export const RedditMockPage: React.FC<RedditMockPageProps> = ({
+  onGoToSearch,
+}) => {
   return (
     <div className="flex flex-col min-h-screen bg-[#0e1113] text-gray-200 font-sans select-none pb-20">
       {/* Reddit Header */}
@@ -22,7 +24,9 @@ export const RedditMockPage: React.FC<RedditMockPageProps> = ({ onGoToSearch }) 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-orange-500 font-black text-xl tracking-tighter">
             <IconBrandReddit className="w-7 h-7" />
-            <span className="text-white font-bold text-base hidden sm:inline">reddit</span>
+            <span className="text-white font-bold text-base hidden sm:inline">
+              reddit
+            </span>
           </div>
           <div className="bg-[#272729] px-3 py-1 rounded-full text-xs text-gray-300 font-semibold ml-2">
             r/GTA6
@@ -63,25 +67,40 @@ export const RedditMockPage: React.FC<RedditMockPageProps> = ({ onGoToSearch }) 
 
             {/* Title */}
             <h1 className="text-xl font-bold text-white mb-4">
-              GTA 6 PC Modding Framework &amp; Script Hook Early Architecture Discussion
+              GTA 6 PC Modding Framework &amp; Script Hook Early Architecture
+              Discussion
             </h1>
 
             {/* Body */}
             <div className="text-sm text-gray-300 space-y-4 leading-relaxed border-b border-[#343536] pb-5">
               <p>
-                With early documentation for GTA 6 modding emerging on GTA6-Mods.com and Nexus, here is an overview of how the new DirectX 12 ASI loader and script injection framework works compared to GTA 5&apos;s ScriptHookV.
+                With early documentation for GTA 6 modding emerging on
+                GTA6-Mods.com and Nexus, here is an overview of how the new
+                DirectX 12 ASI loader and script injection framework works
+                compared to GTA 5&apos;s ScriptHookV.
               </p>
 
-              <h3 className="font-bold text-white text-base">Key Technical Improvements:</h3>
+              <h3 className="font-bold text-white text-base">
+                Key Technical Improvements:
+              </h3>
               <ul className="list-disc pl-5 space-y-1.5 text-xs text-gray-300">
-                <li>Native DirectX 12 hook support for dynamic shader remapping.</li>
+                <li>
+                  Native DirectX 12 hook support for dynamic shader remapping.
+                </li>
                 <li>Asynchronous memory injection via clean ASI loaders.</li>
-                <li>Multi-threaded script hooks for complex AI and traffic modifications.</li>
-                <li>Built-in sandbox mod directories so you never have to replace vanilla RPF game files.</li>
+                <li>
+                  Multi-threaded script hooks for complex AI and traffic
+                  modifications.
+                </li>
+                <li>
+                  Built-in sandbox mod directories so you never have to replace
+                  vanilla RPF game files.
+                </li>
               </ul>
 
               <p className="text-xs text-gray-400">
-                Check out the latest releases and discussion threads over on the community mod portals.
+                Check out the latest releases and discussion threads over on the
+                community mod portals.
               </p>
             </div>
 

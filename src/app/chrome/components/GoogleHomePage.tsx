@@ -32,20 +32,27 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
 
   // Only show related suggestions when user starts typing
   const queryTrimmed = query.trim();
-  const filteredSuggestions = queryTrimmed.length > 0
-    ? gtaSuggestions.filter((s) =>
-        s.toLowerCase().includes(queryTrimmed.toLowerCase().replace("dowload", "download"))
-      ).length > 0
+  const filteredSuggestions =
+    queryTrimmed.length > 0
       ? gtaSuggestions.filter((s) =>
-          s.toLowerCase().includes(queryTrimmed.toLowerCase().replace("dowload", "download"))
-        )
-      : [
-          queryTrimmed,
-          `${queryTrimmed} mod download`,
-          `${queryTrimmed} PC download free`,
-          "GTA 6 mod download",
-        ]
-    : [];
+          s
+            .toLowerCase()
+            .includes(queryTrimmed.toLowerCase().replace("dowload", "download"))
+        ).length > 0
+        ? gtaSuggestions.filter((s) =>
+            s
+              .toLowerCase()
+              .includes(
+                queryTrimmed.toLowerCase().replace("dowload", "download")
+              )
+          )
+        : [
+            queryTrimmed,
+            `${queryTrimmed} mod download`,
+            `${queryTrimmed} PC download free`,
+            "GTA 6 mod download",
+          ]
+      : [];
 
   // Close suggestions when clicking outside
   useEffect(() => {
@@ -171,25 +178,27 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
             </div>
 
             {/* Suggestions Dropdown - shows when user starts typing */}
-            {showSuggestions && queryTrimmed.length > 0 && filteredSuggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 bg-[#303134] rounded-b-3xl shadow-2xl border-t border-[#3c4043] py-2 z-50 overflow-hidden">
-                {filteredSuggestions.slice(0, 5).map((item, index) => (
-                  <div
-                    key={index}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      handleSearchSubmit(item);
-                    }}
-                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#3c4043] cursor-pointer transition-colors"
-                  >
-                    <IconSearch className="w-4 h-4 text-gray-400 shrink-0" />
-                    <span className="text-sm text-gray-200 hover:text-white">
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
+            {showSuggestions &&
+              queryTrimmed.length > 0 &&
+              filteredSuggestions.length > 0 && (
+                <div className="absolute top-full left-0 right-0 bg-[#303134] rounded-b-3xl shadow-2xl border-t border-[#3c4043] py-2 z-50 overflow-hidden">
+                  {filteredSuggestions.slice(0, 5).map((item, index) => (
+                    <div
+                      key={index}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        handleSearchSubmit(item);
+                      }}
+                      className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#3c4043] cursor-pointer transition-colors"
+                    >
+                      <IconSearch className="w-4 h-4 text-gray-400 shrink-0" />
+                      <span className="text-sm text-gray-200 hover:text-white">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
           </form>
 
           {/* Action Buttons */}
@@ -288,15 +297,15 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
 
       {/* Google Footer */}
       <footer className="bg-[#171717] text-gray-400 text-xs border-t border-[#2d2f35]">
-        <div className="px-6 py-3 border-b border-[#2d2f35]">
-          Google Search
-        </div>
+        <div className="px-6 py-3 border-b border-[#2d2f35]">Google Search</div>
         <div className="flex flex-wrap justify-between items-center px-6 py-3 gap-4">
           <div className="flex items-center gap-6">
             <span className="hover:underline cursor-pointer">About</span>
             <span className="hover:underline cursor-pointer">Advertising</span>
             <span className="hover:underline cursor-pointer">Business</span>
-            <span className="hover:underline cursor-pointer">How Search works</span>
+            <span className="hover:underline cursor-pointer">
+              How Search works
+            </span>
           </div>
           <div className="flex items-center gap-6">
             <span className="hover:underline cursor-pointer">Privacy</span>

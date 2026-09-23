@@ -7,7 +7,9 @@ interface RockstarMockPageProps {
   onGoToSearch: () => void;
 }
 
-export const RockstarMockPage: React.FC<RockstarMockPageProps> = ({ onGoToSearch }) => {
+export const RockstarMockPage: React.FC<RockstarMockPageProps> = ({
+  onGoToSearch,
+}) => {
   return (
     <div className="flex flex-col min-h-screen bg-black text-white font-sans select-none">
       {/* Rockstar Navbar */}
@@ -60,7 +62,9 @@ export const RockstarMockPage: React.FC<RockstarMockPageProps> = ({ onGoToSearch
         </div>
 
         <p className="max-w-2xl text-neutral-300 text-sm sm:text-base leading-relaxed mb-6">
-          Grand Theft Auto VI heads to the state of Leonida, home to the neon-soaked streets of Vice City and beyond in the biggest, most immersive evolution of the Grand Theft Auto series yet.
+          Grand Theft Auto VI heads to the state of Leonida, home to the
+          neon-soaked streets of Vice City and beyond in the biggest, most
+          immersive evolution of the Grand Theft Auto series yet.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4">

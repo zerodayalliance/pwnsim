@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   IconFiles,
   IconSearch,
@@ -7,9 +7,10 @@ import {
   IconPuzzle,
   IconUserCircle,
   IconSettings,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
-export type ActiveSidebarTab = 'explorer' | 'search' | 'git' | 'debug' | 'extensions';
+export type ActiveSidebarTab =
+  "explorer" | "search" | "git" | "debug" | "extensions";
 
 interface ActivityBarProps {
   activeTab: ActiveSidebarTab;
@@ -17,13 +18,34 @@ interface ActivityBarProps {
   isOpen: boolean;
 }
 
-export function ActivityBar({ activeTab, onSelectTab, isOpen }: ActivityBarProps) {
+export function ActivityBar({
+  activeTab,
+  onSelectTab,
+  isOpen,
+}: ActivityBarProps) {
   const topItems = [
-    { id: 'explorer' as const, label: 'Explorer (Cmd+Shift+E)', icon: IconFiles },
-    { id: 'search' as const, label: 'Search (Cmd+Shift+F)', icon: IconSearch },
-    { id: 'git' as const, label: 'Source Control (Cmd+Shift+G)', icon: IconGitBranch, badge: '1' },
-    { id: 'debug' as const, label: 'Run and Debug (Cmd+Shift+D)', icon: IconPlayerPlay },
-    { id: 'extensions' as const, label: 'Extensions (Cmd+Shift+X)', icon: IconPuzzle },
+    {
+      id: "explorer" as const,
+      label: "Explorer (Cmd+Shift+E)",
+      icon: IconFiles,
+    },
+    { id: "search" as const, label: "Search (Cmd+Shift+F)", icon: IconSearch },
+    {
+      id: "git" as const,
+      label: "Source Control (Cmd+Shift+G)",
+      icon: IconGitBranch,
+      badge: "1",
+    },
+    {
+      id: "debug" as const,
+      label: "Run and Debug (Cmd+Shift+D)",
+      icon: IconPlayerPlay,
+    },
+    {
+      id: "extensions" as const,
+      label: "Extensions (Cmd+Shift+X)",
+      icon: IconPuzzle,
+    },
   ];
 
   return (
@@ -39,7 +61,9 @@ export function ActivityBar({ activeTab, onSelectTab, isOpen }: ActivityBarProps
               onClick={() => onSelectTab(item.id)}
               title={item.label}
               className={`relative w-full h-[46px] flex items-center justify-center transition-colors group cursor-pointer ${
-                isActive ? 'text-[#ffffff]' : 'text-[#858585] hover:text-[#ffffff]'
+                isActive
+                  ? "text-[#ffffff]"
+                  : "text-[#858585] hover:text-[#ffffff]"
               }`}
             >
               {/* Active left border indicator */}

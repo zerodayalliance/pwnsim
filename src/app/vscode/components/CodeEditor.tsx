@@ -1,5 +1,11 @@
-import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
-import { highlightLine } from '../utils/highlighter';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
+import { highlightLine } from "../utils/highlighter";
 
 interface CodeEditorProps {
   content: string;
@@ -20,15 +26,15 @@ export function CodeEditor({
   const gutterRef = useRef<HTMLDivElement>(null);
   const highlightLayerRef = useRef<HTMLDivElement>(null);
 
-  const lines = useMemo(() => content.split('\n'), [content]);
-  const ext = fileName.split('.').pop()?.toLowerCase() || 'tsx';
+  const lines = useMemo(() => content.split("\n"), [content]);
+  const ext = fileName.split(".").pop()?.toLowerCase() || "tsx";
 
   // Synchronize cursor position and active line
   const updateCursorPosition = useCallback(() => {
     if (!textareaRef.current) return;
     const selectionStart = textareaRef.current.selectionStart;
     const textBeforeCursor = content.substring(0, selectionStart);
-    const lineArr = textBeforeCursor.split('\n');
+    const lineArr = textBeforeCursor.split("\n");
     const currentLine = lineArr.length;
     const currentCol = lineArr[lineArr.length - 1].length + 1;
 
@@ -46,7 +52,7 @@ export function CodeEditor({
 
   // Handle Tab key
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Tab') {
+    if (e.key === "Tab") {
       e.preventDefault();
       const textarea = textareaRef.current;
       if (!textarea) return;
@@ -54,7 +60,8 @@ export function CodeEditor({
       const start = textarea.selectionStart;
       const end = textarea.selectionEnd;
 
-      const newContent = content.substring(0, start) + '  ' + content.substring(end);
+      const newContent =
+        content.substring(0, start) + "  " + content.substring(end);
       onChange(newContent);
 
       setTimeout(() => {
@@ -82,7 +89,7 @@ export function CodeEditor({
             <div
               key={lineNum}
               className={`w-full flex items-center justify-end gap-1.5 h-6 transition-colors ${
-                isCurrent ? 'text-[#c6c6c6] font-semibold' : 'text-[#858585]'
+                isCurrent ? "text-[#c6c6c6] font-semibold" : "text-[#858585]"
               }`}
             >
               {/* Active line marker '>' matching user's screenshot */}
@@ -110,7 +117,7 @@ export function CodeEditor({
           className="absolute left-0 right-0 pointer-events-none border border-[#2e2e2e] bg-[#282828]/40 transition-all duration-75"
           style={{
             top: `${(activeLine - 1) * 24 + 8}px`,
-            height: '24px',
+            height: "24px",
           }}
         />
 
@@ -148,7 +155,7 @@ export function CodeEditor({
           className="absolute inset-0 top-2 left-4 w-[calc(100%-16px)] bg-transparent text-transparent caret-white resize-none outline-none whitespace-pre font-mono text-[14px] leading-6 overflow-hidden p-0 m-0 border-0 selection:bg-[#264f78]/60"
           style={{
             height: `${Math.max(lines.length * 24 + 80, 400)}px`,
-            minHeight: '100%',
+            minHeight: "100%",
           }}
         />
       </div>
@@ -160,7 +167,7 @@ export function CodeEditor({
           className="absolute left-0 right-0 bg-[#3a3d41]/30 border border-[#5a5d61]/40 rounded-sm pointer-events-none"
           style={{
             top: `${Math.max(0, (activeLine - 1) * 3)}px`,
-            height: '40px',
+            height: "40px",
           }}
         />
 
@@ -179,13 +186,14 @@ export function CodeEditor({
                   style={{
                     width: `${Math.min(trimmed.length * 2, 45)}px`,
                     backgroundColor:
-                      trimmed.startsWith('export') || trimmed.startsWith('return')
-                        ? '#C678DD'
-                        : trimmed.startsWith('<')
-                        ? '#E06C75'
-                        : trimmed.startsWith('"')
-                        ? '#CE9178'
-                        : '#ABB2BF',
+                      trimmed.startsWith("export") ||
+                      trimmed.startsWith("return")
+                        ? "#C678DD"
+                        : trimmed.startsWith("<")
+                          ? "#E06C75"
+                          : trimmed.startsWith('"')
+                            ? "#CE9178"
+                            : "#ABB2BF",
                   }}
                 />
               )}

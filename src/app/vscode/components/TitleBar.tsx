@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface TitleBarProps {
   activeFileName?: string;
@@ -13,7 +13,7 @@ interface TitleBarProps {
 }
 
 export function TitleBar({
-  activeFileName = 'layout.tsx',
+  activeFileName = "layout.tsx",
   isSidebarOpen,
   isPanelOpen,
   onToggleSidebar,
@@ -25,25 +25,31 @@ export function TitleBar({
   const router = useRouter();
   const [isMaximized, setIsMaximized] = useState(false);
 
-  const handleMinimize = onMinimize || (() => {
-    router.push('/');
-  });
+  const handleMinimize =
+    onMinimize ||
+    (() => {
+      router.push("/");
+    });
 
-  const handleMaximize = onMaximize || (() => {
-    if (typeof document !== 'undefined') {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-        setIsMaximized(true);
-      } else {
-        document.exitFullscreen().catch(() => {});
-        setIsMaximized(false);
+  const handleMaximize =
+    onMaximize ||
+    (() => {
+      if (typeof document !== "undefined") {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+          setIsMaximized(true);
+        } else {
+          document.exitFullscreen().catch(() => {});
+          setIsMaximized(false);
+        }
       }
-    }
-  });
+    });
 
-  const handleClose = onClose || (() => {
-    router.push('/');
-  });
+  const handleClose =
+    onClose ||
+    (() => {
+      router.push("/");
+    });
 
   return (
     <header className="h-8.75 bg-[#181818] text-[#cccccc] flex items-center justify-between pl-2 pr-0 border-b border-[#2b2b2b] select-none text-[12px] shrink-0">
@@ -54,8 +60,12 @@ export function TitleBar({
           className="flex items-center justify-center w-7 h-7 rounded hover:bg-[#2a2d2e] cursor-pointer transition-colors mr-0.5"
           title="Visual Studio Code"
         >
-          <svg className="w-4 h-4 text-[#007acc] shrink-0" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.5 2.5L7.8 10.3 3.5 7 1.5 8.2v7.6L3.5 17l4.3-3.3 9.7 7.8 5-2.5V5l-5-2.5zm0 3.7v11.6L9.6 12 17.5 6.2zM3.5 10l2.5 2-2.5 2v-4z"/>
+          <svg
+            className="w-4 h-4 text-[#007acc] shrink-0"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M17.5 2.5L7.8 10.3 3.5 7 1.5 8.2v7.6L3.5 17l4.3-3.3 9.7 7.8 5-2.5V5l-5-2.5zm0 3.7v11.6L9.6 12 17.5 6.2zM3.5 10l2.5 2-2.5 2v-4z" />
           </svg>
         </div>
 
@@ -83,7 +93,7 @@ export function TitleBar({
             <button
               onClick={onTogglePanel}
               className={`hover:bg-[#333333] px-2 py-1 rounded cursor-pointer transition-colors text-[12px] ${
-                isPanelOpen ? 'text-white bg-[#333333]' : 'text-[#cccccc]'
+                isPanelOpen ? "text-white bg-[#333333]" : "text-[#cccccc]"
               }`}
             >
               Terminal
@@ -96,7 +106,9 @@ export function TitleBar({
                 className="px-3 py-1.5 hover:bg-[#094771] hover:text-white text-left flex items-center justify-between"
               >
                 <span>New Terminal</span>
-                <span className="text-[10px] text-[#888888] font-mono">Ctrl+`</span>
+                <span className="text-[10px] text-[#888888] font-mono">
+                  Ctrl+`
+                </span>
               </button>
               <button
                 onClick={() => {
@@ -105,7 +117,9 @@ export function TitleBar({
                 className="px-3 py-1.5 hover:bg-[#094771] hover:text-white text-left flex items-center justify-between"
               >
                 <span>Split Terminal</span>
-                <span className="text-[10px] text-[#888888] font-mono">Ctrl+Shift+5</span>
+                <span className="text-[10px] text-[#888888] font-mono">
+                  Ctrl+Shift+5
+                </span>
               </button>
               <button
                 onClick={() => {
@@ -120,8 +134,10 @@ export function TitleBar({
                 onClick={onTogglePanel}
                 className="px-3 py-1.5 hover:bg-[#094771] hover:text-white text-left flex items-center justify-between"
               >
-                <span>{isPanelOpen ? 'Hide Terminal' : 'Show Terminal'}</span>
-                <span className="text-[10px] text-[#888888] font-mono">Ctrl+J</span>
+                <span>{isPanelOpen ? "Hide Terminal" : "Show Terminal"}</span>
+                <span className="text-[10px] text-[#888888] font-mono">
+                  Ctrl+J
+                </span>
               </button>
             </div>
           </div>
@@ -135,7 +151,13 @@ export function TitleBar({
       <div className="flex items-center justify-center flex-1 max-w-135 mx-4">
         <div className="w-full max-w-120 h-6 bg-[#222222] hover:bg-[#282828] border border-[#3c3c3c] rounded-lg flex items-center px-3 gap-2 text-[#999999] hover:text-[#cccccc] transition-colors cursor-pointer text-[12px]">
           {/* Search Icon */}
-          <svg className="w-3.5 h-3.5 text-[#888888]" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg
+            className="w-3.5 h-3.5 text-[#888888]"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
             <circle cx="6.5" cy="6.5" r="4.75" />
             <line x1="10" y1="10" x2="14.5" y2="14.5" strokeLinecap="round" />
           </svg>
@@ -157,11 +179,11 @@ export function TitleBar({
             onClick={onToggleSidebar}
             title="Toggle Primary Side Bar (Ctrl+B)"
             className={`w-7 h-7 flex items-center justify-center rounded hover:bg-[#333333] transition-colors ${
-              isSidebarOpen ? 'text-[#ffffff]' : 'text-[#888888]'
+              isSidebarOpen ? "text-[#ffffff]" : "text-[#888888]"
             }`}
           >
             <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
-              <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h11A1.5 1.5 0 0 1 15 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5H5V3H2.5zm3.5 10h7.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5H6v10z"/>
+              <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h11A1.5 1.5 0 0 1 15 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5H5V3H2.5zm3.5 10h7.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5H6v10z" />
             </svg>
           </button>
 
@@ -170,11 +192,11 @@ export function TitleBar({
             onClick={onTogglePanel}
             title="Toggle Panel (Ctrl+J)"
             className={`w-7 h-7 flex items-center justify-center rounded hover:bg-[#333333] transition-colors ${
-              isPanelOpen ? 'text-[#ffffff]' : 'text-[#888888]'
+              isPanelOpen ? "text-[#ffffff]" : "text-[#888888]"
             }`}
           >
             <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
-              <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h11A1.5 1.5 0 0 1 15 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V10H2V3.5zm0 7.5h12v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11z"/>
+              <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h11A1.5 1.5 0 0 1 15 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V10H2V3.5zm0 7.5h12v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11z" />
             </svg>
           </button>
 
@@ -184,7 +206,7 @@ export function TitleBar({
             className="w-7 h-7 flex items-center justify-center rounded hover:bg-[#333333] text-[#888888] hover:text-[#cccccc] transition-colors"
           >
             <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
-              <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h11A1.5 1.5 0 0 1 15 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2 3.5a.5.5 0 0 1 .5-.5H10v10H2.5a.5.5 0 0 1-.5-.5v-9zm9-.5v10h2.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5H11z"/>
+              <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h11A1.5 1.5 0 0 1 15 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9zM2 3.5a.5.5 0 0 1 .5-.5H10v10H2.5a.5.5 0 0 1-.5-.5v-9zm9-.5v10h2.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5H11z" />
             </svg>
           </button>
 
@@ -194,7 +216,7 @@ export function TitleBar({
             className="w-7 h-7 flex items-center justify-center rounded hover:bg-[#333333] text-[#888888] hover:text-[#cccccc] transition-colors"
           >
             <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
-              <path d="M2.5 2A1.5 1.5 0 0 0 1 3.5v9A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 13.5 2h-11zM2 3.5a.5.5 0 0 1 .5-.5H7v4.5H2V3.5zm0 5.5h5V13H2.5a.5.5 0 0 1-.5-.5V9zm6 4V8h6v4.5a.5.5 0 0 1-.5.5H8zm6-5.5H8V3h5.5a.5.5 0 0 1 .5.5V7.5z"/>
+              <path d="M2.5 2A1.5 1.5 0 0 0 1 3.5v9A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 13.5 2h-11zM2 3.5a.5.5 0 0 1 .5-.5H7v4.5H2V3.5zm0 5.5h5V13H2.5a.5.5 0 0 1-.5-.5V9zm6 4V8h6v4.5a.5.5 0 0 1-.5.5H8zm6-5.5H8V3h5.5a.5.5 0 0 1 .5.5V7.5z" />
             </svg>
           </button>
         </div>
@@ -219,12 +241,26 @@ export function TitleBar({
             className="w-11.5 h-full flex items-center justify-center text-[#cccccc] hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
           >
             {isMaximized ? (
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
                 <path d="M2.5 0.5h7v7h-7z" />
                 <path d="M0.5 2.5h7v7h-7z" fill="#181818" />
               </svg>
             ) : (
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
                 <rect x="0.5" y="0.5" width="9" height="9" />
               </svg>
             )}
@@ -236,7 +272,13 @@ export function TitleBar({
             title="Close"
             className="w-11.5 h-full flex items-center justify-center text-[#cccccc] hover:text-white hover:bg-[#e81123] active:bg-[#bf0f1d] transition-colors cursor-pointer"
           >
-            <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2">
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              stroke="currentColor"
+              strokeWidth="1.2"
+            >
               <line x1="0" y1="0" x2="10" y2="10" />
               <line x1="10" y1="0" x2="0" y2="10" />
             </svg>

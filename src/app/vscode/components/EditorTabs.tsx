@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import {
   IconX,
   IconChevronRight,
   IconLayoutColumns,
   IconDots,
-} from '@tabler/icons-react';
-import { TabItem, FileNode } from '../types';
-import { FileIcon } from './FileIcons';
+} from "@tabler/icons-react";
+import { TabItem, FileNode } from "../types";
+import { FileIcon } from "./FileIcons";
 
 interface EditorTabsProps {
   tabs: TabItem[];
@@ -48,8 +48,8 @@ export function EditorTabs({
                 onClick={() => onSelectTab(tab.fileId)}
                 className={`flex items-center gap-2 h-full px-3 text-[13px] border-r border-[#252526] cursor-pointer group transition-colors relative ${
                   isActive
-                    ? 'bg-[#1e1e1e] text-[#ffffff] font-normal border-t-2 border-t-[#007acc]'
-                    : 'bg-[#181818] text-[#969696] hover:bg-[#1f1f1f] hover:text-[#cccccc]'
+                    ? "bg-[#1e1e1e] text-[#ffffff] font-normal border-t-2 border-t-[#007acc]"
+                    : "bg-[#181818] text-[#969696] hover:bg-[#1f1f1f] hover:text-[#cccccc]"
                 }`}
               >
                 {/* File Icon */}
@@ -67,7 +67,7 @@ export function EditorTabs({
                     onClick={(e) => onCloseTab(tab.id, e)}
                     title="Close (Cmd+W)"
                     className={`p-0.5 rounded hover:bg-[#333333] hover:text-white ${
-                      tab.isDirty ? 'hidden group-hover:flex' : 'flex'
+                      tab.isDirty ? "hidden group-hover:flex" : "flex"
                     } text-[#aaaaaa]`}
                   >
                     <IconX className="w-3.5 h-3.5" />
@@ -102,13 +102,17 @@ export function EditorTabs({
             const isLast = idx === breadcrumbs.length - 1;
             return (
               <React.Fragment key={idx}>
-                {idx > 0 && <IconChevronRight className="w-3 h-3 text-[#666666]" />}
+                {idx > 0 && (
+                  <IconChevronRight className="w-3 h-3 text-[#666666]" />
+                )}
                 <span
                   className={`flex items-center gap-1 hover:text-white cursor-pointer ${
-                    isLast ? 'text-[#cccccc] font-medium' : ''
+                    isLast ? "text-[#cccccc] font-medium" : ""
                   }`}
                 >
-                  {isLast && <FileIcon name={crumb} className="w-3.5 h-3.5 inline" />}
+                  {isLast && (
+                    <FileIcon name={crumb} className="w-3.5 h-3.5 inline" />
+                  )}
                   {crumb}
                 </span>
               </React.Fragment>
@@ -116,7 +120,7 @@ export function EditorTabs({
           })}
 
           {/* Symbol breadcrumb if layout.tsx */}
-          {activeFile.name === 'layout.tsx' && (
+          {activeFile.name === "layout.tsx" && (
             <>
               <IconChevronRight className="w-3 h-3 text-[#666666]" />
               <span className="flex items-center gap-1 text-[#cccccc] font-medium hover:text-white cursor-pointer">

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   IconChevronRight,
   IconChevronDown,
@@ -9,15 +9,19 @@ import {
   IconDots,
   IconTrash,
   IconPencil,
-} from '@tabler/icons-react';
-import { FileNode } from '../types';
-import { FileIcon } from './FileIcons';
+} from "@tabler/icons-react";
+import { FileNode } from "../types";
+import { FileIcon } from "./FileIcons";
 
 interface FileExplorerProps {
   files: FileNode[];
   activeFileId: string | null;
   onSelectFile: (fileId: string) => void;
-  onCreateNode: (name: string, type: 'file' | 'folder', parentId: string | null) => void;
+  onCreateNode: (
+    name: string,
+    type: "file" | "folder",
+    parentId: string | null
+  ) => void;
   onDeleteNode: (id: string) => void;
   onRenameNode: (id: string, newName: string) => void;
   onToggleFolder: (folderId: string) => void;
@@ -34,14 +38,14 @@ export function FileExplorer({
 }: FileExplorerProps) {
   // Creating new file/folder state
   const [creationState, setCreationState] = useState<{
-    type: 'file' | 'folder';
+    type: "file" | "folder";
     parentId: string | null;
   } | null>(null);
-  const [creationInput, setCreationInput] = useState('');
+  const [creationInput, setCreationInput] = useState("");
 
   // Renaming state
   const [renamingId, setRenamingId] = useState<string | null>(null);
-  const [renameInput, setRenameInput] = useState('');
+  const [renameInput, setRenameInput] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
   const renameInputRef = useRef<HTMLInputElement>(null);
@@ -62,10 +66,14 @@ export function FileExplorer({
 
   const handleCommitCreation = () => {
     if (creationState && creationInput.trim()) {
-      onCreateNode(creationInput.trim(), creationState.type, creationState.parentId);
+      onCreateNode(
+        creationInput.trim(),
+        creationState.type,
+        creationState.parentId
+      );
     }
     setCreationState(null);
-    setCreationInput('');
+    setCreationInput("");
   };
 
   const handleCommitRename = (id: string) => {
@@ -73,13 +81,17 @@ export function FileExplorer({
       onRenameNode(id, renameInput.trim());
     }
     setRenamingId(null);
-    setRenameInput('');
+    setRenameInput("");
   };
 
-  const startCreate = (type: 'file' | 'folder', parentId: string | null = null, e?: React.MouseEvent) => {
+  const startCreate = (
+    type: "file" | "folder",
+    parentId: string | null = null,
+    e?: React.MouseEvent
+  ) => {
     e?.stopPropagation();
     setCreationState({ type, parentId });
-    setCreationInput('');
+    setCreationInput("");
   };
 
   const startRename = (node: FileNode, e: React.MouseEvent) => {
@@ -93,7 +105,7 @@ export function FileExplorer({
 
   const renderTree = (nodes: FileNode[], depth: number = 0) => {
     return nodes.map((node) => {
-      const isFolder = node.type === 'folder';
+      const isFolder = node.type === "folder";
       const isOpen = isFolder ? !!node.isOpen : false;
       const isActive = activeFileId === node.id;
       const isRenaming = renamingId === node.id;
@@ -113,8 +125,8 @@ export function FileExplorer({
             style={{ paddingLeft: `${depth * 14 + 10}px` }}
             className={`flex items-center justify-between h-5.5 group text-[13px] font-sans cursor-pointer transition-colors ${
               isActive
-                ? 'bg-[#37373d] text-[#ffffff]'
-                : 'text-[#cccccc] hover:bg-[#2a2d2e] hover:text-[#ffffff]'
+                ? "bg-[#37373d] text-[#ffffff]"
+                : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-[#ffffff]"
             }`}
           >
             <div className="flex items-center gap-1.5 flex-1 min-w-0 pr-2">
@@ -142,8 +154,8 @@ export function FileExplorer({
                   onChange={(e) => setRenameInput(e.target.value)}
                   onBlur={() => handleCommitRename(node.id)}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleCommitRename(node.id);
-                    if (e.key === 'Escape') setRenamingId(null);
+                    if (e.key === "Enter") handleCommitRename(node.id);
+                    if (e.key === "Escape") setRenamingId(null);
                   }}
                   onClick={(e) => e.stopPropagation()}
                   className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-4.75 outline-none rounded-none w-full"
@@ -160,14 +172,14 @@ export function FileExplorer({
               {isFolder && (
                 <>
                   <button
-                    onClick={(e) => startCreate('file', node.id, e)}
+                    onClick={(e) => startCreate("file", node.id, e)}
                     title="New File..."
                     className="p-0.5 text-[#aaaaaa] hover:text-white hover:bg-[#333333] rounded"
                   >
                     <IconFilePlus className="w-3.5 h-3.5" />
                   </button>
                   <button
-                    onClick={(e) => startCreate('folder', node.id, e)}
+                    onClick={(e) => startCreate("folder", node.id, e)}
                     title="New Folder..."
                     className="p-0.5 text-[#aaaaaa] hover:text-white hover:bg-[#333333] rounded"
                   >
@@ -196,31 +208,36 @@ export function FileExplorer({
           </div>
 
           {/* Inline creation directly under this folder if targeted */}
-          {isFolder && isOpen && creationState && creationState.parentId === node.id && (
-            <div
-              style={{ paddingLeft: `${(depth + 1) * 14 + 10}px` }}
-              className="flex items-center gap-1.5 h-6 bg-[#2a2d2e] pr-2"
-            >
-              <span className="w-4 h-4 shrink-0" />
-              <FileIcon
-                name={creationInput}
-                isFolder={creationState.type === 'folder'}
-                isOpen={false}
-              />
-              <input
-                ref={inputRef}
-                value={creationInput}
-                onChange={(e) => setCreationInput(e.target.value)}
-                onBlur={handleCommitCreation}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleCommitCreation();
-                  if (e.key === 'Escape') setCreationState(null);
-                }}
-                className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-4.75 outline-none rounded-none w-full"
-                placeholder={creationState.type === 'file' ? 'file.tsx' : 'folder-name'}
-              />
-            </div>
-          )}
+          {isFolder &&
+            isOpen &&
+            creationState &&
+            creationState.parentId === node.id && (
+              <div
+                style={{ paddingLeft: `${(depth + 1) * 14 + 10}px` }}
+                className="flex items-center gap-1.5 h-6 bg-[#2a2d2e] pr-2"
+              >
+                <span className="w-4 h-4 shrink-0" />
+                <FileIcon
+                  name={creationInput}
+                  isFolder={creationState.type === "folder"}
+                  isOpen={false}
+                />
+                <input
+                  ref={inputRef}
+                  value={creationInput}
+                  onChange={(e) => setCreationInput(e.target.value)}
+                  onBlur={handleCommitCreation}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleCommitCreation();
+                    if (e.key === "Escape") setCreationState(null);
+                  }}
+                  className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-4.75 outline-none rounded-none w-full"
+                  placeholder={
+                    creationState.type === "file" ? "file.tsx" : "folder-name"
+                  }
+                />
+              </div>
+            )}
 
           {/* Recursive children if folder is open */}
           {isFolder && isOpen && childNodes.length > 0 && (
@@ -255,14 +272,14 @@ export function FileExplorer({
           {/* Header Action Buttons */}
           <div className="flex items-center gap-0.5">
             <button
-              onClick={(e) => startCreate('file', null, e)}
+              onClick={(e) => startCreate("file", null, e)}
               title="New File..."
               className="p-1 hover:bg-[#333333] rounded text-[#cccccc] hover:text-white"
             >
               <IconFilePlus className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={(e) => startCreate('folder', null, e)}
+              onClick={(e) => startCreate("folder", null, e)}
               title="New Folder..."
               className="p-1 hover:bg-[#333333] rounded text-[#cccccc] hover:text-white"
             >
@@ -289,7 +306,7 @@ export function FileExplorer({
             <span className="w-4 h-4 shrink-0" />
             <FileIcon
               name={creationInput}
-              isFolder={creationState.type === 'folder'}
+              isFolder={creationState.type === "folder"}
               isOpen={false}
             />
             <input
@@ -298,11 +315,13 @@ export function FileExplorer({
               onChange={(e) => setCreationInput(e.target.value)}
               onBlur={handleCommitCreation}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleCommitCreation();
-                if (e.key === 'Escape') setCreationState(null);
+                if (e.key === "Enter") handleCommitCreation();
+                if (e.key === "Escape") setCreationState(null);
               }}
               className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-4.75 outline-none rounded-none w-full"
-              placeholder={creationState.type === 'file' ? 'filename.tsx' : 'folder'}
+              placeholder={
+                creationState.type === "file" ? "filename.tsx" : "folder"
+              }
             />
           </div>
         )}

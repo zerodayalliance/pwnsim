@@ -1,7 +1,7 @@
 export interface FileNode {
   id: string;
   name: string;
-  type: 'file' | 'folder';
+  type: "file" | "folder";
   parentId: string | null;
   content?: string;
   isOpen?: boolean;
@@ -16,24 +16,24 @@ export interface TabItem {
 
 export const INITIAL_FILES: FileNode[] = [
   {
-    id: 'root-src',
-    name: 'src',
-    type: 'folder',
+    id: "root-src",
+    name: "src",
+    type: "folder",
     parentId: null,
     isOpen: true,
   },
   {
-    id: 'src-app',
-    name: 'app',
-    type: 'folder',
-    parentId: 'root-src',
+    id: "src-app",
+    name: "app",
+    type: "folder",
+    parentId: "root-src",
     isOpen: true,
   },
   {
-    id: 'app-layout',
-    name: 'layout.tsx',
-    type: 'file',
-    parentId: 'src-app',
+    id: "app-layout",
+    name: "layout.tsx",
+    type: "file",
+    parentId: "src-app",
     content: `export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -52,10 +52,10 @@ export const INITIAL_FILES: FileNode[] = [
 }`,
   },
   {
-    id: 'app-page',
-    name: 'page.tsx',
-    type: 'file',
-    parentId: 'src-app',
+    id: "app-page",
+    name: "page.tsx",
+    type: "file",
+    parentId: "src-app",
     content: `export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -68,10 +68,10 @@ export const INITIAL_FILES: FileNode[] = [
 }`,
   },
   {
-    id: 'app-globals',
-    name: 'globals.css',
-    type: 'file',
-    parentId: 'src-app',
+    id: "app-globals",
+    name: "globals.css",
+    type: "file",
+    parentId: "src-app",
     content: `@import "tailwindcss";
 
 @layer base {
@@ -83,9 +83,9 @@ export const INITIAL_FILES: FileNode[] = [
 }`,
   },
   {
-    id: 'root-package-json',
-    name: 'package.json',
-    type: 'file',
+    id: "root-package-json",
+    name: "package.json",
+    type: "file",
     parentId: null,
     content: `{
   "name": "pwned",
@@ -104,9 +104,9 @@ export const INITIAL_FILES: FileNode[] = [
 }`,
   },
   {
-    id: 'root-readme',
-    name: 'README.md',
-    type: 'file',
+    id: "root-readme",
+    name: "README.md",
+    type: "file",
     parentId: null,
     content: `# PWNed VS Code Workspace
 

@@ -23,7 +23,9 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [activeTab, setActiveTab] = useState<"analysis" | "payload" | "checklist">("analysis");
+  const [activeTab, setActiveTab] = useState<
+    "analysis" | "payload" | "checklist"
+  >("analysis");
 
   if (!isOpen) return null;
 
@@ -136,7 +138,10 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
           {activeTab === "analysis" && (
             <div className="space-y-3">
               <p className="text-xs text-gray-300">
-                This mock website is a textbook illustration of a <strong>fake video game crack / mod scam</strong> designed to deliver information stealers (e.g., RedLine, LummaC2) or ransomware:
+                This mock website is a textbook illustration of a{" "}
+                <strong>fake video game crack / mod scam</strong> designed to
+                deliver information stealers (e.g., RedLine, LummaC2) or
+                ransomware:
               </p>
 
               {redFlags.map((flag, idx) => (
@@ -174,42 +179,88 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
           {activeTab === "payload" && (
             <div className="space-y-3">
               <div className="p-3 bg-black/60 rounded-xl border border-red-500/30 font-mono text-[11px] text-red-300 space-y-1">
-                <div className="text-gray-400 font-bold"># Disassembly / Static Strings Inspection:</div>
-                <div className="text-emerald-400">&gt; Target: GTA6_Ultra_Mod_Setup_v2.4.exe</div>
-                <div className="text-gray-300">&gt; File Hash (SHA-256): e8c399b1...4a29f8c1</div>
-                <div className="text-yellow-400">&gt; Detected signature: Trojan:Win32/Stealer.Lumma!MTB</div>
-                <div className="text-red-400">&gt; High Entropy: 7.92 (Heavily Packed / Encrypted Executable)</div>
-                <div className="text-gray-300">&gt; Embedded Resource: Dropper batch script &amp; PowerShell base64 payload</div>
-                <div className="text-yellow-300">&gt; C2 Domain: c2-node7.darknet-stealer.biz:8080</div>
-                <div className="text-red-400">&gt; Capabilities: Steals saved browser passwords, Discord tokens, crypto wallets</div>
+                <div className="text-gray-400 font-bold">
+                  # Disassembly / Static Strings Inspection:
+                </div>
+                <div className="text-emerald-400">
+                  &gt; Target: GTA6_Ultra_Mod_Setup_v2.4.exe
+                </div>
+                <div className="text-gray-300">
+                  &gt; File Hash (SHA-256): e8c399b1...4a29f8c1
+                </div>
+                <div className="text-yellow-400">
+                  &gt; Detected signature: Trojan:Win32/Stealer.Lumma!MTB
+                </div>
+                <div className="text-red-400">
+                  &gt; High Entropy: 7.92 (Heavily Packed / Encrypted
+                  Executable)
+                </div>
+                <div className="text-gray-300">
+                  &gt; Embedded Resource: Dropper batch script &amp; PowerShell
+                  base64 payload
+                </div>
+                <div className="text-yellow-300">
+                  &gt; C2 Domain: c2-node7.darknet-stealer.biz:8080
+                </div>
+                <div className="text-red-400">
+                  &gt; Capabilities: Steals saved browser passwords, Discord
+                  tokens, crypto wallets
+                </div>
               </div>
 
               <div className="p-3 bg-[#1e222d] rounded-xl text-xs text-gray-300">
-                <strong className="text-white block mb-1">What would happen if executed on a real machine?</strong>
-                The dropper would briefly flash a command prompt window, add a registry persistence key under <code className="bg-black/50 px-1 py-0.5 rounded text-amber-300">HKCU\Software\Microsoft\Windows\CurrentVersion\Run</code>, extract session cookies and Discord tokens, and exfiltrate them to the attacker&apos;s Telegram/C2 bot.
+                <strong className="text-white block mb-1">
+                  What would happen if executed on a real machine?
+                </strong>
+                The dropper would briefly flash a command prompt window, add a
+                registry persistence key under{" "}
+                <code className="bg-black/50 px-1 py-0.5 rounded text-amber-300">
+                  HKCU\Software\Microsoft\Windows\CurrentVersion\Run
+                </code>
+                , extract session cookies and Discord tokens, and exfiltrate
+                them to the attacker&apos;s Telegram/C2 bot.
               </div>
             </div>
           )}
 
           {activeTab === "checklist" && (
             <div className="space-y-3 text-xs">
-              <h4 className="font-bold text-white">How to protect yourself from fake game downloads:</h4>
+              <h4 className="font-bold text-white">
+                How to protect yourself from fake game downloads:
+              </h4>
               <ul className="space-y-2 text-gray-300">
                 <li className="flex items-start gap-2">
                   <IconCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>Verify official release status:</strong> GTA 6 is scheduled exclusively for consoles first. Any PC version or mod available before official PC release is guaranteed malware.</span>
+                  <span>
+                    <strong>Verify official release status:</strong> GTA 6 is
+                    scheduled exclusively for consoles first. Any PC version or
+                    mod available before official PC release is guaranteed
+                    malware.
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <IconCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>Never disable Antivirus for a download:</strong> Legitimate modding platforms (like Nexus Mods or CurseForge) do not require users to turn off Defender or run unknown .exe files.</span>
+                  <span>
+                    <strong>Never disable Antivirus for a download:</strong>{" "}
+                    Legitimate modding platforms (like Nexus Mods or CurseForge)
+                    do not require users to turn off Defender or run unknown
+                    .exe files.
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <IconCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>Inspect file extensions:</strong> Mod files for games are typically .asi, .dll, .rpf, or script files placed in a game directory—rarely a standalone 45MB installer .exe.</span>
+                  <span>
+                    <strong>Inspect file extensions:</strong> Mod files for
+                    games are typically .asi, .dll, .rpf, or script files placed
+                    in a game directory—rarely a standalone 45MB installer .exe.
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <IconCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>Use VirusTotal or sandbox:</strong> Scan any downloaded file on VirusTotal before opening.</span>
+                  <span>
+                    <strong>Use VirusTotal or sandbox:</strong> Scan any
+                    downloaded file on VirusTotal before opening.
+                  </span>
                 </li>
               </ul>
             </div>
@@ -218,9 +269,7 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
 
         {/* Modal Footer */}
         <div className="p-4 bg-[#14161b] border-t border-[#2d3039] flex items-center justify-between text-xs">
-          <span className="text-gray-400">
-            Simulated Sandbox Environment
-          </span>
+          <span className="text-gray-400">Simulated Sandbox Environment</span>
           <button
             onClick={onClose}
             className="bg-red-600 hover:bg-red-500 text-white font-bold px-4 py-2 rounded-lg transition-colors"

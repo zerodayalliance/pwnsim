@@ -1,10 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import {
-  IconFolder,
-  IconExternalLink,
-} from "@tabler/icons-react";
+import { IconFolder, IconExternalLink } from "@tabler/icons-react";
 import { DownloadItem } from "../types";
 
 interface ChromeDownloadBubbleProps {
@@ -27,10 +24,7 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
   // Close when clicking outside
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (
-        bubbleRef.current &&
-        !bubbleRef.current.contains(e.target as Node)
-      ) {
+      if (bubbleRef.current && !bubbleRef.current.contains(e.target as Node)) {
         onClose();
       }
     };
@@ -49,7 +43,9 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
     if (onOpenFile) {
       onOpenFile(filename);
     } else {
-      setToastMessage(`⚡ Executing ${filename}... Starting GTA VI Mod Loader Engine`);
+      setToastMessage(
+        `⚡ Executing ${filename}... Starting GTA VI Mod Loader Engine`
+      );
       setTimeout(() => {
         setToastMessage(null);
       }, 3500);
@@ -61,7 +57,9 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
     if (onOpenFile) {
       onOpenFile(filename);
     } else {
-      setToastMessage(`📁 Opened directory: C:\\Users\\Pwned\\Downloads\\${filename}`);
+      setToastMessage(
+        `📁 Opened directory: C:\\Users\\Pwned\\Downloads\\${filename}`
+      );
       setTimeout(() => {
         setToastMessage(null);
       }, 3500);
@@ -77,7 +75,8 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
       >
         <div className="p-3">
           {downloads.slice(0, 3).map((item) => {
-            const itemCompleted = item.status === "completed" || item.progress >= 100;
+            const itemCompleted =
+              item.status === "completed" || item.progress >= 100;
 
             return (
               <div

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   IconGitBranch,
   IconRefresh,
@@ -7,7 +7,7 @@ import {
   IconBell,
   IconCheck,
   IconTerminal2,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 interface StatusBarProps {
   activeLine: number;
@@ -24,82 +24,82 @@ export function StatusBar({
   isPanelOpen,
   onTogglePanel,
 }: StatusBarProps) {
-  const ext = fileName.split('.').pop()?.toLowerCase() || '';
+  const ext = fileName.split(".").pop()?.toLowerCase() || "";
 
   const getLanguageMode = () => {
     switch (ext) {
-      case 'py':
-      case 'pyw':
-      case 'ipynb':
-        return 'Python';
-      case 'c':
-      case 'h':
-        return 'C';
-      case 'cpp':
-      case 'cc':
-      case 'cxx':
-      case 'hpp':
-        return 'C++';
-      case 'cs':
-        return 'C#';
-      case 'java':
-        return 'Java';
-      case 'kt':
-      case 'kts':
-        return 'Kotlin';
-      case 'go':
-        return 'Go';
-      case 'rs':
-        return 'Rust';
-      case 'php':
-        return 'PHP';
-      case 'rb':
-        return 'Ruby';
-      case 'swift':
-        return 'Swift';
-      case 'dart':
-        return 'Dart';
-      case 'html':
-      case 'htm':
-        return 'HTML';
-      case 'css':
-        return 'CSS';
-      case 'scss':
-      case 'sass':
-        return 'SCSS';
-      case 'tsx':
-        return 'TypeScript JSX';
-      case 'ts':
-        return 'TypeScript';
-      case 'jsx':
-        return 'JavaScript JSX';
-      case 'js':
-      case 'mjs':
-      case 'cjs':
-        return 'JavaScript';
-      case 'json':
-        return 'JSON';
-      case 'sql':
-        return 'SQL';
-      case 'sh':
-      case 'bash':
-      case 'zsh':
-        return 'Shell Script';
-      case 'yml':
-      case 'yaml':
-        return 'YAML';
-      case 'md':
-        return 'Markdown';
-      case 'vue':
-        return 'Vue';
-      case 'svelte':
-        return 'Svelte';
-      case 'lua':
-        return 'Lua';
-      case 'r':
-        return 'R';
+      case "py":
+      case "pyw":
+      case "ipynb":
+        return "Python";
+      case "c":
+      case "h":
+        return "C";
+      case "cpp":
+      case "cc":
+      case "cxx":
+      case "hpp":
+        return "C++";
+      case "cs":
+        return "C#";
+      case "java":
+        return "Java";
+      case "kt":
+      case "kts":
+        return "Kotlin";
+      case "go":
+        return "Go";
+      case "rs":
+        return "Rust";
+      case "php":
+        return "PHP";
+      case "rb":
+        return "Ruby";
+      case "swift":
+        return "Swift";
+      case "dart":
+        return "Dart";
+      case "html":
+      case "htm":
+        return "HTML";
+      case "css":
+        return "CSS";
+      case "scss":
+      case "sass":
+        return "SCSS";
+      case "tsx":
+        return "TypeScript JSX";
+      case "ts":
+        return "TypeScript";
+      case "jsx":
+        return "JavaScript JSX";
+      case "js":
+      case "mjs":
+      case "cjs":
+        return "JavaScript";
+      case "json":
+        return "JSON";
+      case "sql":
+        return "SQL";
+      case "sh":
+      case "bash":
+      case "zsh":
+        return "Shell Script";
+      case "yml":
+      case "yaml":
+        return "YAML";
+      case "md":
+        return "Markdown";
+      case "vue":
+        return "Vue";
+      case "svelte":
+        return "Svelte";
+      case "lua":
+        return "Lua";
+      case "r":
+        return "R";
       default:
-        return 'Plain Text';
+        return "Plain Text";
     }
   };
 
@@ -138,16 +138,22 @@ export function StatusBar({
         {/* Toggle terminal panel shortcut - prominent and always visible */}
         <button
           onClick={onTogglePanel}
-          title={isPanelOpen ? 'Hide Terminal (Cmd+J / Ctrl+`)' : 'Show Terminal (Cmd+J / Ctrl+`)'}
+          title={
+            isPanelOpen
+              ? "Hide Terminal (Cmd+J / Ctrl+`)"
+              : "Show Terminal (Cmd+J / Ctrl+`)"
+          }
           className={`flex items-center gap-1.5 px-2 py-0.5 rounded cursor-pointer transition-all ${
             isPanelOpen
-              ? 'bg-[#005a9e] text-white font-medium shadow-inner'
-              : 'hover:bg-[#1f8ad2] text-white/90'
+              ? "bg-[#005a9e] text-white font-medium shadow-inner"
+              : "hover:bg-[#1f8ad2] text-white/90"
           }`}
         >
           <IconTerminal2 className="w-3.5 h-3.5" />
           <span className="text-[11px] font-medium">Terminal</span>
-          {isPanelOpen && <span className="w-1.5 h-1.5 rounded-full bg-[#4ec9b0]" />}
+          {isPanelOpen && (
+            <span className="w-1.5 h-1.5 rounded-full bg-[#4ec9b0]" />
+          )}
         </button>
       </div>
 

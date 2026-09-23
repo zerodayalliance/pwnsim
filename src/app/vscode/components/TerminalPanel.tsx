@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   IconPlus,
   IconChevronDown,
   IconTrash,
   IconX,
   IconMaximize,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 interface TerminalPanelProps {
   isOpen: boolean;
@@ -13,17 +13,19 @@ interface TerminalPanelProps {
 }
 
 export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
-  const [activeTab, setActiveTab] = useState<'terminal' | 'problems' | 'output' | 'debug'>('terminal');
-  const [inputVal, setInputVal] = useState('');
+  const [activeTab, setActiveTab] = useState<
+    "terminal" | "problems" | "output" | "debug"
+  >("terminal");
+  const [inputVal, setInputVal] = useState("");
   const [history, setHistory] = useState<string[]>([
-    '▲ Next.js 16.3.4 (Turbopack)',
-    '  - Local:        http://localhost:3000',
-    '  - Network:      http://192.168.1.5:3000',
-    '  - Environments: .env.local',
-    '',
-    '✓ Starting...',
-    '✓ Ready in 1420ms',
-    '✓ Compiled /vscode in 180ms',
+    "▲ Next.js 16.3.4 (Turbopack)",
+    "  - Local:        http://localhost:3000",
+    "  - Network:      http://192.168.1.5:3000",
+    "  - Environments: .env.local",
+    "",
+    "✓ Starting...",
+    "✓ Ready in 1420ms",
+    "✓ Compiled /vscode in 180ms",
   ]);
 
   if (!isOpen) return null;
@@ -32,45 +34,51 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
     e.preventDefault();
     if (!inputVal.trim()) return;
     const cmd = inputVal.trim();
-    let res = '';
+    let res = "";
     const lower = cmd.toLowerCase();
 
-    if (cmd === 'clear') {
+    if (cmd === "clear") {
       setHistory([]);
-      setInputVal('');
+      setInputVal("");
       return;
-    } else if (cmd === 'ls') {
-      res = 'package.json  pnpm-lock.yaml  README.md  src/  tsconfig.json';
-    } else if (cmd === 'git status') {
-      res = 'On branch main\nYour branch is up to date with \'origin/main\'.\nChanges not staged for commit:\n  modified:   src/app/vscode/page.tsx';
-    } else if (lower.startsWith('python ') || lower.startsWith('python3 ')) {
-      res = 'Hello from Python!';
-    } else if (lower.startsWith('gcc ') || lower.startsWith('clang ')) {
-      res = 'Compiling C source... [Done] => a.out generated';
-    } else if (lower.startsWith('g++ ') || lower.startsWith('clang++ ')) {
-      res = 'Compiling C++ source... [Done] => a.out generated';
-    } else if (lower === './a.out') {
-      res = 'Hello, World!';
-    } else if (lower.startsWith('javac ')) {
-      res = 'Compiled Java class files successfully.';
-    } else if (lower.startsWith('java ')) {
-      res = 'Hello from Java!';
-    } else if (lower.startsWith('kotlinc ')) {
-      res = 'Compiling Kotlin source... [Done]';
-    } else if (lower.startsWith('go run ')) {
-      res = 'Hello from Go!';
-    } else if (lower.startsWith('cargo run')) {
-      res = '   Compiling pwned v0.1.0 (/pwned)\n    Finished dev [unoptimized + debuginfo] target(s) in 0.38s\n     Running `target/debug/pwned`\nHello from Rust!';
-    } else if (lower.startsWith('node ')) {
-      res = 'Hello from Node.js!';
-    } else if (lower.startsWith('echo ')) {
+    } else if (cmd === "ls") {
+      res = "package.json  pnpm-lock.yaml  README.md  src/  tsconfig.json";
+    } else if (cmd === "git status") {
+      res =
+        "On branch main\nYour branch is up to date with 'origin/main'.\nChanges not staged for commit:\n  modified:   src/app/vscode/page.tsx";
+    } else if (lower.startsWith("python ") || lower.startsWith("python3 ")) {
+      res = "Hello from Python!";
+    } else if (lower.startsWith("gcc ") || lower.startsWith("clang ")) {
+      res = "Compiling C source... [Done] => a.out generated";
+    } else if (lower.startsWith("g++ ") || lower.startsWith("clang++ ")) {
+      res = "Compiling C++ source... [Done] => a.out generated";
+    } else if (lower === "./a.out") {
+      res = "Hello, World!";
+    } else if (lower.startsWith("javac ")) {
+      res = "Compiled Java class files successfully.";
+    } else if (lower.startsWith("java ")) {
+      res = "Hello from Java!";
+    } else if (lower.startsWith("kotlinc ")) {
+      res = "Compiling Kotlin source... [Done]";
+    } else if (lower.startsWith("go run ")) {
+      res = "Hello from Go!";
+    } else if (lower.startsWith("cargo run")) {
+      res =
+        "   Compiling pwned v0.1.0 (/pwned)\n    Finished dev [unoptimized + debuginfo] target(s) in 0.38s\n     Running `target/debug/pwned`\nHello from Rust!";
+    } else if (lower.startsWith("node ")) {
+      res = "Hello from Node.js!";
+    } else if (lower.startsWith("echo ")) {
       res = cmd.slice(5);
     } else {
       res = `zsh: command executed: ${cmd}`;
     }
 
-    setHistory((prev) => [...prev, `zerodayalliance@MacBook-Pro pwned % ${cmd}`, ...(res ? res.split('\n') : [])]);
-    setInputVal('');
+    setHistory((prev) => [
+      ...prev,
+      `zerodayalliance@MacBook-Pro pwned % ${cmd}`,
+      ...(res ? res.split("\n") : []),
+    ]);
+    setInputVal("");
   };
 
   return (
@@ -80,33 +88,44 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
         {/* Tabs */}
         <div className="flex items-center gap-4 text-[#969696] font-medium uppercase tracking-wider text-[11px]">
           <button
-            onClick={() => setActiveTab('problems')}
+            onClick={() => setActiveTab("problems")}
             className={`hover:text-white transition-colors cursor-pointer ${
-              activeTab === 'problems' ? 'text-white border-b-2 border-white pb-1' : ''
+              activeTab === "problems"
+                ? "text-white border-b-2 border-white pb-1"
+                : ""
             }`}
           >
-            Problems <span className="text-[10px] bg-[#333333] px-1 rounded-full ml-1">0</span>
+            Problems{" "}
+            <span className="text-[10px] bg-[#333333] px-1 rounded-full ml-1">
+              0
+            </span>
           </button>
           <button
-            onClick={() => setActiveTab('output')}
+            onClick={() => setActiveTab("output")}
             className={`hover:text-white transition-colors cursor-pointer ${
-              activeTab === 'output' ? 'text-white border-b-2 border-white pb-1' : ''
+              activeTab === "output"
+                ? "text-white border-b-2 border-white pb-1"
+                : ""
             }`}
           >
             Output
           </button>
           <button
-            onClick={() => setActiveTab('debug')}
+            onClick={() => setActiveTab("debug")}
             className={`hover:text-white transition-colors cursor-pointer ${
-              activeTab === 'debug' ? 'text-white border-b-2 border-white pb-1' : ''
+              activeTab === "debug"
+                ? "text-white border-b-2 border-white pb-1"
+                : ""
             }`}
           >
             Debug Console
           </button>
           <button
-            onClick={() => setActiveTab('terminal')}
+            onClick={() => setActiveTab("terminal")}
             className={`hover:text-white transition-colors cursor-pointer ${
-              activeTab === 'terminal' ? 'text-white border-b-2 border-white pb-1' : ''
+              activeTab === "terminal"
+                ? "text-white border-b-2 border-white pb-1"
+                : ""
             }`}
           >
             Terminal
@@ -153,19 +172,19 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
 
       {/* Terminal Body */}
       <div className="flex-1 bg-[#181818] p-3 overflow-y-auto font-mono text-[13px] leading-5 text-[#cccccc]">
-        {activeTab === 'terminal' ? (
+        {activeTab === "terminal" ? (
           <div>
             {history.map((line, idx) => (
               <div
                 key={idx}
                 className={
-                  line.startsWith('✓')
-                    ? 'text-[#4ec9b0]'
-                    : line.startsWith('▲')
-                    ? 'text-white font-bold'
-                    : line.startsWith('aviksamanta@')
-                    ? 'text-[#61afef]'
-                    : 'text-[#cccccc]'
+                  line.startsWith("✓")
+                    ? "text-[#4ec9b0]"
+                    : line.startsWith("▲")
+                      ? "text-white font-bold"
+                      : line.startsWith("aviksamanta@")
+                        ? "text-[#61afef]"
+                        : "text-[#cccccc]"
                 }
               >
                 {line}
@@ -173,7 +192,10 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
             ))}
 
             {/* Active Command Input Line */}
-            <form onSubmit={handleCommand} className="flex items-center gap-2 mt-1">
+            <form
+              onSubmit={handleCommand}
+              className="flex items-center gap-2 mt-1"
+            >
               <span className="text-[#61afef] shrink-0 select-none">
                 zerodayalliance@MacBook-Pro pwned %
               </span>
