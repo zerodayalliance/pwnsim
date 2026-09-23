@@ -195,9 +195,9 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
     text: string;
     isConfirm?: boolean;
   }>({
-    isOpen: true,
-    title: "Windows Security - Critical Alert",
-    text: "CRITICAL INCIDENT: Unauthorized cryptographic engine executed from 'GTA6_Mod_Engine_v2.4.zip'.\n\nProcess ID: 7412 (High Integrity)\nStatus: Active AES-128 file encryption in progress.\nAll volume shadow copies and recovery points have been deleted.\n\nDo NOT restart the computer.",
+    isOpen: false,
+    title: "",
+    text: "",
     isConfirm: false,
   });
 
@@ -601,7 +601,7 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                   />
                 </svg>
                 <span>
-                  Send <strong>$300</strong> worth of bitcoin to this address:
+                  Send <strong>$670</strong> worth of bitcoin to this address:
                 </span>
               </div>
 
@@ -624,7 +624,7 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                     onClick={() =>
                       showNativeAlert(
                         "How to buy bitcoins",
-                        "1. Go to Coinbase.com or Binance.com\n2. Register and buy $300 in BTC\n3. Send BTC to the address in the box"
+                        "1. Go to Coinbase.com or Binance.com\n2. Register and buy $670 in BTC\n3. Send BTC to the address in the box"
                       )
                     }
                   >

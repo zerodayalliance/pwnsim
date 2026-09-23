@@ -568,10 +568,10 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           </button>
 
           <div
-            className="w-7 h-7 rounded-full bg-[#1a73e8] hover:bg-[#1557b0] flex items-center justify-center text-xs font-bold text-white shadow cursor-pointer ml-0.5 transition-colors"
-            title="Google Account: PwnSim Security"
+            className="w-7 h-7 rounded-full bg-[#1a73e8] hover:bg-[#1557b0] flex items-center justify-center text-xs font-medium text-white shadow cursor-pointer ml-0.5 transition-colors"
+            title="Google Account: Admin"
           >
-            P
+            A
           </div>
 
           <button

@@ -79,8 +79,14 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
             return (
               <div
                 key={item.id}
-                onClick={(e) => handleDirectRun(e, item.filename)}
-                className="group flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl hover:bg-[#2b2d33] transition-colors cursor-pointer"
+                onClick={(e) => {
+                  if (itemCompleted) {
+                    handleDirectRun(e, item.filename);
+                  }
+                }}
+                className={`group flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl hover:bg-[#2b2d33] transition-colors ${
+                  itemCompleted ? "cursor-pointer" : "cursor-default"
+                }`}
               >
                 <div className="shrink-0 flex items-center justify-center">
                   <svg
@@ -130,7 +136,11 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
                 </div>
 
                 <div className="flex-1 min-w-0 pr-2">
-                  <div className="text-[13px] font-medium text-white truncate group-hover:text-blue-400 transition-colors">
+                  <div
+                    className={`text-[13px] font-medium text-white truncate transition-colors ${
+                      itemCompleted ? "group-hover:text-blue-400" : ""
+                    }`}
+                  >
                     {item.filename}
                   </div>
                   <div className="text-xs text-[#9aa0a6] mt-0.5 font-normal">
@@ -140,23 +150,25 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 shrink-0">
-                  <button
-                    onClick={(e) => handleShowInFolder(e, item.filename)}
-                    className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-[#383a42] transition-colors"
-                    title="Show in folder"
-                  >
-                    <IconFolder className="w-5 h-5 stroke-[1.6]" />
-                  </button>
+                {itemCompleted && (
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      onClick={(e) => handleShowInFolder(e, item.filename)}
+                      className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-[#383a42] transition-colors"
+                      title="Show in folder"
+                    >
+                      <IconFolder className="w-5 h-5 stroke-[1.6]" />
+                    </button>
 
-                  <button
-                    onClick={(e) => handleDirectRun(e, item.filename)}
-                    className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-[#383a42] transition-colors"
-                    title="Direct run"
-                  >
-                    <IconExternalLink className="w-5 h-5 stroke-[1.6]" />
-                  </button>
-                </div>
+                    <button
+                      onClick={(e) => handleDirectRun(e, item.filename)}
+                      className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-[#383a42] transition-colors"
+                      title="Direct run"
+                    >
+                      <IconExternalLink className="w-5 h-5 stroke-[1.6]" />
+                    </button>
+                  </div>
+                )}
               </div>
             );
           })}
