@@ -10,8 +10,17 @@ import { StatusBar } from './components/StatusBar';
 import { TerminalPanel } from './components/TerminalPanel';
 import { INITIAL_FILES, FileNode, TabItem } from './types';
 import { IconSearch, IconGitBranch, IconPlayerPlay, IconPuzzle } from '@tabler/icons-react';
+import Pwn from '@/components/pwn';
+import { useNetworkPwn } from '@/hooks/useNetworkPwn';
 
 export default function VSCodePage() {
+  const { isCompromised, isInfecting, threatDetails, resetNetworkPwn } =
+    useNetworkPwn({
+      deviceType: 'vscode',
+      propagationDelayMs: 800,
+      stagerDurationMs: 1400,
+    });
+
   const [files, setFiles] = useState<FileNode[]>(INITIAL_FILES);
   const [activeFileId, setActiveFileId] = useState<string | null>('app-layout');
   const [tabs, setTabs] = useState<TabItem[]>([
@@ -215,7 +224,13 @@ export default function VSCodePage() {
   }, [activeFileId]);
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#181818] text-[#cccccc] font-sans antialiased select-none">
+    <div
+      className={`flex flex-col h-screen w-screen overflow-hidden bg-[#181818] text-[#cccccc] font-sans antialiased select-none transition-all duration-300 ${
+        isCompromised || isInfecting
+          ? 'pointer-events-none filter blur-[0.8px] brightness-90'
+          : ''
+      }`}
+    >
       {/* 1. Title Bar */}
       <TitleBar
         activeFileName={activeFile ? activeFile.name : 'pwned'}
@@ -359,6 +374,60 @@ export default function VSCodePage() {
         isPanelOpen={isPanelOpen}
         onTogglePanel={() => setIsPanelOpen((prev) => !prev)}
       />
+
+      {/* VS Code Lateral Worm Breach Alert Stager */}
+      {isInfecting && (
+        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/60 backdrop-blur-xs pointer-events-auto select-none animate-in fade-in zoom-in-95 duration-150">
+          <div className="w-[560px] max-w-[92vw] bg-[#1e1e1e] border-2 border-red-500 shadow-[0_0_45px_rgba(239,68,68,0.4)] rounded text-[#cccccc] font-sans overflow-hidden">
+            <div className="bg-[#2a1717] px-3.5 py-2 border-b border-red-800/60 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
+                <span className="text-[12.5px] font-semibold text-red-300">
+                  Visual Studio Code — Critical Lateral Intrusion Detected
+                </span>
+              </div>
+              <span className="text-[10.5px] font-mono text-red-400 bg-red-950/70 px-2 py-0.5 rounded border border-red-800">
+                PID 4912
+              </span>
+            </div>
+            <div className="p-4 space-y-2.5 font-mono text-[11.5px] leading-relaxed">
+              <p className="text-red-400 font-bold">
+                [!] Inbound remote exploit connection on TCP Port 445 (SMBv1)
+              </p>
+              <div className="bg-[#141414] p-3 rounded border border-neutral-800 space-y-1 text-neutral-300 text-[11px]">
+                <p>
+                  <span className="text-neutral-500">Source:</span>{" "}
+                  <span className="text-amber-400">{threatDetails?.sourceIp || "192.168.1.104"}</span> ({threatDetails?.sourceDevice || "Chrome Host"})
+                </p>
+                <p>
+                  <span className="text-neutral-500">Vector:</span>{" "}
+                  <span className="text-rose-400">CVE-2017-0144 EternalBlue SMB Worm</span>
+                </p>
+                <p>
+                  <span className="text-neutral-500">Target:</span>{" "}
+                  <span className="text-cyan-400">dev-workstation (192.168.1.180) &bull; node.exe</span>
+                </p>
+              </div>
+              <div className="bg-[#121212] p-2.5 rounded border border-neutral-800 text-[11px] text-rose-300 space-y-0.5">
+                <p>&gt; Encrypting: layout.tsx ... [ENCRYPTED]</p>
+                <p>&gt; Encrypting: page.tsx ... [ENCRYPTED]</p>
+                <p>&gt; Encrypting: types.ts ... [ENCRYPTED]</p>
+                <p className="text-amber-400 animate-pulse font-semibold pt-1">&gt; Master cryptographic lock engaged on dev container.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full WannaCry Ransomware Overlay */}
+      {isCompromised && (
+        <Pwn
+          isOverlay={true}
+          onExit={() => {
+            resetNetworkPwn();
+          }}
+        />
+      )}
     </div>
   );
 }

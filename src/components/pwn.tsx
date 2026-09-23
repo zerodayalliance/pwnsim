@@ -285,11 +285,14 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
 
   const submitSecretKey = () => {
     const enteredKey = secretKeyInput.trim().toUpperCase();
-    const envKey = (process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY || "").trim().toUpperCase();
+    const defaultKey = "WCRY-2026-ZERO-DAYS";
+    const envKey = (process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY || defaultKey)
+      .trim()
+      .toUpperCase();
 
     setKeyPromptOpen(false);
 
-    if (envKey && enteredKey === envKey) {
+    if (enteredKey === envKey) {
       triggerRecoveryAnimation();
     } else {
       playWindowsErrorChord();
@@ -349,7 +352,7 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
   if (isDismissed) return null;
 
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${isOverlay ? "pwn-overlay" : ""}`}>
       {/* Red Page Threat Warning Background */}
       <div className={styles.desktopBgText}>
         <h1>ALL YOUR IMPORTANT FILES ARE ENCRYPTED</h1>
@@ -394,7 +397,8 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
               </button>
             </div>
             <div className={styles.defenderDesc}>
-              Critical threat detected: <strong>Trojan:Win32/WannaCrypt!rsm</strong>
+              Critical threat detected:{" "}
+              <strong>Trojan:Win32/WannaCrypt!rsm</strong>
             </div>
             <div className={styles.defenderMeta}>
               Status: Active file encryption in progress &bull; PID 7412
@@ -491,10 +495,7 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                   strokeWidth="2"
                 />
                 <circle cx="50" cy="62" r="5.5" fill="#3e2723" />
-                <polygon
-                  points="46,63 54,63 52,78 48,78"
-                  fill="#3e2723"
-                />
+                <polygon points="46,63 54,63 52,78 48,78" fill="#3e2723" />
               </svg>
             </div>
 
@@ -591,8 +592,8 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                 files are no longer accessible because they have been encrypted
                 with military-grade asymmetric cryptography (RSA-2048 +
                 AES-128). Maybe you are busy looking for a way to recover your
-                files, but do not waste your time. Nobody can recover your
-                files without our private decryption key service.
+                files, but do not waste your time. Nobody can recover your files
+                without our private decryption key service.
               </p>
 
               <div className={styles.textSectionTitle}>
@@ -602,17 +603,17 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
                 Sure. We guarantee that you can recover all your files safely
                 and easily. But you do not have much time.
                 <br />
-                You can decrypt some of your files for free. Try now by
-                clicking <strong>&lt;Decrypt&gt;</strong> below.
+                You can decrypt some of your files for free. Try now by clicking{" "}
+                <strong>&lt;Decrypt&gt;</strong> below.
                 <br />
                 If you want to decrypt all your files, you need to pay.
                 <br />
                 You only have <strong>3 days</strong> to submit the payment.
                 After that the price will be doubled.
                 <br />
-                Also, if you do not pay in <strong>7 days</strong>, your
-                private key will be permanently deleted from the server and you
-                will never be able to recover your files forever.
+                Also, if you do not pay in <strong>7 days</strong>, your private
+                key will be permanently deleted from the server and you will
+                never be able to recover your files forever.
               </p>
 
               <div className={styles.textSectionTitle}>How Do I Pay?</div>
@@ -833,8 +834,8 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
               style={{ flexDirection: "column", gap: 10 }}
             >
               <p>
-                If you have obtained your private decryption key from the server,
-                please enter it below:
+                If you have obtained your private decryption key from the
+                server, please enter it below:
               </p>
               <input
                 type="text"
@@ -855,7 +856,10 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
               />
               <div style={{ fontSize: 11, color: "#666" }}>
                 * Mock Decryption Key:{" "}
-                <strong>{process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY}</strong>
+                <strong>
+                  {process.env.NEXT_PUBLIC_PWN_DECRYPT_KEY ||
+                    "WCRY-2026-ZERO-DAYS"}
+                </strong>
               </div>
             </div>
             <div className={styles.dialogFooter}>

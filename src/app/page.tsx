@@ -32,7 +32,7 @@ interface EnvironmentRoute {
 const ROUTES: EnvironmentRoute[] = [
   {
     id: "win11",
-    title: "Windows 11 Desktop",
+    title: "Windows 11",
     href: "/win11",
     previewImage: "/previews/win11.png",
     accentColor: {
@@ -46,7 +46,7 @@ const ROUTES: EnvironmentRoute[] = [
   },
   {
     id: "win7",
-    title: "Windows 7 Desktop",
+    title: "Windows 7",
     href: "/win7",
     previewImage: "/previews/win7.png",
     accentColor: {
@@ -88,7 +88,7 @@ const ROUTES: EnvironmentRoute[] = [
   },
   {
     id: "admin",
-    title: "Admin",
+    title: "Admin Console",
     href: "/admin",
     accentColor: {
       bg: "bg-rose-500/10",
@@ -163,7 +163,7 @@ function RoutePreviewFrame({ route }: { route: EnvironmentRoute }) {
   );
 }
 
-export default function Home() {
+export default function HomePage() {
   const [timeInfo, setTimeInfo] = useState<{
     day: string;
     date: string;

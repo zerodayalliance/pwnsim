@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ChromeHeader } from "./components/ChromeHeader";
 import { GoogleHomePage } from "./components/GoogleHomePage";
 import { SearchResultsPage } from "./components/SearchResultsPage";
@@ -10,6 +10,7 @@ import { RockstarMockPage } from "./components/RockstarMockPage";
 import { ChromeDownloadBubble } from "./components/ChromeDownloadBubble";
 import Pwn from "@/components/pwn";
 import { ChromeTab, DownloadItem } from "./types";
+import { useNetworkPwn } from "@/hooks/useNetworkPwn";
 
 export default function ChromePage() {
   // Tabs State
@@ -30,30 +31,25 @@ export default function ChromePage() {
   // Downloads State
   const [downloads, setDownloads] = useState<DownloadItem[]>([]);
   const [isDownloadBubbleOpen, setIsDownloadBubbleOpen] = useState(false);
-  const [isFreezing, setIsFreezing] = useState(false);
-  const [isPwnActive, setIsPwnActive] = useState(false);
 
-  // Global listener to immediately unfreeze and restore Chrome on exit
-  useEffect(() => {
-    const handleGlobalPwnExit = () => {
-      setIsPwnActive(false);
-      setIsFreezing(false);
-    };
-    window.addEventListener("pwn:exit", handleGlobalPwnExit);
-    return () => {
-      window.removeEventListener("pwn:exit", handleGlobalPwnExit);
-    };
-  }, []);
+  // Network Worm Mesh State
+  const {
+    isCompromised: isPwnActive,
+    isInfecting: isFreezing,
+    triggerNetworkPwn,
+    resetNetworkPwn,
+  } = useNetworkPwn({
+    deviceType: "chrome",
+    propagationDelayMs: 0,
+    stagerDurationMs: 1200,
+  });
 
   const handleOpenFile = (filename: string) => {
     setIsDownloadBubbleOpen(false);
-    setIsFreezing(true);
-
-    // Freeze screen and flash realistic CMD stager for 850ms, then pop up malware
-    setTimeout(() => {
-      setIsFreezing(false);
-      setIsPwnActive(true);
-    }, 850);
+    triggerNetworkPwn({
+      filename,
+      sourceDevice: "Google Chrome (Patient Zero)",
+    });
   };
 
   // Active Tab helper
@@ -474,6 +470,9 @@ export default function ChromePage() {
             </p>
             <p className="text-neutral-300">[+] Unpacking payload archive: update_engine_x64.exe ... OK</p>
             <p className="text-neutral-300">[+] Spawning high-integrity execution thread at PID 8192 ...</p>
+            <p className="text-cyan-400 font-semibold">[+] Scanning LAN subnet 192.168.1.0/24 for MS17-010 EternalBlue...</p>
+            <p className="text-rose-400 font-bold">[!] Vulnerable target hosts discovered: 192.168.1.115 (Win11), 192.168.1.180 (VSCode)</p>
+            <p className="text-rose-300">[+] Infiltrating SMBv1 / Port 445 on all discovered LAN workstations...</p>
             <p className="text-amber-400 animate-pulse font-semibold">[!] Hooking Display Driver &amp; Seizing Desktop Window Manager...</p>
           </div>
         </div>
@@ -485,8 +484,7 @@ export default function ChromePage() {
       <Pwn
         isOverlay={true}
         onExit={() => {
-          setIsPwnActive(false);
-          setIsFreezing(false);
+          resetNetworkPwn();
         }}
       />
     )}
