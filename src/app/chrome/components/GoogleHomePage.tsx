@@ -224,7 +224,7 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               <div className="w-12 h-12 rounded-full bg-[#303134] group-hover:bg-[#3c4043] flex items-center justify-center transition-all shadow">
                 <span className="text-xs font-black text-pink-400">VI</span>
               </div>
-              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-[80px]">
+              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-20">
                 GTA6 Mods
               </span>
             </div>
@@ -237,7 +237,7 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               <div className="w-12 h-12 rounded-full bg-[#303134] group-hover:bg-[#3c4043] flex items-center justify-center transition-all shadow">
                 <IconBrandYoutube className="w-6 h-6 text-red-500" />
               </div>
-              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-[80px]">
+              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-20">
                 YouTube
               </span>
             </div>
@@ -252,7 +252,7 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               <div className="w-12 h-12 rounded-full bg-[#303134] group-hover:bg-[#3c4043] flex items-center justify-center transition-all shadow">
                 <IconBrandReddit className="w-6 h-6 text-orange-500" />
               </div>
-              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-[80px]">
+              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-20">
                 r/GTA6
               </span>
             </div>
@@ -265,7 +265,7 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               <div className="w-12 h-12 rounded-full bg-[#303134] group-hover:bg-[#3c4043] flex items-center justify-center transition-all shadow">
                 <span className="text-sm font-bold text-yellow-400">R★</span>
               </div>
-              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-[80px]">
+              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-20">
                 Rockstar
               </span>
             </div>
@@ -278,7 +278,7 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               <div className="w-12 h-12 rounded-full bg-[#303134] group-hover:bg-[#3c4043] flex items-center justify-center transition-all shadow">
                 <IconBrandGithub className="w-6 h-6 text-gray-200" />
               </div>
-              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-[80px]">
+              <span className="text-xs text-gray-300 group-hover:text-white truncate max-w-20">
                 GitHub
               </span>
             </div>

@@ -34,8 +34,8 @@ export default function Windows11Desktop() {
 
       {/* Windows 11 Inbound SMB Exploit / Intrusion Stager Alert */}
       {isInfecting && (
-        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/60 backdrop-blur-xs pointer-events-auto select-none animate-in fade-in zoom-in-95 duration-150">
-          <div className="w-[540px] max-w-[92vw] bg-[#1c1c1c] border-2 border-red-600 rounded-lg shadow-[0_0_50px_rgba(220,38,38,0.45)] text-neutral-200 overflow-hidden font-sans">
+        <div className="fixed inset-0 z-9998 flex items-center justify-center bg-black/60 backdrop-blur-xs pointer-events-auto select-none animate-in fade-in zoom-in-95 duration-150">
+          <div className="w-135 max-w-[92vw] bg-[#1c1c1c] border-2 border-red-600 rounded-lg shadow-[0_0_50px_rgba(220,38,38,0.45)] text-neutral-200 overflow-hidden font-sans">
             {/* Title Bar */}
             <div className="bg-[#2b1214] px-4 py-2 flex items-center justify-between border-b border-red-900/60">
               <div className="flex items-center gap-2.5">

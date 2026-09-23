@@ -111,7 +111,7 @@ export function FileExplorer({
               }
             }}
             style={{ paddingLeft: `${depth * 14 + 10}px` }}
-            className={`flex items-center justify-between h-[22px] group text-[13px] font-sans cursor-pointer transition-colors ${
+            className={`flex items-center justify-between h-5.5 group text-[13px] font-sans cursor-pointer transition-colors ${
               isActive
                 ? 'bg-[#37373d] text-[#ffffff]'
                 : 'text-[#cccccc] hover:bg-[#2a2d2e] hover:text-[#ffffff]'
@@ -122,9 +122,9 @@ export function FileExplorer({
               {isFolder ? (
                 <span className="w-4 h-4 flex items-center justify-center text-[#c5c5c5] shrink-0">
                   {isOpen ? (
-                    <IconChevronDown className="w-3.5 h-3.5 stroke-[2]" />
+                    <IconChevronDown className="w-3.5 h-3.5 stroke-2" />
                   ) : (
-                    <IconChevronRight className="w-3.5 h-3.5 stroke-[2]" />
+                    <IconChevronRight className="w-3.5 h-3.5 stroke-2" />
                   )}
                 </span>
               ) : (
@@ -146,7 +146,7 @@ export function FileExplorer({
                     if (e.key === 'Escape') setRenamingId(null);
                   }}
                   onClick={(e) => e.stopPropagation()}
-                  className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-[19px] outline-none rounded-none w-full"
+                  className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-4.75 outline-none rounded-none w-full"
                 />
               ) : (
                 <span className="truncate text-[13px] font-normal leading-none tracking-tight">
@@ -199,7 +199,7 @@ export function FileExplorer({
           {isFolder && isOpen && creationState && creationState.parentId === node.id && (
             <div
               style={{ paddingLeft: `${(depth + 1) * 14 + 10}px` }}
-              className="flex items-center gap-1.5 h-[24px] bg-[#2a2d2e] pr-2"
+              className="flex items-center gap-1.5 h-6 bg-[#2a2d2e] pr-2"
             >
               <span className="w-4 h-4 shrink-0" />
               <FileIcon
@@ -216,7 +216,7 @@ export function FileExplorer({
                   if (e.key === 'Enter') handleCommitCreation();
                   if (e.key === 'Escape') setCreationState(null);
                 }}
-                className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-[19px] outline-none rounded-none w-full"
+                className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-4.75 outline-none rounded-none w-full"
                 placeholder={creationState.type === 'file' ? 'file.tsx' : 'folder-name'}
               />
             </div>
@@ -232,9 +232,9 @@ export function FileExplorer({
   };
 
   return (
-    <aside className="w-[260px] bg-[#181818] border-r border-[#2b2b2b] flex flex-col h-full select-none text-[13px] shrink-0">
+    <aside className="w-65 bg-[#181818] border-r border-[#2b2b2b] flex flex-col h-full select-none text-[13px] shrink-0">
       {/* Explorer Header */}
-      <div className="h-[35px] flex items-center justify-between px-4 text-[#bbbbbb] font-semibold text-[11px] tracking-wider uppercase">
+      <div className="h-8.75 flex items-center justify-between px-4 text-[#bbbbbb] font-semibold text-[11px] tracking-wider uppercase">
         <span>Explorer</span>
         <button
           title="More Actions..."
@@ -246,9 +246,9 @@ export function FileExplorer({
 
       {/* Workspace Accordion */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
-        <div className="flex items-center justify-between px-2 h-[22px] bg-[#1f1f1f] text-[#ffffff] font-bold text-[11px] tracking-wide uppercase cursor-pointer group">
+        <div className="flex items-center justify-between px-2 h-5.5 bg-[#1f1f1f] text-[#ffffff] font-bold text-[11px] tracking-wide uppercase cursor-pointer group">
           <div className="flex items-center gap-1">
-            <IconChevronDown className="w-3.5 h-3.5 stroke-[2]" />
+            <IconChevronDown className="w-3.5 h-3.5 stroke-2" />
             <span>PWNED</span>
           </div>
 
@@ -285,7 +285,7 @@ export function FileExplorer({
 
         {/* Root level inline creation */}
         {creationState && creationState.parentId === null && (
-          <div className="flex items-center gap-1.5 h-[24px] bg-[#2a2d2e] px-3 my-0.5">
+          <div className="flex items-center gap-1.5 h-6 bg-[#2a2d2e] px-3 my-0.5">
             <span className="w-4 h-4 shrink-0" />
             <FileIcon
               name={creationInput}
@@ -301,7 +301,7 @@ export function FileExplorer({
                 if (e.key === 'Enter') handleCommitCreation();
                 if (e.key === 'Escape') setCreationState(null);
               }}
-              className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-[19px] outline-none rounded-none w-full"
+              className="bg-[#3c3c3c] border border-[#007fd4] text-white text-[13px] px-1 py-0 h-4.75 outline-none rounded-none w-full"
               placeholder={creationState.type === 'file' ? 'filename.tsx' : 'folder'}
             />
           </div>

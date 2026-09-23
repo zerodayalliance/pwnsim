@@ -104,7 +104,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
   return (
     <header className="flex flex-col bg-[#1f1f23] text-gray-200 select-none border-b border-[#2d2f36]">
       {/* Chrome Window Titlebar & Tab Strip */}
-      <div className="flex items-center h-[42px] bg-[#1f1f23] select-none">
+      <div className="flex items-center h-10.5 bg-[#1f1f23] select-none">
         {/* Left: Tab Search Down-Chevron Button (Windows Chrome style) */}
         <div className="pl-2 pr-1 flex items-center shrink-0">
           <button
@@ -125,7 +125,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
               <div
                 key={tab.id}
                 onClick={() => onSelectTab(tab.id)}
-                className={`group relative flex items-center gap-2 px-3.5 h-[34px] text-xs rounded-t-lg transition-colors max-w-[240px] min-w-[130px] cursor-pointer ${
+                className={`group relative flex items-center gap-2 px-3.5 h-8.5 text-xs rounded-t-lg transition-colors max-w-60 min-w-32.5 cursor-pointer ${
                   isActive
                     ? "bg-[#2b2d31] text-white shadow-sm font-medium"
                     : "text-gray-400 hover:bg-[#282a2e] hover:text-gray-200"
@@ -206,7 +206,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           <button
             onClick={handleMinimize}
             title="Minimize"
-            className="w-[46px] h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
+            className="w-11.5 h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
           >
             <svg width="10" height="1" viewBox="0 0 10 1">
               <rect width="10" height="1" fill="currentColor" />
@@ -217,7 +217,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           <button
             onClick={handleMaximize}
             title={isMaximized ? "Restore Down" : "Maximize"}
-            className="w-[46px] h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
+            className="w-11.5 h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
           >
             {isMaximized ? (
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
@@ -235,7 +235,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           <button
             onClick={handleClose}
             title="Close"
-            className="w-[46px] h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#e81123] active:bg-[#c4101e] transition-colors cursor-pointer"
+            className="w-11.5 h-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#e81123] active:bg-[#c4101e] transition-colors cursor-pointer"
           >
             <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2">
               <line x1="0" y1="0" x2="10" y2="10" />

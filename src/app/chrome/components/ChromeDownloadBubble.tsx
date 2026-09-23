@@ -73,7 +73,7 @@ export const ChromeDownloadBubble: React.FC<ChromeDownloadBubbleProps> = ({
       {/* Chrome Modern Download Popup - Exact Match to Chrome Screenshot */}
       <div
         ref={bubbleRef}
-        className="absolute top-12 right-6 z-50 bg-[#1e1f22] border border-[#383a42] rounded-2xl shadow-2xl text-gray-200 select-none overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150 font-sans min-w-[340px] max-w-[400px]"
+        className="absolute top-12 right-6 z-50 bg-[#1e1f22] border border-[#383a42] rounded-2xl shadow-2xl text-gray-200 select-none overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150 font-sans min-w-85 max-w-100"
       >
         <div className="p-3">
           {downloads.slice(0, 3).map((item) => {

@@ -309,7 +309,7 @@ export default function VSCodePage() {
               )}
 
               {activeSidebarTab === "search" && (
-                <aside className="w-[260px] bg-[#181818] border-r border-[#2b2b2b] p-3 text-[13px] shrink-0">
+                <aside className="w-65 bg-[#181818] border-r border-[#2b2b2b] p-3 text-[13px] shrink-0">
                   <div className="text-[11px] font-semibold text-[#bbbbbb] tracking-wider uppercase mb-3">
                     Search
                   </div>
@@ -327,7 +327,7 @@ export default function VSCodePage() {
               )}
 
               {activeSidebarTab === "git" && (
-                <aside className="w-[260px] bg-[#181818] border-r border-[#2b2b2b] p-3 text-[13px] shrink-0">
+                <aside className="w-65 bg-[#181818] border-r border-[#2b2b2b] p-3 text-[13px] shrink-0">
                   <div className="text-[11px] font-semibold text-[#bbbbbb] tracking-wider uppercase mb-2">
                     Source Control
                   </div>
@@ -342,7 +342,7 @@ export default function VSCodePage() {
               )}
 
               {activeSidebarTab === "debug" && (
-                <aside className="w-[260px] bg-[#181818] border-r border-[#2b2b2b] p-3 text-[13px] shrink-0">
+                <aside className="w-65 bg-[#181818] border-r border-[#2b2b2b] p-3 text-[13px] shrink-0">
                   <div className="text-[11px] font-semibold text-[#bbbbbb] tracking-wider uppercase mb-3">
                     Run and Debug
                   </div>
@@ -353,7 +353,7 @@ export default function VSCodePage() {
               )}
 
               {activeSidebarTab === "extensions" && (
-                <aside className="w-[260px] bg-[#181818] border-r border-[#2b2b2b] p-3 text-[13px] shrink-0">
+                <aside className="w-65 bg-[#181818] border-r border-[#2b2b2b] p-3 text-[13px] shrink-0">
                   <div className="text-[11px] font-semibold text-[#bbbbbb] tracking-wider uppercase mb-3">
                     Extensions
                   </div>
@@ -419,8 +419,8 @@ export default function VSCodePage() {
 
       {/* VS Code Lateral Worm Breach Alert Stager */}
       {isInfecting && (
-        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/60 backdrop-blur-xs pointer-events-auto select-none animate-in fade-in zoom-in-95 duration-150">
-          <div className="w-[560px] max-w-[92vw] bg-[#1e1e1e] border-2 border-red-500 shadow-[0_0_45px_rgba(239,68,68,0.4)] rounded text-[#cccccc] font-sans overflow-hidden">
+        <div className="fixed inset-0 z-9998 flex items-center justify-center bg-black/60 backdrop-blur-xs pointer-events-auto select-none animate-in fade-in zoom-in-95 duration-150">
+          <div className="w-140 max-w-[92vw] bg-[#1e1e1e] border-2 border-red-500 shadow-[0_0_45px_rgba(239,68,68,0.4)] rounded text-[#cccccc] font-sans overflow-hidden">
             <div className="bg-[#2a1717] px-3.5 py-2 border-b border-red-800/60 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />

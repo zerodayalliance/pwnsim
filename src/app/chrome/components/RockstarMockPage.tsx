@@ -33,7 +33,7 @@ export const RockstarMockPage: React.FC<RockstarMockPageProps> = ({ onGoToSearch
 
       {/* Hero Section */}
       <div className="max-w-5xl mx-auto w-full px-6 py-12 flex flex-col items-center text-center">
-        <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 mb-8 max-h-[420px]">
+        <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 mb-8 max-h-105">
           <Image
             src="/gta6_poster.jpg"
             alt="Rockstar Games Official GTA VI Key Art"
@@ -42,7 +42,7 @@ export const RockstarMockPage: React.FC<RockstarMockPageProps> = ({ onGoToSearch
             priority
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+          <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-black/40" />
           <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
             <div className="text-left">
               <span className="text-pink-500 font-bold tracking-widest text-xs uppercase block">

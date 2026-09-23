@@ -69,7 +69,7 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="bg-[#181a20] border border-red-500/50 rounded-2xl max-w-2xl w-full text-gray-200 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="bg-gradient-to-r from-red-950 via-[#231818] to-[#181a20] p-5 border-b border-red-500/30 flex items-center justify-between">
+        <div className="bg-linear-to-r from-red-950 via-[#231818] to-[#181a20] p-5 border-b border-red-500/30 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-red-600/30 border border-red-500/50 flex items-center justify-center text-red-400">
               <IconShieldExclamation className="w-6 h-6" />

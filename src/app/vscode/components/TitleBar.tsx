@@ -46,7 +46,7 @@ export function TitleBar({
   });
 
   return (
-    <header className="h-[35px] bg-[#181818] text-[#cccccc] flex items-center justify-between pl-2 pr-0 border-b border-[#2b2b2b] select-none text-[12px] shrink-0">
+    <header className="h-8.75 bg-[#181818] text-[#cccccc] flex items-center justify-between pl-2 pr-0 border-b border-[#2b2b2b] select-none text-[12px] shrink-0">
       {/* Left: VS Code Brand Icon & App Menus */}
       <div className="flex items-center gap-1.5 h-full">
         {/* Official Blue VS Code Logo */}
@@ -132,8 +132,8 @@ export function TitleBar({
       </div>
 
       {/* Center: Command Palette / Search Pill */}
-      <div className="flex items-center justify-center flex-1 max-w-[540px] mx-4">
-        <div className="w-full max-w-[480px] h-[24px] bg-[#222222] hover:bg-[#282828] border border-[#3c3c3c] rounded-[4px] flex items-center px-3 gap-2 text-[#999999] hover:text-[#cccccc] transition-colors cursor-pointer text-[12px]">
+      <div className="flex items-center justify-center flex-1 max-w-135 mx-4">
+        <div className="w-full max-w-120 h-6 bg-[#222222] hover:bg-[#282828] border border-[#3c3c3c] rounded-lg flex items-center px-3 gap-2 text-[#999999] hover:text-[#cccccc] transition-colors cursor-pointer text-[12px]">
           {/* Search Icon */}
           <svg className="w-3.5 h-3.5 text-[#888888]" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
             <circle cx="6.5" cy="6.5" r="4.75" />
@@ -205,7 +205,7 @@ export function TitleBar({
           <button
             onClick={handleMinimize}
             title="Minimize"
-            className="w-[46px] h-full flex items-center justify-center text-[#cccccc] hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
+            className="w-11.5 h-full flex items-center justify-center text-[#cccccc] hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
           >
             <svg width="10" height="1" viewBox="0 0 10 1">
               <rect width="10" height="1" fill="currentColor" />
@@ -216,7 +216,7 @@ export function TitleBar({
           <button
             onClick={handleMaximize}
             title={isMaximized ? "Restore Down" : "Maximize"}
-            className="w-[46px] h-full flex items-center justify-center text-[#cccccc] hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
+            className="w-11.5 h-full flex items-center justify-center text-[#cccccc] hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer"
           >
             {isMaximized ? (
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1">
@@ -234,7 +234,7 @@ export function TitleBar({
           <button
             onClick={handleClose}
             title="Close"
-            className="w-[46px] h-full flex items-center justify-center text-[#cccccc] hover:text-white hover:bg-[#e81123] active:bg-[#bf0f1d] transition-colors cursor-pointer"
+            className="w-11.5 h-full flex items-center justify-center text-[#cccccc] hover:text-white hover:bg-[#e81123] active:bg-[#bf0f1d] transition-colors cursor-pointer"
           >
             <svg width="10" height="10" viewBox="0 0 10 10" stroke="currentColor" strokeWidth="1.2">
               <line x1="0" y1="0" x2="10" y2="10" />

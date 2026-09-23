@@ -44,7 +44,7 @@ export const DownloadShelf: React.FC<DownloadShelfProps> = ({
                     onOpenFile(item.filename);
                   }
                 }}
-                className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg bg-[#1e1f22] border border-[#3f4247] hover:border-gray-500 transition-all shrink-0 min-w-[320px] max-w-[400px] shadow-sm ${
+                className={`flex items-center gap-3.5 px-3.5 py-2.5 rounded-lg bg-[#1e1f22] border border-[#3f4247] hover:border-gray-500 transition-all shrink-0 min-w-[320px] max-w-100 shadow-sm ${
                   isCompleted ? "cursor-pointer hover:bg-[#25272b]" : ""
                 }`}
               >

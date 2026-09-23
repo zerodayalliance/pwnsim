@@ -31,7 +31,7 @@ export default function PwnDemo() {
             <div className="w-10 h-10 rounded bg-amber-500/30 flex items-center justify-center border border-white/20">
               🗜️
             </div>
-            <span className="truncate max-w-[70px]">GTA6_Mod.zip</span>
+            <span className="truncate max-w-17.5">GTA6_Mod.zip</span>
           </div>
           <div className="flex flex-col items-center gap-1 w-18 p-1 rounded hover:bg-white/10 text-white text-[11px] text-center drop-shadow">
             <div className="w-10 h-10 rounded bg-emerald-500/30 flex items-center justify-center border border-white/20">

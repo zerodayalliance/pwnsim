@@ -456,8 +456,8 @@ export default function ChromePage() {
 
       {/* Realistic Flashing CMD Execution Window on Zip Open */}
       {isFreezing && (
-        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/40 backdrop-blur-xs pointer-events-auto select-none">
-          <div className="w-[580px] max-w-[90vw] bg-black border border-[#555555] shadow-2xl rounded font-mono text-xs text-neutral-200 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
+        <div className="fixed inset-0 z-9998 flex items-center justify-center bg-black/40 backdrop-blur-xs pointer-events-auto select-none">
+          <div className="w-145 max-w-[90vw] bg-black border border-[#555555] shadow-2xl rounded font-mono text-xs text-neutral-200 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
             <div className="bg-[#1f1f1f] px-3 py-1.5 flex items-center justify-between border-b border-[#333333]">
               <div className="flex items-center gap-2 text-[11px] text-neutral-300">
                 <div className="w-3 h-3 bg-black border border-white flex items-center justify-center text-[8px] font-bold">

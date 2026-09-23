@@ -73,7 +73,7 @@ export function CodeEditor({
       {/* Gutter: Line Numbers and Active Line Indicator */}
       <div
         ref={gutterRef}
-        className="w-[60px] bg-[#1e1e1e] border-r border-[#2a2a2a] select-none flex flex-col items-end py-2 pr-3 text-[13px] font-mono leading-6 shrink-0 z-10"
+        className="w-15 bg-[#1e1e1e] border-r border-[#2a2a2a] select-none flex flex-col items-end py-2 pr-3 text-[13px] font-mono leading-6 shrink-0 z-10"
       >
         {lines.map((_, idx) => {
           const lineNum = idx + 1;
@@ -154,7 +154,7 @@ export function CodeEditor({
       </div>
 
       {/* Minimap (Right edge) */}
-      <div className="hidden lg:flex w-[64px] bg-[#1e1e1e] border-l border-[#282828] select-none flex-col py-2 px-1 opacity-70 hover:opacity-100 transition-opacity shrink-0 relative overflow-hidden">
+      <div className="hidden lg:flex w-16 bg-[#1e1e1e] border-l border-[#282828] select-none flex-col py-2 px-1 opacity-70 hover:opacity-100 transition-opacity shrink-0 relative overflow-hidden">
         {/* Miniature viewport rectangle */}
         <div
           className="absolute left-0 right-0 bg-[#3a3d41]/30 border border-[#5a5d61]/40 rounded-sm pointer-events-none"
@@ -171,11 +171,11 @@ export function CodeEditor({
             <div
               key={i}
               style={{ paddingLeft: `${Math.min(indent * 2, 24)}px` }}
-              className="h-[3px] my-[1px] flex items-center"
+              className="h-0.75 my-px flex items-center"
             >
               {trimmed.length > 0 && (
                 <div
-                  className="h-[2px] rounded-[1px]"
+                  className="h-0.5 rounded-[1px]"
                   style={{
                     width: `${Math.min(trimmed.length * 2, 45)}px`,
                     backgroundColor:

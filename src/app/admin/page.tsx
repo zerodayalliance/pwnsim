@@ -380,7 +380,7 @@ export default function AdminPage() {
                 environment to test file decryption and recovery:
               </p>
             </div>
-            <div className="flex items-center gap-2 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800 font-mono text-xs mt-auto min-h-[42px]">
+            <div className="flex items-center gap-2 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800 font-mono text-xs mt-auto min-h-10.5">
               <code className="text-amber-300 font-bold flex-1 select-all">
                 {decryptionKey}
               </code>
@@ -417,7 +417,7 @@ export default function AdminPage() {
                 ).
               </p>
             </div>
-            <div className="flex items-center justify-between text-xs font-mono text-neutral-400 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800 mt-auto min-h-[42px]">
+            <div className="flex items-center justify-between text-xs font-mono text-neutral-400 bg-neutral-950 p-2.5 rounded-xl border border-neutral-800 mt-auto min-h-10.5">
               <span>
                 Channel:{" "}
                 <strong className="text-neutral-200">pwn_network_mesh</strong>
