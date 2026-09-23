@@ -13,7 +13,6 @@ export function FileIcon({
   isOpen,
   className = "w-4 h-4 shrink-0",
 }: FileIconProps) {
-  // Folder Icons
   if (isFolder) {
     if (isOpen) {
       return (
@@ -42,7 +41,6 @@ export function FileIcon({
   const lower = name.toLowerCase();
   const ext = lower.split(".").pop() || "";
 
-  // Special full filenames
   if (lower === "dockerfile" || lower.startsWith("dockerfile.")) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -79,17 +77,14 @@ export function FileIcon({
     );
   }
 
-  // PYTHON (.py, .pyw, .ipynb, .rpy)
   if (["py", "pyw", "ipynb", "rpy"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
-        {/* Python blue upper snake */}
         <path
           d="M7.9 1.5c-2.4 0-2.3 1-2.3 1l.01 1.1h2.3v.3H4.4s-1.5-.2-1.5 2.2 1.3 2.3 1.3 2.3h.8V7.3s-.1-1.3 1.3-1.3h2.3s1.2 0 1.2-1.2V2.7s.2-1.2-1.9-1.2z"
           fill="#3776AB"
         />
         <circle cx="5.8" cy="2.6" r="0.5" fill="#FFFFFF" />
-        {/* Python yellow lower snake */}
         <path
           d="M8.1 14.5c2.4 0 2.3-1 2.3-1l-.01-1.1H8.1v-.3h3.5s1.5.2 1.5-2.2-1.3-2.3-1.3-2.3h-.8v1.1s.1 1.3-1.3 1.3H7.4s-1.2 0-1.2 1.2v2.1s-.2 1.2 1.9 1.2z"
           fill="#FFD43B"
@@ -99,7 +94,6 @@ export function FileIcon({
     );
   }
 
-  // C (.c, .h)
   if (ext === "c" || (ext === "h" && !lower.includes("++"))) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -114,7 +108,6 @@ export function FileIcon({
     );
   }
 
-  // C++ (.cpp, .cc, .cxx, .hpp, .hxx)
   if (["cpp", "cc", "cxx", "hpp", "hxx"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -135,7 +128,6 @@ export function FileIcon({
     );
   }
 
-  // C# (.cs, .csx)
   if (["cs", "csx"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -160,19 +152,16 @@ export function FileIcon({
     );
   }
 
-  // JAVA (.java, .class, .jar)
   if (["java", "class", "jar", "jsp"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
         <rect width="16" height="16" rx="2" fill="#EA2D2E" />
-        {/* Steam */}
         <path
           d="M8 2c-1 1-1 2 0 3m2-3c-1 1-1 2 0 3"
           stroke="#FFD700"
           strokeWidth="1"
           strokeLinecap="round"
         />
-        {/* Coffee Cup */}
         <path
           d="M4.5 6.5h7v4a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-4zm7 1h1.5a1.5 1.5 0 0 1 0 3H11.5"
           stroke="#FFFFFF"
@@ -183,7 +172,6 @@ export function FileIcon({
     );
   }
 
-  // KOTLIN (.kt, .kts)
   if (["kt", "kts"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -207,7 +195,6 @@ export function FileIcon({
     );
   }
 
-  // GO / GOLANG (.go)
   if (ext === "go") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -226,7 +213,6 @@ export function FileIcon({
     );
   }
 
-  // RUST (.rs, .rlib)
   if (["rs", "rlib"].includes(ext) || lower === "cargo.toml") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -253,7 +239,6 @@ export function FileIcon({
     );
   }
 
-  // PHP (.php, .phtml)
   if (["php", "phtml"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -272,7 +257,6 @@ export function FileIcon({
     );
   }
 
-  // RUBY (.rb, .erb, .rake)
   if (["rb", "erb", "rake"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -286,7 +270,6 @@ export function FileIcon({
     );
   }
 
-  // SWIFT (.swift)
   if (ext === "swift") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -299,7 +282,6 @@ export function FileIcon({
     );
   }
 
-  // DART / FLUTTER (.dart)
   if (ext === "dart") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -309,7 +291,6 @@ export function FileIcon({
     );
   }
 
-  // HTML (.html, .htm)
   if (["html", "htm"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -326,7 +307,6 @@ export function FileIcon({
     );
   }
 
-  // CSS / SCSS / SASS / LESS
   if (ext === "css") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -362,7 +342,6 @@ export function FileIcon({
     );
   }
 
-  // REACT TSX (.tsx)
   if (ext === "tsx") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -376,7 +355,6 @@ export function FileIcon({
     );
   }
 
-  // TYPESCRIPT (.ts, .mts, .cts)
   if (["ts", "mts", "cts"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -389,7 +367,6 @@ export function FileIcon({
     );
   }
 
-  // REACT JSX (.jsx)
   if (ext === "jsx") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -425,7 +402,6 @@ export function FileIcon({
     );
   }
 
-  // JAVASCRIPT (.js, .mjs, .cjs)
   if (["js", "mjs", "cjs"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -444,7 +420,6 @@ export function FileIcon({
     );
   }
 
-  // VUE (.vue)
   if (ext === "vue") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -455,7 +430,6 @@ export function FileIcon({
     );
   }
 
-  // SVELTE (.svelte)
   if (ext === "svelte") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -470,7 +444,6 @@ export function FileIcon({
     );
   }
 
-  // SHELL / BASH / ZSH (.sh, .bash, .zsh, .fish)
   if (["sh", "bash", "zsh", "fish"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -486,7 +459,6 @@ export function FileIcon({
     );
   }
 
-  // SQL (.sql, .pgsql, .mysql)
   if (["sql", "pgsql", "mysql", "sqlite"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -513,7 +485,6 @@ export function FileIcon({
     );
   }
 
-  // JSON (.json, .jsonc)
   if (["json", "jsonc"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -532,7 +503,6 @@ export function FileIcon({
     );
   }
 
-  // YAML (.yml, .yaml)
   if (["yml", "yaml"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -551,7 +521,6 @@ export function FileIcon({
     );
   }
 
-  // XML / SVG (.xml, .svg)
   if (["xml", "svg"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -566,7 +535,6 @@ export function FileIcon({
     );
   }
 
-  // MARKDOWN (.md, .markdown)
   if (["md", "markdown"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -579,7 +547,6 @@ export function FileIcon({
     );
   }
 
-  // LUA (.lua)
   if (ext === "lua") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -599,7 +566,6 @@ export function FileIcon({
     );
   }
 
-  // R (.r, .R)
   if (ext === "r") {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -618,7 +584,6 @@ export function FileIcon({
     );
   }
 
-  // SCALA (.scala, .sc)
   if (["scala", "sc"].includes(ext)) {
     return (
       <svg viewBox="0 0 16 16" fill="none" className={className}>
@@ -631,7 +596,6 @@ export function FileIcon({
     );
   }
 
-  // DEFAULT FILE
   return (
     <svg viewBox="0 0 16 16" fill="none" className={className}>
       <path

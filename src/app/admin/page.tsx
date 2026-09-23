@@ -102,7 +102,6 @@ export default function AdminPage() {
 
   const prevCompromisedRef = useRef<boolean | null>(null);
 
-  // Log state transitions when compromise status changes
   useEffect(() => {
     if (prevCompromisedRef.current === null) {
       prevCompromisedRef.current = isCompromised;
@@ -206,7 +205,6 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-[#0d0f14] text-neutral-100 font-sans p-4 md:p-8 selection:bg-rose-500 selection:text-white">
-      {/* Top Header */}
       <header className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-800">
         <div className="flex items-center gap-3">
           <Link
@@ -220,7 +218,6 @@ export default function AdminPage() {
           </h1>
         </div>
 
-        {/* Global Simulation Status & Quick Link */}
         <div className="flex items-center gap-3">
           <div
             className={`px-3.5 py-1.5 rounded-xl border flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
@@ -257,9 +254,7 @@ export default function AdminPage() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto mt-6 space-y-6">
-        {/* Simulation Controls Panel */}
         <div className="bg-neutral-900/60 border border-neutral-800 rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4 backdrop-blur-md">
           <div>
             <h2 className="text-sm font-semibold text-white">
@@ -288,7 +283,6 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Environments Grid */}
         <div>
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-400 flex items-center gap-2">
@@ -364,9 +358,7 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Configuration & Architecture Info */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Test Decryption Key Card */}
           <div className="p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 text-amber-400 mb-2">
@@ -398,7 +390,6 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Cross-Tab / LAN Sync Card */}
           <div className="p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 text-cyan-400 mb-2">
@@ -430,7 +421,6 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Real Activity & Event Audit Log */}
         <div className="bg-black/80 border border-neutral-800 rounded-2xl p-4 sm:p-5 font-mono text-xs shadow-2xl">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-800 text-neutral-400">
             <div className="flex items-center gap-2">

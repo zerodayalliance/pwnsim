@@ -50,7 +50,6 @@ export function ActivityBar({
 
   return (
     <nav className="w-[48px] bg-[#181818] border-r border-[#2b2b2b] flex flex-col justify-between items-center py-2 select-none shrink-0 z-10">
-      {/* Top action icons */}
       <div className="flex flex-col items-center gap-1 w-full">
         {topItems.map((item) => {
           const Icon = item.icon;
@@ -66,7 +65,6 @@ export function ActivityBar({
                   : "text-[#858585] hover:text-[#ffffff]"
               }`}
             >
-              {/* Active left border indicator */}
               {isActive && (
                 <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#ffffff]" />
               )}
@@ -81,7 +79,6 @@ export function ActivityBar({
         })}
       </div>
 
-      {/* Bottom profile and settings */}
       <div className="flex flex-col items-center gap-1 w-full">
         <button
           title="Accounts"

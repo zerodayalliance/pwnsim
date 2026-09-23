@@ -83,9 +83,7 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
 
   return (
     <div className="h-[200px] bg-[#181818] border-t border-[#2b2b2b] flex flex-col font-sans shrink-0 select-text">
-      {/* Panel Header */}
       <div className="h-[32px] bg-[#181818] border-b border-[#252526] flex items-center justify-between px-3 select-none text-[12px]">
-        {/* Tabs */}
         <div className="flex items-center gap-4 text-[#969696] font-medium uppercase tracking-wider text-[11px]">
           <button
             onClick={() => setActiveTab("problems")}
@@ -135,7 +133,6 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
           </button>
         </div>
 
-        {/* Right Terminal Actions */}
         <div className="flex items-center gap-1 text-[#888888]">
           <div className="flex items-center gap-1 bg-[#252526] px-2 py-0.5 rounded text-[11px] text-[#cccccc] cursor-pointer hover:bg-[#333333]">
             <span>1: zsh (pnpm run dev)</span>
@@ -170,7 +167,6 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
         </div>
       </div>
 
-      {/* Terminal Body */}
       <div className="flex-1 bg-[#181818] p-3 overflow-y-auto font-mono text-[13px] leading-5 text-[#cccccc]">
         {activeTab === "terminal" ? (
           <div>
@@ -191,7 +187,6 @@ export function TerminalPanel({ isOpen, onClose }: TerminalPanelProps) {
               </div>
             ))}
 
-            {/* Active Command Input Line */}
             <form
               onSubmit={handleCommand}
               className="flex items-center gap-2 mt-1"

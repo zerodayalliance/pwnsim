@@ -175,10 +175,8 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
 
   return (
     <div className="flex flex-col min-h-screen bg-[#202124] text-white select-none">
-      {/* Top Google Search Header */}
       <div className="border-b border-[#3c4043] px-6 pt-5 pb-0 bg-[#202124] sticky top-0 z-20">
         <div className="flex items-center gap-6 max-w-5xl">
-          {/* Google Logo Mini */}
           <div
             onClick={() => onSearch("https://www.google.com")}
             className="text-2xl font-medium cursor-pointer shrink-0 select-none font-sans"
@@ -191,7 +189,6 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
             <span className="text-[#EA4335]">e</span>
           </div>
 
-          {/* Search Bar Input */}
           <form
             onSubmit={handleSearchSubmit}
             className="flex-1 max-w-2xl relative"
@@ -229,7 +226,6 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
           </form>
         </div>
 
-        {/* Google Navigation Tabs */}
         <div className="flex items-center gap-6 mt-4 max-w-5xl pl-20 sm:pl-28 text-sm text-gray-400 font-sans overflow-x-auto no-scrollbar">
           {navCategories.map((cat) => (
             <button
@@ -250,16 +246,13 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
         </div>
       </div>
 
-      {/* Results Stats */}
       <div className="max-w-4xl px-6 sm:px-28 py-3 text-xs text-gray-400 border-b border-[#2d2f35]">
         About 12,400,000 results (0.38 seconds)
       </div>
 
-      {/* Results List */}
       <div className="max-w-4xl px-6 sm:px-28 py-6 pb-20 flex flex-col gap-8">
         {results.map((result) => (
           <div key={result.id} className="flex flex-col group">
-            {/* Site meta row */}
             <div
               onClick={() => onNavigate(result.url)}
               className="flex items-center gap-3 cursor-pointer mb-1"
@@ -296,7 +289,6 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
               </div>
             </div>
 
-            {/* Clickable Title */}
             <h2
               onClick={() => onNavigate(result.url)}
               className="text-lg text-[#8ab4f8] group-hover:underline cursor-pointer font-sans font-normal leading-snug mt-0.5"
@@ -304,12 +296,10 @@ export const SearchResultsPage: React.FC<SearchResultsPageProps> = ({
               {result.title}
             </h2>
 
-            {/* Snippet */}
             <p className="text-sm text-[#bdc1c6] leading-relaxed font-sans mt-1">
               {result.snippet}
             </p>
 
-            {/* Sublinks if present */}
             {result.sublinks && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3 pt-2">
                 {result.sublinks.map((sub, sIdx) => (

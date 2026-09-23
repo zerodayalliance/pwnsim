@@ -19,7 +19,6 @@ export const RedditMockPage: React.FC<RedditMockPageProps> = ({
 }) => {
   return (
     <div className="flex flex-col min-h-screen bg-[#0e1113] text-gray-200 font-sans select-none pb-20">
-      {/* Reddit Header */}
       <header className="bg-[#1a1a1b] border-b border-[#343536] px-6 py-2.5 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-orange-500 font-black text-xl tracking-tighter">
@@ -41,19 +40,15 @@ export const RedditMockPage: React.FC<RedditMockPageProps> = ({
         </button>
       </header>
 
-      {/* Main Post Container */}
       <div className="max-w-4xl mx-auto w-full px-4 py-6">
         <div className="bg-[#1a1a1b] border border-[#343536] rounded-xl overflow-hidden flex">
-          {/* Vote sidebar */}
           <div className="bg-[#151516] p-3 flex flex-col items-center gap-1 border-r border-[#343536] shrink-0 w-12">
             <IconArrowUp className="w-5 h-5 text-orange-500 cursor-pointer hover:scale-110 transition-transform" />
             <span className="text-xs font-bold text-white">3.8k</span>
             <IconArrowDown className="w-5 h-5 text-gray-500 cursor-pointer hover:text-blue-500 transition-colors" />
           </div>
 
-          {/* Post Content */}
           <div className="p-5 flex-1">
-            {/* Meta */}
             <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
               <span className="font-bold text-white">r/GTA6</span>
               <span>&bull;</span>
@@ -65,13 +60,11 @@ export const RedditMockPage: React.FC<RedditMockPageProps> = ({
               </span>
             </div>
 
-            {/* Title */}
             <h1 className="text-xl font-bold text-white mb-4">
               GTA 6 PC Modding Framework &amp; Script Hook Early Architecture
               Discussion
             </h1>
 
-            {/* Body */}
             <div className="text-sm text-gray-300 space-y-4 leading-relaxed border-b border-[#343536] pb-5">
               <p>
                 With early documentation for GTA 6 modding emerging on
@@ -104,7 +97,6 @@ export const RedditMockPage: React.FC<RedditMockPageProps> = ({
               </p>
             </div>
 
-            {/* Actions Bar */}
             <div className="flex items-center gap-4 text-xs text-gray-400 pt-3">
               <div className="flex items-center gap-1.5 hover:bg-[#272729] px-2 py-1 rounded cursor-pointer">
                 <IconMessageCircle className="w-4 h-4" />

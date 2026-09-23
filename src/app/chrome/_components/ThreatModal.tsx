@@ -70,7 +70,6 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="bg-[#181a20] border border-red-500/50 rounded-2xl max-w-2xl w-full text-gray-200 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-        {/* Modal Header */}
         <div className="bg-linear-to-r from-red-950 via-[#231818] to-[#181a20] p-5 border-b border-red-500/30 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-red-600/30 border border-red-500/50 flex items-center justify-center text-red-400">
@@ -99,7 +98,6 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
           </button>
         </div>
 
-        {/* Modal Tabs */}
         <div className="flex border-b border-[#2d3039] bg-[#14161b] px-5 text-xs font-semibold">
           <button
             onClick={() => setActiveTab("analysis")}
@@ -133,7 +131,6 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
           </button>
         </div>
 
-        {/* Modal Body */}
         <div className="p-6 overflow-y-auto space-y-4 flex-1">
           {activeTab === "analysis" && (
             <div className="space-y-3">
@@ -267,7 +264,6 @@ export const ThreatModal: React.FC<ThreatModalProps> = ({
           )}
         </div>
 
-        {/* Modal Footer */}
         <div className="p-4 bg-[#14161b] border-t border-[#2d3039] flex items-center justify-between text-xs">
           <span className="text-gray-400">Simulated Sandbox Environment</span>
           <button

@@ -70,9 +70,7 @@ export function broadcastEvent(type: NetworkEventType) {
   for (const listener of Array.from(globalHub.listeners)) {
     try {
       listener(event);
-    } catch {
-      // Ignore dead listeners
-    }
+    } catch {}
   }
 }
 

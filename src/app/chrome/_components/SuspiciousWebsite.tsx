@@ -45,10 +45,8 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
 
   return (
     <div className="flex flex-col min-h-screen bg-[#111216] text-gray-200 font-sans select-none pb-24">
-      {/* Top Portal Navbar */}
       <header className="bg-[#1b1d24] border-b border-[#2a2d38] sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
-          {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-linear-to-tr from-pink-600 to-purple-600 flex items-center justify-center font-black text-white text-base shadow">
               VI
@@ -63,7 +61,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
             </div>
           </div>
 
-          {/* Navigation links */}
           <nav className="hidden lg:flex items-center gap-5 text-xs font-semibold text-gray-300">
             <span className="text-pink-400 hover:text-white cursor-pointer transition-colors">
               MODS
@@ -85,7 +82,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
             </span>
           </nav>
 
-          {/* Right Action */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => handleDownload()}
@@ -101,7 +97,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
         </div>
       </header>
 
-      {/* Sub-nav categories bar */}
       <div className="bg-[#16181f] border-b border-[#252834] px-4 py-2 text-xs text-gray-400">
         <div className="max-w-7xl mx-auto flex items-center gap-2 text-[11px] overflow-x-auto no-scrollbar">
           <span className="hover:text-gray-200 cursor-pointer">Home</span>
@@ -118,9 +113,7 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
         </div>
       </div>
 
-      {/* Main Content Area */}
       <main className="max-w-7xl mx-auto w-full px-4 sm:px-6 pt-6">
-        {/* Mod Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#262936]">
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -149,7 +142,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
             </div>
           </div>
 
-          {/* Social / Likes Bar */}
           <div className="flex items-center gap-2">
             <button
               onClick={handleLike}
@@ -169,13 +161,9 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
           </div>
         </div>
 
-        {/* Layout Grid: Gallery + Download Sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
-          {/* Left / Center Column: Gallery & Details */}
           <div className="lg:col-span-8 flex flex-col gap-6">
-            {/* Featured Poster & Media Preview */}
             <div className="bg-[#171922] border border-[#272b38] rounded-xl overflow-hidden shadow-lg">
-              {/* Main Banner Image (The GTA 6 Poster) */}
               <div className="relative w-full max-h-115 overflow-hidden bg-black flex items-center justify-center">
                 <Image
                   src="/gta6_poster.jpg"
@@ -190,7 +178,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                 </div>
               </div>
 
-              {/* Thumbnails Row */}
               <div className="p-3 bg-[#13151c] border-t border-[#252836] flex items-center gap-2 overflow-x-auto">
                 <div className="w-20 h-12 rounded border-2 border-pink-500 overflow-hidden shrink-0 cursor-pointer relative">
                   <Image
@@ -212,7 +199,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
               </div>
             </div>
 
-            {/* Navigation Tabs (Description, Files, Installation, Comments) */}
             <div className="bg-[#171922] border border-[#272b38] rounded-xl overflow-hidden">
               <div className="flex border-b border-[#252836] bg-[#13151c] px-4 text-xs font-semibold">
                 <button
@@ -257,7 +243,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                 </button>
               </div>
 
-              {/* Tab Content */}
               <div className="p-6 text-sm text-gray-300 leading-relaxed font-sans">
                 {activeTab === "description" && (
                   <div className="space-y-4">
@@ -452,9 +437,7 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
             </div>
           </div>
 
-          {/* Right Sidebar: Download Box & Details Card */}
           <div className="lg:col-span-4 flex flex-col gap-6">
-            {/* Primary Download Action Box */}
             <div className="bg-[#171922] border border-[#272b38] rounded-xl p-5 shadow-lg flex flex-col gap-4">
               <div>
                 <span className="text-[11px] font-semibold text-pink-400 uppercase tracking-wider block mb-1">
@@ -468,7 +451,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                 </div>
               </div>
 
-              {/* Main Download Button */}
               <button
                 onClick={() =>
                   handleDownload("GTA6_Mod_Engine_v2.4.zip", "420.69 MB")
@@ -479,7 +461,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                 <span>DOWNLOAD (420.69 MB)</span>
               </button>
 
-              {/* Alternative Mirrors */}
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() =>
@@ -507,7 +488,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
                 </button>
               </div>
 
-              {/* Verification Info */}
               <div className="bg-[#12141a] p-3 rounded-lg border border-[#252836] text-xs text-gray-400 space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span>File Safety:</span>
@@ -531,7 +511,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
               </div>
             </div>
 
-            {/* Mod Info Details Card */}
             <div className="bg-[#171922] border border-[#272b38] rounded-xl p-5 text-xs text-gray-300">
               <h4 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
                 <IconCpu className="w-4 h-4 text-pink-400" />
@@ -566,7 +545,6 @@ export const SuspiciousWebsite: React.FC<ModWebsiteProps> = ({
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="mt-16 border-t border-[#202330] py-8 text-center text-xs text-gray-500">
         <p>&copy; 2026 GTA6-Mods.com &bull; Community Modification Archive.</p>
         <p className="mt-1 text-[11px] text-gray-600">

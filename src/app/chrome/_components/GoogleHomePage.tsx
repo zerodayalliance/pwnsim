@@ -30,7 +30,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
     "GTA 6 graphics reshade 4K",
   ];
 
-  // Only show related suggestions when user starts typing
   const queryTrimmed = query.trim();
   const filteredSuggestions =
     queryTrimmed.length > 0
@@ -54,7 +53,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
           ]
       : [];
 
-  // Close suggestions when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -82,7 +80,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-120px)] bg-[#202124] text-white select-none">
-      {/* Top Google Header Links */}
       <div className="flex justify-end items-center gap-4 px-6 py-4 text-sm text-gray-300">
         <button
           type="button"
@@ -108,9 +105,7 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
         </div>
       </div>
 
-      {/* Main Google Content Area */}
       <div className="flex-1 flex flex-col items-center justify-center -mt-8 px-4 max-w-2xl mx-auto w-full">
-        {/* Google Logo */}
         <div className="mb-8 select-none">
           <div className="text-6xl sm:text-7xl font-medium tracking-tight font-sans flex items-center">
             <span className="text-[#4285F4]">G</span>
@@ -122,7 +117,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
           </div>
         </div>
 
-        {/* Search Bar Container */}
         <div ref={containerRef} className="w-full relative">
           <form onSubmit={handleSubmit} className="w-full relative z-20">
             <div
@@ -132,7 +126,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
                   : "rounded-full border-[#5f6368] hover:bg-[#303134] hover:border-transparent hover:shadow-md"
               } px-4 py-3 transition-all`}
             >
-              {/* Clickable Search Icon */}
               <button
                 type="submit"
                 className="text-gray-400 hover:text-white mr-3 shrink-0 transition-colors"
@@ -141,7 +134,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
                 <IconSearch className="w-5 h-5" />
               </button>
 
-              {/* Primary Search Input */}
               <input
                 type="text"
                 value={query}
@@ -177,7 +169,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               </div>
             </div>
 
-            {/* Suggestions Dropdown - shows when user starts typing */}
             {showSuggestions &&
               queryTrimmed.length > 0 &&
               filteredSuggestions.length > 0 && (
@@ -201,7 +192,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               )}
           </form>
 
-          {/* Action Buttons */}
           <div className="flex items-center justify-center gap-3 mt-6 relative z-10">
             <button
               type="button"
@@ -220,10 +210,8 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
           </div>
         </div>
 
-        {/* Google Shortcuts Grid */}
         <div className="mt-12 w-full">
           <div className="grid grid-cols-5 gap-4 justify-items-center">
-            {/* Shortcut: GTA6-Mods */}
             <div
               onClick={() =>
                 onSearch("https://www.gta6-mods.com/download/mod-engine-pc")
@@ -238,7 +226,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               </span>
             </div>
 
-            {/* Shortcut: YouTube */}
             <div
               onClick={() => onSearch("https://www.youtube.com")}
               className="flex flex-col items-center gap-2 group cursor-pointer"
@@ -251,7 +238,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               </span>
             </div>
 
-            {/* Shortcut: Reddit */}
             <div
               onClick={() =>
                 onSearch("https://www.reddit.com/r/GTA6/comments/modding_tools")
@@ -266,7 +252,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               </span>
             </div>
 
-            {/* Shortcut: Rockstar Games */}
             <div
               onClick={() => onSearch("https://www.rockstargames.com/VI")}
               className="flex flex-col items-center gap-2 group cursor-pointer"
@@ -279,7 +264,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
               </span>
             </div>
 
-            {/* Shortcut: GitHub */}
             <div
               onClick={() => onSearch("https://github.com")}
               className="flex flex-col items-center gap-2 group cursor-pointer"
@@ -295,7 +279,6 @@ export const GoogleHomePage: React.FC<GoogleHomePageProps> = ({ onSearch }) => {
         </div>
       </div>
 
-      {/* Google Footer */}
       <footer className="bg-[#171717] text-gray-400 text-xs border-t border-[#2d2f35]">
         <div className="px-6 py-3 border-b border-[#2d2f35]">Google Search</div>
         <div className="flex flex-wrap justify-between items-center px-6 py-3 gap-4">

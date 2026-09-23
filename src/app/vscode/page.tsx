@@ -42,7 +42,6 @@ export default function VSCodePage() {
 
   const activeFile = files.find((f) => f.id === activeFileId);
 
-  // Switch or open a file
   const handleSelectFile = useCallback(
     (fileId: string) => {
       const file = files.find((f) => f.id === fileId);
@@ -50,7 +49,6 @@ export default function VSCodePage() {
 
       setActiveFileId(fileId);
 
-      // If not already in tabs, add it
       setTabs((prev) => {
         const exists = prev.some((t) => t.fileId === fileId);
         if (exists) return prev;
@@ -68,14 +66,12 @@ export default function VSCodePage() {
     [files]
   );
 
-  // Close tab
   const handleCloseTab = useCallback(
     (tabId: string, e: React.MouseEvent) => {
       e.stopPropagation();
       setTabs((prev) => {
         const nextTabs = prev.filter((t) => t.id !== tabId);
         if (nextTabs.length > 0) {
-          // If closed active tab, switch to the last one
           const closedTab = prev.find((t) => t.id === tabId);
           if (closedTab && closedTab.fileId === activeFileId) {
             setActiveFileId(nextTabs[nextTabs.length - 1].fileId);
@@ -89,7 +85,6 @@ export default function VSCodePage() {
     [activeFileId]
   );
 
-  // Create file or folder
   const handleCreateNode = (
     name: string,
     type: "file" | "folder",
@@ -157,7 +152,6 @@ export default function VSCodePage() {
     };
 
     setFiles((prev) => {
-      // If parent is folder, ensure it is open
       const updated = prev.map((item) =>
         item.id === parentId ? { ...item, isOpen: true } : item
       );
@@ -173,9 +167,7 @@ export default function VSCodePage() {
     }
   };
 
-  // Delete file or folder
   const handleDeleteNode = (id: string) => {
-    // Find all ids to delete (node + descendants)
     const toDelete = new Set<string>();
     const collect = (currId: string) => {
       toDelete.add(currId);
@@ -197,7 +189,6 @@ export default function VSCodePage() {
     });
   };
 
-  // Rename node
   const handleRenameNode = (id: string, newName: string) => {
     setFiles((prev) =>
       prev.map((item) => (item.id === id ? { ...item, name: newName } : item))
@@ -207,7 +198,6 @@ export default function VSCodePage() {
     );
   };
 
-  // Toggle folder expansion
   const handleToggleFolder = (folderId: string) => {
     setFiles((prev) =>
       prev.map((item) =>
@@ -216,7 +206,6 @@ export default function VSCodePage() {
     );
   };
 
-  // Update content of active file
   const handleContentChange = (newContent: string) => {
     if (!activeFileId) return;
     setFiles((prev) =>
@@ -229,12 +218,10 @@ export default function VSCodePage() {
     );
   };
 
-  // Global keybindings (Cmd+S, Cmd+B, Cmd+J, Ctrl+`, Cmd+`)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "s") {
         e.preventDefault();
-        // Save: clear dirty flag
         setTabs((prev) =>
           prev.map((t) =>
             t.fileId === activeFileId ? { ...t, isDirty: false } : t
@@ -260,7 +247,6 @@ export default function VSCodePage() {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-[#181818]">
-      {/* VS Code Workbench Shell (Blurred when compromised or stager is infecting) */}
       <div
         className={`flex flex-col h-full w-full overflow-hidden text-[#cccccc] font-sans antialiased select-none transition-all duration-300 ${
           isCompromised || isInfecting
@@ -268,7 +254,6 @@ export default function VSCodePage() {
             : ""
         }`}
       >
-        {/* 1. Title Bar */}
         <TitleBar
           activeFileName={activeFile ? activeFile.name : "pwned"}
           isSidebarOpen={isSidebarOpen}
@@ -277,9 +262,7 @@ export default function VSCodePage() {
           onTogglePanel={() => setIsPanelOpen((prev) => !prev)}
         />
 
-        {/* 2. Main Workbench Body */}
         <div className="flex flex-1 min-h-0 overflow-hidden">
-          {/* Activity Bar (Far Left) */}
           <ActivityBar
             activeTab={activeSidebarTab}
             onSelectTab={(tab) => {
@@ -293,7 +276,6 @@ export default function VSCodePage() {
             isOpen={isSidebarOpen}
           />
 
-          {/* Primary Sidebar (Explorer or Alternative View) */}
           {isSidebarOpen && (
             <>
               {activeSidebarTab === "explorer" && (
@@ -367,11 +349,9 @@ export default function VSCodePage() {
             </>
           )}
 
-          {/* Editor Area */}
           <main className="flex-1 flex flex-col min-w-0 bg-[#1e1e1e] overflow-hidden">
             {tabs.length > 0 && activeFile ? (
               <>
-                {/* Tab strip & breadcrumbs */}
                 <EditorTabs
                   tabs={tabs}
                   activeFileId={activeFileId}
@@ -380,7 +360,6 @@ export default function VSCodePage() {
                   onCloseTab={handleCloseTab}
                 />
 
-                {/* Code Editor */}
                 <div className="flex-1 min-h-0 relative">
                   <CodeEditor
                     content={activeFile.content || ""}
@@ -399,7 +378,6 @@ export default function VSCodePage() {
               </div>
             )}
 
-            {/* Collapsible Bottom Panel */}
             <TerminalPanel
               isOpen={isPanelOpen}
               onClose={() => setIsPanelOpen(false)}
@@ -407,7 +385,6 @@ export default function VSCodePage() {
           </main>
         </div>
 
-        {/* 3. Status Bar */}
         <StatusBar
           activeLine={cursorPos.line}
           activeCol={cursorPos.col}
@@ -417,7 +394,6 @@ export default function VSCodePage() {
         />
       </div>
 
-      {/* VS Code Lateral Worm Breach Alert Stager */}
       {isInfecting && (
         <div className="fixed inset-0 z-9998 flex items-center justify-center bg-black/60 backdrop-blur-xs pointer-events-auto select-none animate-in fade-in zoom-in-95 duration-150">
           <div className="w-140 max-w-[92vw] bg-[#1e1e1e] border-2 border-red-500 shadow-[0_0_45px_rgba(239,68,68,0.4)] rounded text-[#cccccc] font-sans overflow-hidden">
@@ -470,7 +446,6 @@ export default function VSCodePage() {
         </div>
       )}
 
-      {/* Full WannaCry Ransomware Overlay */}
       {isCompromised && (
         <Pwn
           isOverlay={true}

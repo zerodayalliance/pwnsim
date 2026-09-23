@@ -105,21 +105,17 @@ export function StatusBar({
 
   return (
     <footer className="h-[22px] bg-[#007acc] text-white flex items-center justify-between px-2 text-[12px] select-none font-sans shrink-0 z-20">
-      {/* Left side items */}
       <div className="flex items-center h-full gap-2">
-        {/* Remote badge */}
         <div className="h-full bg-[#16825d] px-2 flex items-center gap-1 cursor-pointer font-medium hover:brightness-110">
           <span className="text-[11px]">&gt;&lt;</span>
           <span className="hidden sm:inline text-[11px]">WSL: Ubuntu</span>
         </div>
 
-        {/* Git branch */}
         <div className="flex items-center gap-1 hover:bg-[#1f8ad2] px-1.5 py-0.5 rounded cursor-pointer transition-colors">
           <IconGitBranch className="w-3.5 h-3.5" />
           <span>main*</span>
         </div>
 
-        {/* Sync changes */}
         <div
           title="Synchronize Changes"
           className="flex items-center hover:bg-[#1f8ad2] p-1 rounded cursor-pointer transition-colors"
@@ -127,7 +123,6 @@ export function StatusBar({
           <IconRefresh className="w-3.5 h-3.5" />
         </div>
 
-        {/* Errors & Warnings */}
         <div className="flex items-center gap-1 hover:bg-[#1f8ad2] px-1.5 py-0.5 rounded cursor-pointer transition-colors">
           <IconCircleX className="w-3.5 h-3.5" />
           <span>0</span>
@@ -135,7 +130,6 @@ export function StatusBar({
           <span>0</span>
         </div>
 
-        {/* Toggle terminal panel shortcut - prominent and always visible */}
         <button
           onClick={onTogglePanel}
           title={
@@ -157,7 +151,6 @@ export function StatusBar({
         </button>
       </div>
 
-      {/* Right side items */}
       <div className="flex items-center h-full gap-3 text-[12px]">
         <div className="hover:bg-[#1f8ad2] px-1.5 py-0.5 rounded cursor-pointer transition-colors">
           Ln {activeLine}, Col {activeCol}

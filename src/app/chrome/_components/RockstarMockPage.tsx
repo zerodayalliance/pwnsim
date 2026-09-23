@@ -12,7 +12,6 @@ export const RockstarMockPage: React.FC<RockstarMockPageProps> = ({
 }) => {
   return (
     <div className="flex flex-col min-h-screen bg-black text-white font-sans select-none">
-      {/* Rockstar Navbar */}
       <header className="border-b border-neutral-800 px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 bg-yellow-400 text-black font-black text-base flex items-center justify-center rounded-sm">
@@ -33,7 +32,6 @@ export const RockstarMockPage: React.FC<RockstarMockPageProps> = ({
         </div>
       </header>
 
-      {/* Hero Section */}
       <div className="max-w-5xl mx-auto w-full px-6 py-12 flex flex-col items-center text-center">
         <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 mb-8 max-h-105">
           <Image

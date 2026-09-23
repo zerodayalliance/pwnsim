@@ -105,7 +105,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
     } catch {}
   }, [getAudio]);
 
-  // Trigger error sound on initial appearance
   useEffect(() => {
     const timer = setTimeout(() => {
       playWindowsErrorChord();
@@ -113,7 +112,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
     return () => clearTimeout(timer);
   }, [playWindowsErrorChord]);
 
-  // Timers: T1 starts at 2d 23h 59m 42s, T2 at 6d 23h 59m 42s
   const [t1, setT1] = useState(2 * 86400 + 23 * 3600 + 59 * 60 + 42);
   const [t2, setT2] = useState(6 * 86400 + 23 * 3600 + 59 * 60 + 42);
   const [deadline1] = useState(() => getDeadline(3));
@@ -191,7 +189,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
     };
   }, []);
 
-  // System Incident Dialog state
   const [dialog, setDialog] = useState<{
     isOpen: boolean;
     title: string;
@@ -352,7 +349,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
 
   return (
     <div className={`${styles.root} ${isOverlay ? "pwn-overlay" : ""}`}>
-      {/* Red Page Threat Warning Background */}
       <div className={styles.desktopBgText}>
         <h1>ALL YOUR IMPORTANT FILES ARE ENCRYPTED</h1>
         <p>
@@ -363,7 +359,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
         </p>
       </div>
 
-      {/* The Draggable Authentic WannaCry Window */}
       <div
         className={styles.wannacryWindow}
         id="mainWindow"
@@ -416,7 +411,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
         </div>
 
         <div className={styles.windowBody}>
-          {/* Left Panel */}
           <div className={styles.leftPanel}>
             <div className={styles.lockContainer}>
               <svg className={styles.lockIconSvg} viewBox="0 0 100 100">
@@ -531,7 +525,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
             </div>
           </div>
 
-          {/* Right Panel */}
           <div className={styles.rightPanel}>
             <div className={styles.mainHeading}>
               Ooops, your files have been encrypted!
@@ -668,7 +661,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
         </div>
       </div>
 
-      {/* Message Dialog */}
       {dialog.isOpen && (
         <div className={styles.dialogOverlay}>
           <div className={styles.nativeDialog}>
@@ -766,7 +758,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
         </div>
       )}
 
-      {/* Decryption Key Prompt */}
       {keyPromptOpen && (
         <div className={styles.dialogOverlay}>
           <div className={styles.nativeDialog} style={{ width: 460 }}>
@@ -831,7 +822,6 @@ export default function Pwn({ isOverlay = false, onExit }: PwnProps) {
         </div>
       )}
 
-      {/* Recovery Screen */}
       {isRecovering && (
         <div className={styles.recoveryWindow}>
           <h1 style={{ fontSize: 28, marginBottom: 16 }}>

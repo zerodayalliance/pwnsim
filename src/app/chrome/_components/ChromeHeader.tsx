@@ -109,9 +109,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
 
   return (
     <header className="flex flex-col bg-[#1f1f23] text-gray-200 select-none border-b border-[#2d2f36]">
-      {/* Chrome Window Titlebar & Tab Strip */}
       <div className="flex items-center h-10.5 bg-[#1f1f23] select-none">
-        {/* Left: Tab Search Down-Chevron Button (Windows Chrome style) */}
         <div className="pl-2 pr-1 flex items-center shrink-0">
           <button
             title="Search tabs"
@@ -132,7 +130,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           </button>
         </div>
 
-        {/* Center: Tabs Strip */}
         <div className="flex items-end h-full gap-1 flex-1 min-w-0 overflow-x-auto no-scrollbar pt-1.5">
           {tabs.map((tab) => {
             const isActive = tab.id === activeTabId;
@@ -146,12 +143,10 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                     : "text-gray-400 hover:bg-[#282a2e] hover:text-gray-200"
                 }`}
               >
-                {/* Tab Favicon */}
                 <div className="shrink-0 flex items-center justify-center">
                   {isActive && isLoading ? (
                     <div className="w-3.5 h-3.5 border-2 border-blue-400 border-t-transparent rounded-full animate-spin shrink-0" />
                   ) : tab.url.includes("google.com") ? (
-                    /* Google 4-Color Favicon */
                     <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
                       <path
                         fill="#4285F4"
@@ -171,7 +166,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                       />
                     </svg>
                   ) : tab.url.includes("reddit.com") ? (
-                    /* Reddit Official Alien Snoo */
                     <svg
                       className="w-3.5 h-3.5 shrink-0"
                       viewBox="0 0 24 24"
@@ -188,7 +182,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                       VI
                     </span>
                   ) : (
-                    /* Clean Globe SVG */
                     <svg
                       className="w-3.5 h-3.5 text-gray-400 shrink-0"
                       viewBox="0 0 24 24"
@@ -205,10 +198,8 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                   )}
                 </div>
 
-                {/* Tab Title */}
                 <span className="truncate flex-1 font-sans">{tab.title}</span>
 
-                {/* Tab Close Button */}
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -236,7 +227,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             );
           })}
 
-          {/* New Tab Button */}
           <button
             onClick={onNewTab}
             className="w-7 h-7 mb-1 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#2f3136] transition-colors shrink-0 ml-1"
@@ -258,9 +248,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           </button>
         </div>
 
-        {/* Right: Windows Window Caption Controls (Minimize, Maximize/Restore, Close) */}
         <div className="flex items-center h-full shrink-0 ml-2 select-none">
-          {/* Minimize */}
           <button
             onClick={handleMinimize}
             title="Minimize"
@@ -271,7 +259,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             </svg>
           </button>
 
-          {/* Maximize / Restore */}
           <button
             onClick={handleMaximize}
             title={isMaximized ? "Restore Down" : "Maximize"}
@@ -303,7 +290,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             )}
           </button>
 
-          {/* Close */}
           <button
             onClick={handleClose}
             title="Close"
@@ -323,9 +309,7 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
         </div>
       </div>
 
-      {/* Chrome Navigation & Omnibox Bar */}
       <div className="flex items-center gap-2 px-3 py-2 bg-[#2b2d31]">
-        {/* Navigation buttons */}
         <div className="flex items-center gap-1 shrink-0">
           <button
             onClick={onBack}
@@ -421,7 +405,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           </button>
         </div>
 
-        {/* Omnibox / URL Bar */}
         <div
           className={`flex items-center flex-1 bg-[#1f1f23] rounded-full px-3 py-1.5 border transition-all ${
             isFocused
@@ -429,7 +412,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
               : "border-[#3a3c42] hover:border-[#4c4e57]"
           }`}
         >
-          {/* Chrome Tune / Security Settings Icon */}
           <div
             className="flex items-center text-gray-400 mr-2 shrink-0 cursor-pointer hover:text-gray-200"
             title="View site information"
@@ -456,7 +438,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             </svg>
           </div>
 
-          {/* URL Input */}
           <input
             ref={inputRef}
             type="text"
@@ -472,7 +453,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             className="w-full bg-transparent text-xs sm:text-sm text-gray-100 placeholder-gray-500 focus:outline-none font-sans"
           />
 
-          {/* Omnibox actions: Bookmark Star */}
           <div className="flex items-center gap-1 text-gray-400 shrink-0 ml-1">
             <button
               className="p-1 hover:text-yellow-400 transition-colors cursor-pointer"
@@ -494,7 +474,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           </div>
         </div>
 
-        {/* Extensions, Downloads & Profile */}
         <div className="flex items-center gap-1 shrink-0 ml-1">
           {(() => {
             const activeDownload = downloads.find(
@@ -519,7 +498,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                     : "Downloads"
                 }
               >
-                {/* Clockwise Progress Ring around icon while downloading */}
                 {activeDownload && (
                   <svg
                     className="w-8 h-8 -rotate-90 absolute inset-0 pointer-events-none"
@@ -548,7 +526,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
                   </svg>
                 )}
 
-                {/* Clean Chrome Download Icon */}
                 <svg
                   className="w-4 h-4 text-current"
                   viewBox="0 0 24 24"
@@ -572,7 +549,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             );
           })()}
 
-          {/* Chrome Extensions Puzzle Icon */}
           <button
             className="p-1.5 rounded-full text-gray-300 hover:text-white hover:bg-[#3b3e45] transition-colors"
             title="Extensions"
@@ -591,7 +567,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             </svg>
           </button>
 
-          {/* Google Account Profile Icon */}
           <div
             className="w-7 h-7 rounded-full bg-[#1a73e8] hover:bg-[#1557b0] flex items-center justify-center text-xs font-bold text-white shadow cursor-pointer ml-0.5 transition-colors"
             title="Google Account: PwnSim Security"
@@ -599,7 +574,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
             P
           </div>
 
-          {/* Chrome 3-Dots Menu */}
           <button
             className="p-1.5 rounded-full text-gray-300 hover:text-white hover:bg-[#3b3e45] transition-colors"
             title="Customize and control Google Chrome"
@@ -613,20 +587,17 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
         </div>
       </div>
 
-      {/* Chrome Loading Progress Bar Line */}
       {isLoading && (
         <div className="w-full h-0.5 bg-[#2b2d31] overflow-hidden">
           <div className="h-full bg-[#4f8eff] animate-pulse w-full transition-all duration-500" />
         </div>
       )}
 
-      {/* Bookmarks Bar */}
       <div className="flex items-center gap-2 px-4 py-1.5 bg-[#232428] text-xs text-gray-300 border-t border-[#2d2f35] overflow-x-auto no-scrollbar">
         <button
           onClick={() => onNavigate("https://www.google.com")}
           className="flex items-center gap-1.5 hover:bg-[#32343a] px-2 py-0.5 rounded transition-colors"
         >
-          {/* Google 4-Color Favicon */}
           <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
             <path
               fill="#4285F4"
@@ -673,7 +644,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           }
           className="flex items-center gap-1.5 hover:bg-[#32343a] px-2 py-0.5 rounded transition-colors"
         >
-          {/* Reddit Official Icon */}
           <svg
             className="w-3.5 h-3.5 shrink-0"
             viewBox="0 0 24 24"
@@ -696,7 +666,6 @@ export const ChromeHeader: React.FC<ChromeHeaderProps> = ({
           onClick={() => onNavigate("https://www.youtube.com")}
           className="flex items-center gap-1.5 hover:bg-[#32343a] px-2 py-0.5 rounded transition-colors"
         >
-          {/* YouTube Official Logo */}
           <svg
             className="w-3.5 h-3.5 shrink-0"
             viewBox="0 0 24 24"

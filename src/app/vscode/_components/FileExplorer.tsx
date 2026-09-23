@@ -36,14 +36,12 @@ export function FileExplorer({
   onRenameNode,
   onToggleFolder,
 }: FileExplorerProps) {
-  // Creating new file/folder state
   const [creationState, setCreationState] = useState<{
     type: "file" | "folder";
     parentId: string | null;
   } | null>(null);
   const [creationInput, setCreationInput] = useState("");
 
-  // Renaming state
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameInput, setRenameInput] = useState("");
 
@@ -100,7 +98,6 @@ export function FileExplorer({
     setRenameInput(node.name);
   };
 
-  // Build hierarchical tree
   const rootNodes = files.filter((f) => f.parentId === null);
 
   const renderTree = (nodes: FileNode[], depth: number = 0) => {
@@ -113,7 +110,6 @@ export function FileExplorer({
 
       return (
         <div key={node.id} className="w-full select-none">
-          {/* Node Row */}
           <div
             onClick={() => {
               if (isFolder) {
@@ -130,7 +126,6 @@ export function FileExplorer({
             }`}
           >
             <div className="flex items-center gap-1.5 flex-1 min-w-0 pr-2">
-              {/* Chevron for folder or spacer */}
               {isFolder ? (
                 <span className="w-4 h-4 flex items-center justify-center text-[#c5c5c5] shrink-0">
                   {isOpen ? (
@@ -143,10 +138,8 @@ export function FileExplorer({
                 <span className="w-4 h-4 shrink-0" />
               )}
 
-              {/* Icon */}
               <FileIcon name={node.name} isFolder={isFolder} isOpen={isOpen} />
 
-              {/* Name or Rename Input */}
               {isRenaming ? (
                 <input
                   ref={renameInputRef}
@@ -167,7 +160,6 @@ export function FileExplorer({
               )}
             </div>
 
-            {/* Hover Actions */}
             <div className="hidden group-hover:flex items-center gap-0.5 pr-2 shrink-0">
               {isFolder && (
                 <>
@@ -207,7 +199,6 @@ export function FileExplorer({
             </div>
           </div>
 
-          {/* Inline creation directly under this folder if targeted */}
           {isFolder &&
             isOpen &&
             creationState &&
@@ -239,7 +230,6 @@ export function FileExplorer({
               </div>
             )}
 
-          {/* Recursive children if folder is open */}
           {isFolder && isOpen && childNodes.length > 0 && (
             <div>{renderTree(childNodes, depth + 1)}</div>
           )}
@@ -250,7 +240,6 @@ export function FileExplorer({
 
   return (
     <aside className="w-65 bg-[#181818] border-r border-[#2b2b2b] flex flex-col h-full select-none text-[13px] shrink-0">
-      {/* Explorer Header */}
       <div className="h-8.75 flex items-center justify-between px-4 text-[#bbbbbb] font-semibold text-[11px] tracking-wider uppercase">
         <span>Explorer</span>
         <button
@@ -261,7 +250,6 @@ export function FileExplorer({
         </button>
       </div>
 
-      {/* Workspace Accordion */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
         <div className="flex items-center justify-between px-2 h-5.5 bg-[#1f1f1f] text-[#ffffff] font-bold text-[11px] tracking-wide uppercase cursor-pointer group">
           <div className="flex items-center gap-1">
@@ -269,7 +257,6 @@ export function FileExplorer({
             <span>PWNED</span>
           </div>
 
-          {/* Header Action Buttons */}
           <div className="flex items-center gap-0.5">
             <button
               onClick={(e) => startCreate("file", null, e)}
@@ -300,7 +287,6 @@ export function FileExplorer({
           </div>
         </div>
 
-        {/* Root level inline creation */}
         {creationState && creationState.parentId === null && (
           <div className="flex items-center gap-1.5 h-6 bg-[#2a2d2e] px-3 my-0.5">
             <span className="w-4 h-4 shrink-0" />
@@ -326,7 +312,6 @@ export function FileExplorer({
           </div>
         )}
 
-        {/* Tree items */}
         <div className="py-1">{renderTree(rootNodes, 0)}</div>
       </div>
     </aside>

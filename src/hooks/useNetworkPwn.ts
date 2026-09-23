@@ -5,9 +5,7 @@ import { ThreatDetails } from "@/lib/pwnState";
 
 export interface UseNetworkPwnOptions {
   deviceType: "chrome" | "win11" | "vscode" | "admin" | "other";
-  /** Delay before this device succumbs to the worm (simulates lateral network propagation) */
   propagationDelayMs?: number;
-  /** Duration of the intrusion warning / stager before full WannaCry screen lock */
   stagerDurationMs?: number;
 }
 
@@ -29,7 +27,6 @@ export function useNetworkPwn({
   const audioCtxRef = useRef<AudioContext | null>(null);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
 
-  // Synthesize authentic Windows critical stop error audio chord
   const playIntrusionSound = useCallback(() => {
     try {
       if (typeof window === "undefined") return;
@@ -60,9 +57,7 @@ export function useNetworkPwn({
         osc.start(now);
         osc.stop(now + 0.45);
       });
-    } catch {
-      // Audio playback might be restricted before interaction
-    }
+    } catch {}
   }, []);
 
   const clearPendingTimeouts = () => {
@@ -102,30 +97,22 @@ export function useNetworkPwn({
   }, []);
 
   const resetNetworkPwn = useCallback(async () => {
-    // 1. Broadcast locally
     try {
       if (typeof window !== "undefined" && "BroadcastChannel" in window) {
         const bc = new BroadcastChannel("pwn_network_mesh");
         bc.postMessage({ type: "reset" });
         bc.close();
       }
-    } catch {
-      // Ignore
-    }
+    } catch {}
 
-    // 2. Reset locally
     handleDisinfected();
 
-    // 3. Notify server
     try {
       await fetch("/api/pwn/reset", { method: "POST" });
-    } catch {
-      // Ignore network failure
-    }
+    } catch {}
   }, [handleDisinfected]);
 
   useEffect(() => {
-    // 1. Setup BroadcastChannel for zero-latency cross-tab communication
     let channel: BroadcastChannel | null = null;
     try {
       if (typeof window !== "undefined" && "BroadcastChannel" in window) {
@@ -144,11 +131,8 @@ export function useNetworkPwn({
           }
         };
       }
-    } catch {
-      // BroadcastChannel fallback
-    }
+    } catch {}
 
-    // 2. Setup Server-Sent Events (SSE) for cross-device LAN communication
     let eventSource: EventSource | null = null;
     let fallbackPoll: NodeJS.Timeout | null = null;
 
@@ -176,9 +160,7 @@ export function useNetworkPwn({
                 setIsCompromised(false);
               }
             }
-          } catch {
-            // Ignore malformed message
-          }
+          } catch {}
         };
 
         eventSource.onerror = () => {
@@ -186,7 +168,6 @@ export function useNetworkPwn({
             eventSource.close();
             eventSource = null;
           }
-          // Fallback polling if SSE disconnects
           if (!fallbackPoll) {
             fallbackPoll = setInterval(async () => {
               try {
@@ -199,20 +180,15 @@ export function useNetworkPwn({
                 } else if (isCompromised) {
                   handleDisinfected();
                 }
-              } catch {
-                // Ignore poll error
-              }
+              } catch {}
             }, 3000);
           }
         };
-      } catch {
-        // SSE not supported
-      }
+      } catch {}
     };
 
     connectSSE();
 
-    // 3. Local CustomEvent listeners
     const handleLocalExit = () => {
       resetNetworkPwn();
     };
@@ -237,7 +213,6 @@ export function useNetworkPwn({
 
   const triggerNetworkPwn = useCallback(
     async (params?: { filename?: string; sourceDevice?: string }) => {
-      // 1. Broadcast immediately to same-machine tabs
       try {
         if (typeof window !== "undefined" && "BroadcastChannel" in window) {
           const bc = new BroadcastChannel("pwn_network_mesh");
@@ -253,11 +228,8 @@ export function useNetworkPwn({
           });
           bc.close();
         }
-      } catch {
-        // Ignore
-      }
+      } catch {}
 
-      // 2. Trigger locally immediately
       handleInfectionTriggered(
         {
           name: "Trojan:Win32/WannaCrypt!rsm",
@@ -276,7 +248,6 @@ export function useNetworkPwn({
         true
       );
 
-      // 3. Notify server to broadcast to all network devices
       try {
         await fetch("/api/pwn/trigger", {
           method: "POST",
@@ -287,9 +258,7 @@ export function useNetworkPwn({
             filename: params?.filename || "GTA6_Mod_Engine_v2.4.zip",
           }),
         });
-      } catch {
-        // Ignore network failure
-      }
+      } catch {}
     },
     [deviceType, handleInfectionTriggered]
   );

@@ -29,7 +29,6 @@ export function CodeEditor({
   const lines = useMemo(() => content.split("\n"), [content]);
   const ext = fileName.split(".").pop()?.toLowerCase() || "tsx";
 
-  // Synchronize cursor position and active line
   const updateCursorPosition = useCallback(() => {
     if (!textareaRef.current) return;
     const selectionStart = textareaRef.current.selectionStart;
@@ -42,7 +41,6 @@ export function CodeEditor({
     onCursorChange?.(currentLine, currentCol);
   }, [content, onCursorChange]);
 
-  // Synchronize scrolling between textarea and highlights
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
     if (gutterRef.current) {
@@ -50,7 +48,6 @@ export function CodeEditor({
     }
   };
 
-  // Handle Tab key
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Tab") {
       e.preventDefault();
@@ -77,7 +74,6 @@ export function CodeEditor({
 
   return (
     <div className="relative flex flex-1 h-full bg-[#1e1e1e] overflow-hidden select-text font-mono">
-      {/* Gutter: Line Numbers and Active Line Indicator */}
       <div
         ref={gutterRef}
         className="w-15 bg-[#1e1e1e] border-r border-[#2a2a2a] select-none flex flex-col items-end py-2 pr-3 text-[13px] font-mono leading-6 shrink-0 z-10"
@@ -92,7 +88,6 @@ export function CodeEditor({
                 isCurrent ? "text-[#c6c6c6] font-semibold" : "text-[#858585]"
               }`}
             >
-              {/* Active line marker '>' matching user's screenshot */}
               {isCurrent ? (
                 <span className="text-[#858585] text-[11px] font-bold select-none leading-none">
                   &gt;
@@ -106,13 +101,11 @@ export function CodeEditor({
         })}
       </div>
 
-      {/* Editor Content Area */}
       <div
         ref={containerRef}
         onScroll={handleScroll}
         className="relative flex-1 h-full overflow-auto py-2 pl-4 text-[14px] leading-6 font-mono no-scrollbar"
       >
-        {/* Active line highlight bar */}
         <div
           className="absolute left-0 right-0 pointer-events-none border border-[#2e2e2e] bg-[#282828]/40 transition-all duration-75"
           style={{
@@ -121,7 +114,6 @@ export function CodeEditor({
           }}
         />
 
-        {/* Syntax Highlighted Render Layer */}
         <div
           ref={highlightLayerRef}
           aria-hidden="true"
@@ -132,14 +124,12 @@ export function CodeEditor({
             return (
               <div key={lineIndex} className="h-6 flex items-center">
                 {highlightLine(line, lineIndex, ext)}
-                {/* Ensure empty line maintains height */}
                 {line.length === 0 && <span>&nbsp;</span>}
               </div>
             );
           })}
         </div>
 
-        {/* Real Interactive Textarea Overlay */}
         <textarea
           ref={textareaRef}
           value={content}
@@ -160,9 +150,7 @@ export function CodeEditor({
         />
       </div>
 
-      {/* Minimap (Right edge) */}
       <div className="hidden lg:flex w-16 bg-[#1e1e1e] border-l border-[#282828] select-none flex-col py-2 px-1 opacity-70 hover:opacity-100 transition-opacity shrink-0 relative overflow-hidden">
-        {/* Miniature viewport rectangle */}
         <div
           className="absolute left-0 right-0 bg-[#3a3d41]/30 border border-[#5a5d61]/40 rounded-sm pointer-events-none"
           style={{

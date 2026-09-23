@@ -13,7 +13,6 @@ import { ChromeTab, DownloadItem } from "./types";
 import { useNetworkPwn } from "@/hooks/useNetworkPwn";
 
 export default function ChromePage() {
-  // Tabs State
   const [tabs, setTabs] = useState<ChromeTab[]>([
     {
       id: "tab-1",
@@ -30,11 +29,9 @@ export default function ChromePage() {
     "https://www.google.com"
   );
 
-  // Downloads State
   const [downloads, setDownloads] = useState<DownloadItem[]>([]);
   const [isDownloadBubbleOpen, setIsDownloadBubbleOpen] = useState(false);
 
-  // Network Worm Mesh State
   const {
     isCompromised: isPwnActive,
     isInfecting: isFreezing,
@@ -54,10 +51,8 @@ export default function ChromePage() {
     });
   };
 
-  // Active Tab helper
   const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0];
 
-  // Helper to determine title & security based on URL
   const getTabMetadata = (url: string) => {
     let title = "New Tab";
     let isSecure = true;
@@ -109,11 +104,9 @@ export default function ChromePage() {
     return { title, isSecure };
   };
 
-  // Navigate current active tab with realistic network/render delay
   const handleNavigate = (url: string) => {
     const { title, isSecure } = getTabMetadata(url);
 
-    // Immediately update URL in omnibox and tab history (like Chrome)
     setTabs((prevTabs) =>
       prevTabs.map((tab) => {
         if (tab.id !== activeTabId) return tab;
@@ -130,7 +123,6 @@ export default function ChromePage() {
       })
     );
 
-    // Realistic page request & rendering delay (600ms)
     setIsLoading(true);
     setTimeout(() => {
       setRenderedUrl(url);
@@ -138,7 +130,6 @@ export default function ChromePage() {
     }, 600);
   };
 
-  // Back button with realistic delay
   const handleBack = () => {
     if (!activeTab || activeTab.historyIndex <= 0) return;
     const newIndex = activeTab.historyIndex - 1;
@@ -166,7 +157,6 @@ export default function ChromePage() {
     }, 450);
   };
 
-  // Forward button with realistic delay
   const handleForward = () => {
     if (!activeTab || activeTab.historyIndex >= activeTab.history.length - 1)
       return;
@@ -195,7 +185,6 @@ export default function ChromePage() {
     }, 450);
   };
 
-  // Reload button with realistic delay
   const handleReload = () => {
     if (!activeTab) return;
     setIsLoading(true);
@@ -205,12 +194,10 @@ export default function ChromePage() {
     }, 500);
   };
 
-  // Home button
   const handleHome = () => {
     handleNavigate("https://www.google.com");
   };
 
-  // New tab
   const handleNewTab = () => {
     const newId = `tab-${Date.now()}`;
     const newTab: ChromeTab = {
@@ -226,7 +213,6 @@ export default function ChromePage() {
     setRenderedUrl("https://www.google.com");
   };
 
-  // Select tab
   const handleSelectTab = (id: string) => {
     setActiveTabId(id);
     const targetTab = tabs.find((t) => t.id === id);
@@ -235,7 +221,6 @@ export default function ChromePage() {
     }
   };
 
-  // Close tab
   const handleCloseTab = (id: string) => {
     if (tabs.length === 1) {
       setTabs([
@@ -262,7 +247,6 @@ export default function ChromePage() {
     }
   };
 
-  // Search handler from Google home or search bar
   const handleSearch = (query: string) => {
     if (query.startsWith("http://") || query.startsWith("https://")) {
       handleNavigate(query);
@@ -274,10 +258,9 @@ export default function ChromePage() {
     }
   };
 
-  // Download trigger from mod site (6 to 7 seconds animation at 100 MB/s)
   const handleTriggerDownload = (filename: string, size: string) => {
     const downloadId = `dl-${Date.now()}`;
-    const totalDuration = 6500; // ~6.5 seconds
+    const totalDuration = 6500;
     const startTime = Date.now();
 
     const newItem: DownloadItem = {
@@ -294,7 +277,7 @@ export default function ChromePage() {
     };
 
     setDownloads((prev) => [newItem, ...prev]);
-    // During download: only show the clockwise circular animation on toolbar icon
+
     setIsDownloadBubbleOpen(false);
 
     const interval = setInterval(() => {
@@ -316,7 +299,6 @@ export default function ChromePage() {
               : d
           )
         );
-        // Download complete: show the popup card matching user screenshot
         setIsDownloadBubbleOpen(true);
       } else {
         const progress = Math.min(
@@ -328,7 +310,6 @@ export default function ChromePage() {
           1,
           Math.ceil((totalDuration - elapsed) / 1000)
         );
-        // Live slight fluctuation around 100 MB/s
         const speed = (98.6 + Math.sin(elapsed / 180) * 3.2).toFixed(1);
 
         setDownloads((prev) =>
@@ -352,11 +333,9 @@ export default function ChromePage() {
     setDownloads((prev) => prev.filter((d) => d.id !== id));
   };
 
-  // View router
   const renderWebContent = () => {
     const url = renderedUrl || activeTab?.url || "https://www.google.com";
 
-    // GTA6 Mods & Portals
     if (
       url.includes("gta6-mods.com") ||
       url.includes("nexusmods.com") ||
@@ -368,7 +347,6 @@ export default function ChromePage() {
       return <SuspiciousWebsite onTriggerDownload={handleTriggerDownload} />;
     }
 
-    // Reddit Mock
     if (url.includes("reddit.com")) {
       return (
         <RedditMockPage
@@ -379,7 +357,6 @@ export default function ChromePage() {
       );
     }
 
-    // Rockstar Games Mock
     if (url.includes("rockstargames.com")) {
       return (
         <RockstarMockPage
@@ -390,7 +367,6 @@ export default function ChromePage() {
       );
     }
 
-    // Google Search Results
     if (url.includes("google.com/search")) {
       let query = "GTA 6 mod download";
       try {
@@ -408,13 +384,11 @@ export default function ChromePage() {
       );
     }
 
-    // Default Google Home
     return <GoogleHomePage onSearch={handleSearch} />;
   };
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-[#181a1f]">
-      {/* Chrome Application Shell (Frozen & Blurred when Pwn is active) */}
       <div
         className={`flex flex-col h-full w-full overflow-hidden text-gray-100 font-sans transition-all duration-300 ${
           isPwnActive || isFreezing
@@ -422,7 +396,6 @@ export default function ChromePage() {
             : ""
         }`}
       >
-        {/* Chrome Shell Header */}
         <ChromeHeader
           tabs={tabs}
           activeTabId={activeTabId}
@@ -439,7 +412,6 @@ export default function ChromePage() {
           isLoading={isLoading}
         />
 
-        {/* Modern Top-Right Chrome Download Bubble / Tray */}
         <ChromeDownloadBubble
           downloads={downloads}
           isOpen={isDownloadBubbleOpen}
@@ -448,13 +420,11 @@ export default function ChromePage() {
           onOpenFile={handleOpenFile}
         />
 
-        {/* Browser Viewport */}
         <div className="flex-1 overflow-y-auto relative bg-[#202124]">
           {renderWebContent()}
         </div>
       </div>
 
-      {/* Realistic Flashing CMD Execution Window on Zip Open */}
       {isFreezing && (
         <div className="fixed inset-0 z-9998 flex items-center justify-center bg-black/40 backdrop-blur-xs pointer-events-auto select-none">
           <div className="w-145 max-w-[90vw] bg-black border border-[#555555] shadow-2xl rounded font-mono text-xs text-neutral-200 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
@@ -507,7 +477,6 @@ export default function ChromePage() {
         </div>
       )}
 
-      {/* The Prank Malware Screen Overlay (No Red Background - Blocks Backside) */}
       {isPwnActive && (
         <Pwn
           isOverlay={true}

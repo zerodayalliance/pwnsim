@@ -1,7 +1,6 @@
 import React from "react";
 
-// Rainbow bracket colors
-const BRACKET_COLORS = ["#FFD700", "#DA70D6", "#179FFF"]; // gold, purple, blue
+const BRACKET_COLORS = ["#FFD700", "#DA70D6", "#179FFF"];
 
 export function highlightLine(
   line: string,
@@ -96,7 +95,6 @@ function highlightPythonLine(line: string): React.ReactNode[] {
   while (index < len) {
     const char = line[index];
 
-    // Python comment #
     if (char === "#") {
       nodes.push(
         <span key={`py-comm-${index}`} style={{ color: "#6A9955" }}>
@@ -106,7 +104,6 @@ function highlightPythonLine(line: string): React.ReactNode[] {
       break;
     }
 
-    // Python strings (quotes)
     if (char === '"' || char === "'") {
       const quote = char;
       let endIndex = index + 1;
@@ -129,7 +126,6 @@ function highlightPythonLine(line: string): React.ReactNode[] {
       continue;
     }
 
-    // Brackets
     if (char === "(" || char === "{" || char === "[") {
       const color = BRACKET_COLORS[bracketLevel % BRACKET_COLORS.length];
       bracketLevel++;
@@ -153,7 +149,6 @@ function highlightPythonLine(line: string): React.ReactNode[] {
       continue;
     }
 
-    // Words
     if (/[A-Za-z0-9_$]/.test(char)) {
       let endIndex = index;
       while (endIndex < len && /[A-Za-z0-9_$]/.test(line[endIndex])) {
@@ -223,7 +218,6 @@ function highlightGenericCodeLine(
   const len = line.length;
   let bracketLevel = 0;
 
-  // Language keywords set
   const KEYWORDS = new Set([
     "export",
     "default",
@@ -260,7 +254,6 @@ function highlightGenericCodeLine(
     "implements",
     "readonly",
     "enum",
-    // C / C++ / Java / C#
     "public",
     "private",
     "protected",
@@ -288,7 +281,6 @@ function highlightGenericCodeLine(
     "printf",
     "scanf",
     "sizeof",
-    // Kotlin / Go / Rust
     "fun",
     "val",
     "package",
@@ -348,7 +340,6 @@ function highlightGenericCodeLine(
   while (index < len) {
     const char = line[index];
 
-    // C/Java/JS comment //
     if (char === "/" && line[index + 1] === "/") {
       nodes.push(
         <span key={`comment-${index}`} style={{ color: "#6A9955" }}>
@@ -358,7 +349,6 @@ function highlightGenericCodeLine(
       break;
     }
 
-    // Shell comment #
     if (char === "#" && (ext === "sh" || ext === "bash" || ext === "zsh")) {
       nodes.push(
         <span key={`sh-comment-${index}`} style={{ color: "#6A9955" }}>
@@ -368,7 +358,6 @@ function highlightGenericCodeLine(
       break;
     }
 
-    // C Preprocessor directive #include, #define
     if (
       char === "#" &&
       (ext === "c" || ext === "cpp" || ext === "h" || ext === "hpp")
@@ -384,7 +373,6 @@ function highlightGenericCodeLine(
       continue;
     }
 
-    // Strings
     if (char === '"' || char === "'" || char === "`") {
       const quote = char;
       let endIndex = index + 1;
@@ -408,7 +396,6 @@ function highlightGenericCodeLine(
       continue;
     }
 
-    // Bracket pair colorization
     if (char === "(" || char === "{" || char === "[") {
       const color = BRACKET_COLORS[bracketLevel % BRACKET_COLORS.length];
       bracketLevel++;
@@ -432,7 +419,6 @@ function highlightGenericCodeLine(
       continue;
     }
 
-    // JSX / HTML Tags
     if (char === "<" && (ext === "tsx" || ext === "jsx" || ext === "html")) {
       const matchClose = line.slice(index).match(/^<\/([A-Za-z0-9_.-]+)>/);
       if (matchClose) {
@@ -495,7 +481,6 @@ function highlightGenericCodeLine(
       continue;
     }
 
-    // Identifiers & words
     if (/[A-Za-z0-9_$]/.test(char)) {
       let endIndex = index;
       while (endIndex < len && /[A-Za-z0-9_$]/.test(line[endIndex])) {

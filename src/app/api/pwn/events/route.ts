@@ -14,7 +14,6 @@ export async function GET() {
 
   const stream = new ReadableStream({
     start(controller) {
-      // Send initial status immediately upon connection
       const initialEvent: NetworkEvent = {
         type: "status",
         state: getNetworkState(),
@@ -24,18 +23,14 @@ export async function GET() {
         encoder.encode(`data: ${JSON.stringify(initialEvent)}\n\n`)
       );
 
-      // Subscribe to real-time events across the server process
       unsubscribe = subscribeNetworkEvents((event: NetworkEvent) => {
         try {
           controller.enqueue(
             encoder.encode(`data: ${JSON.stringify(event)}\n\n`)
           );
-        } catch {
-          // Stream might be closed
-        }
+        } catch {}
       });
 
-      // Keep-alive heartbeat every 15s to keep connections alive through proxies
       heartbeatInterval = setInterval(() => {
         try {
           controller.enqueue(encoder.encode(`: ping\n\n`));

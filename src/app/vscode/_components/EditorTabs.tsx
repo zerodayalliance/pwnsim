@@ -23,7 +23,6 @@ export function EditorTabs({
   onSelectTab,
   onCloseTab,
 }: EditorTabsProps) {
-  // Compute breadcrumb path for active file
   const activeFile = files.find((f) => f.id === activeFileId);
   const breadcrumbs: string[] = [];
 
@@ -37,7 +36,6 @@ export function EditorTabs({
 
   return (
     <div className="flex flex-col bg-[#181818] border-b border-[#2b2b2b] shrink-0 select-none">
-      {/* Tabs Header */}
       <div className="flex items-center justify-between h-[35px] bg-[#181818] overflow-x-auto no-scrollbar">
         <div className="flex items-center h-full">
           {tabs.map((tab) => {
@@ -52,13 +50,10 @@ export function EditorTabs({
                     : "bg-[#181818] text-[#969696] hover:bg-[#1f1f1f] hover:text-[#cccccc]"
                 }`}
               >
-                {/* File Icon */}
                 <FileIcon name={tab.name} className="w-4 h-4 shrink-0" />
 
-                {/* File Name */}
                 <span className="truncate max-w-[140px]">{tab.name}</span>
 
-                {/* Dirty Indicator / Close Button */}
                 <div className="w-5 h-5 flex items-center justify-center ml-1">
                   {tab.isDirty ? (
                     <div className="w-2 h-2 rounded-full bg-white group-hover:hidden" />
@@ -78,7 +73,6 @@ export function EditorTabs({
           })}
         </div>
 
-        {/* Right Editor Actions */}
         <div className="flex items-center gap-1 px-3 text-[#aaaaaa] shrink-0">
           <button
             title="Split Editor Right (Cmd+\\)"
@@ -95,7 +89,6 @@ export function EditorTabs({
         </div>
       </div>
 
-      {/* Breadcrumbs Row */}
       {activeFile && (
         <div className="h-[22px] bg-[#1e1e1e] border-t border-[#222222] px-4 flex items-center gap-1 text-[11px] text-[#969696] overflow-x-auto no-scrollbar font-sans">
           {breadcrumbs.map((crumb, idx) => {
@@ -119,7 +112,6 @@ export function EditorTabs({
             );
           })}
 
-          {/* Symbol breadcrumb if layout.tsx */}
           {activeFile.name === "layout.tsx" && (
             <>
               <IconChevronRight className="w-3 h-3 text-[#666666]" />

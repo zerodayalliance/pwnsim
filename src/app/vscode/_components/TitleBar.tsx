@@ -53,9 +53,7 @@ export function TitleBar({
 
   return (
     <header className="h-8.75 bg-[#181818] text-[#cccccc] flex items-center justify-between pl-2 pr-0 border-b border-[#2b2b2b] select-none text-[12px] shrink-0">
-      {/* Left: VS Code Brand Icon & App Menus */}
       <div className="flex items-center gap-1.5 h-full">
-        {/* Official Blue VS Code Logo */}
         <div
           className="flex items-center justify-center w-7 h-7 rounded hover:bg-[#2a2d2e] cursor-pointer transition-colors mr-0.5"
           title="Visual Studio Code"
@@ -69,7 +67,6 @@ export function TitleBar({
           </svg>
         </div>
 
-        {/* Windows-style Application Menus */}
         <div className="hidden md:flex items-center gap-1 text-[#cccccc] font-normal text-[12px]">
           <span className="hover:bg-[#333333] px-2 py-1 rounded cursor-pointer transition-colors">
             File
@@ -147,10 +144,8 @@ export function TitleBar({
         </div>
       </div>
 
-      {/* Center: Command Palette / Search Pill */}
       <div className="flex items-center justify-center flex-1 max-w-135 mx-4">
         <div className="w-full max-w-120 h-6 bg-[#222222] hover:bg-[#282828] border border-[#3c3c3c] rounded-lg flex items-center px-3 gap-2 text-[#999999] hover:text-[#cccccc] transition-colors cursor-pointer text-[12px]">
-          {/* Search Icon */}
           <svg
             className="w-3.5 h-3.5 text-[#888888]"
             viewBox="0 0 16 16"
@@ -170,11 +165,8 @@ export function TitleBar({
         </div>
       </div>
 
-      {/* Right: Layout Controls & Windows Caption Buttons */}
       <div className="flex items-center h-full text-[#cccccc]">
-        {/* Layout & Split Controls */}
         <div className="flex items-center gap-0.5 mr-2">
-          {/* Toggle Primary Side Bar */}
           <button
             onClick={onToggleSidebar}
             title="Toggle Primary Side Bar (Ctrl+B)"
@@ -187,7 +179,6 @@ export function TitleBar({
             </svg>
           </button>
 
-          {/* Toggle Panel */}
           <button
             onClick={onTogglePanel}
             title="Toggle Panel (Ctrl+J)"
@@ -200,7 +191,6 @@ export function TitleBar({
             </svg>
           </button>
 
-          {/* Toggle Secondary Side Bar */}
           <button
             title="Toggle Secondary Side Bar"
             className="w-7 h-7 flex items-center justify-center rounded hover:bg-[#333333] text-[#888888] hover:text-[#cccccc] transition-colors"
@@ -210,7 +200,6 @@ export function TitleBar({
             </svg>
           </button>
 
-          {/* Customize Layout */}
           <button
             title="Customize Layout"
             className="w-7 h-7 flex items-center justify-center rounded hover:bg-[#333333] text-[#888888] hover:text-[#cccccc] transition-colors"
@@ -221,9 +210,7 @@ export function TitleBar({
           </button>
         </div>
 
-        {/* Windows Window Caption Controls (Minimize, Maximize/Restore, Close) */}
         <div className="flex items-center h-full">
-          {/* Minimize */}
           <button
             onClick={handleMinimize}
             title="Minimize"
@@ -234,7 +221,6 @@ export function TitleBar({
             </svg>
           </button>
 
-          {/* Maximize / Restore */}
           <button
             onClick={handleMaximize}
             title={isMaximized ? "Restore Down" : "Maximize"}
@@ -266,7 +252,6 @@ export function TitleBar({
             )}
           </button>
 
-          {/* Close */}
           <button
             onClick={handleClose}
             title="Close"

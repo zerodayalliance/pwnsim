@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 export default function PwnDemo() {
   return (
     <main className="relative h-screen w-screen overflow-hidden select-none bg-[#0a0d14]">
-      {/* Frozen Desktop Background (Backside blocked) */}
       <div className="absolute inset-0 filter blur-[0.75px] brightness-[0.96] pointer-events-none">
         <Image
           src="/win11/wallpapers/bloom-dark.jpg"
@@ -19,7 +18,6 @@ export default function PwnDemo() {
           priority
           className="object-cover"
         />
-        {/* Subtle grid of desktop icons */}
         <div className="absolute top-4 left-4 flex flex-col gap-5">
           <div className="flex flex-col items-center gap-1 w-18 p-1 rounded hover:bg-white/10 text-white text-[11px] text-center drop-shadow">
             <div className="w-10 h-10 rounded bg-blue-500/30 flex items-center justify-center border border-white/20">
@@ -42,7 +40,6 @@ export default function PwnDemo() {
         </div>
       </div>
 
-      {/* Malware Locker Window & Screen Blocker with Red Page Background */}
       <Pwn />
     </main>
   );
