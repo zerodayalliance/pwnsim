@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChromeHeader } from "./components/ChromeHeader";
-import { GoogleHomePage } from "./components/GoogleHomePage";
-import { SearchResultsPage } from "./components/SearchResultsPage";
-import { SuspiciousWebsite } from "./components/SuspiciousWebsite";
-import { RedditMockPage } from "./components/RedditMockPage";
-import { RockstarMockPage } from "./components/RockstarMockPage";
-import { ChromeDownloadBubble } from "./components/ChromeDownloadBubble";
+import { ChromeHeader } from "./_components/ChromeHeader";
+import { GoogleHomePage } from "./_components/GoogleHomePage";
+import { SearchResultsPage } from "./_components/SearchResultsPage";
+import { SuspiciousWebsite } from "./_components/SuspiciousWebsite";
+import { RedditMockPage } from "./_components/RedditMockPage";
+import { RockstarMockPage } from "./_components/RockstarMockPage";
+import { ChromeDownloadBubble } from "./_components/ChromeDownloadBubble";
 import Pwn from "@/components/pwn";
 import { ChromeTab, DownloadItem } from "./types";
 import { useNetworkPwn } from "@/hooks/useNetworkPwn";

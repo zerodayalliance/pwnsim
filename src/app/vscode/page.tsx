@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { TitleBar } from "./components/TitleBar";
-import { ActivityBar, ActiveSidebarTab } from "./components/ActivityBar";
-import { FileExplorer } from "./components/FileExplorer";
-import { EditorTabs } from "./components/EditorTabs";
-import { CodeEditor } from "./components/CodeEditor";
-import { StatusBar } from "./components/StatusBar";
-import { TerminalPanel } from "./components/TerminalPanel";
+import { TitleBar } from "./_components/TitleBar";
+import { ActivityBar, ActiveSidebarTab } from "./_components/ActivityBar";
+import { FileExplorer } from "./_components/FileExplorer";
+import { EditorTabs } from "./_components/EditorTabs";
+import { CodeEditor } from "./_components/CodeEditor";
+import { StatusBar } from "./_components/StatusBar";
+import { TerminalPanel } from "./_components/TerminalPanel";
 import { INITIAL_FILES, FileNode, TabItem } from "./types";
 
 import Pwn from "@/components/pwn";
